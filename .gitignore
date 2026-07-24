@@ -44,3 +44,5 @@ next-env.d.ts
 /.devserver.*.log
 /.sites-package-stage/
 /greencom-site.tar.gz
+/.sites-stage-*/
+/greencom-site-*.tar.gz

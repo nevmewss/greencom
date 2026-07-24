@@ -37,7 +37,7 @@ footer{padding-top:90px}.footerGrid{grid-template-columns:322px 1fr 1fr 1fr;gap:
 
 /* Desktop hero calibrated against the 1440px Figma frame */
 @media(min-width:1181px){
-  .container{width:calc(100% - 180px);max-width:none}
+  .container{width:min(1260px,calc(100% - 180px));max-width:1260px}
   .topbar__inner,.nav{width:calc(100% - 180px)}
   .topbar{height:45px}.header{height:88px}
   .nav{gap:38px}.mainNav{gap:24px}.mainNav>a,.navDropdown>button{font-size:14px}
@@ -66,3 +66,22 @@ footer{padding-top:90px}.footerGrid{grid-template-columns:322px 1fr 1fr 1fr;gap:
   .heroCard b{font-size:16px}.heroCard p{font-size:11px;line-height:1.35}
   .heroDots{right:82px;bottom:55px}
 }
+
+/* Full-page Figma audit */
+@media(min-width:1181px){
+  .topbar__inner,.nav{max-width:none}
+  .benefits .sectionHead{width:430px}
+  .benefits h2{font-size:44px;line-height:1.14}
+  .benefitGrid{left:calc((100% - 1260px)/2 + 428px)}
+  .benefit{display:grid;grid-template-columns:68px 1fr;grid-template-rows:auto 1fr;column-gap:28px;align-content:start}
+  .benefitIcon{grid-column:1;grid-row:1}.benefit h3{grid-column:2;grid-row:1;margin:6px 0 0;font-size:20px;line-height:1.12}
+  .benefit p{grid-column:1/-1;grid-row:2;margin-top:18px}
+}
+#services>.container{position:relative}.serviceBadge{position:absolute;right:0;top:8px;width:126px;height:126px;display:grid;place-items:center;border:1px solid #343a37;border-radius:50%;background:#171918;color:#baffc6}.serviceBadge span{font-size:31px}.serviceBadge small{position:absolute;inset:10px;text-align:center;font-size:8px;line-height:1.2;letter-spacing:1px}.serviceArrows{margin:22px 0 0 20px;color:#baffc6;font-size:34px;letter-spacing:4px}
+.callUs{position:relative;display:grid;grid-template-columns:44px auto;grid-template-rows:auto auto;column-gap:10px;padding:0 22px;border-left:1px solid #59605c;border-right:1px solid #59605c}.callUs img{grid-row:1/3;width:40px;height:40px;padding:10px;border-radius:50%;background:#0d3218}.callUs small{color:#7ee993;font-size:10px}.callUs strong{font-size:13px}.experience{gap:14px}.experience .btn{margin-left:0;white-space:nowrap}
+.articleMeta{display:flex;align-items:center;gap:10px}.authorAvatar{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border:1px solid #9acda5;border-radius:50%;background:linear-gradient(145deg,#51473d,#1b2420);font-size:10px}.articleMeta small{margin:0!important;line-height:1.25}.articleMeta em{margin-left:auto;padding:6px 12px;border:1px solid #4b514e;border-radius:18px;color:#aaa;font-size:11px;font-style:normal}.articleMeta b{display:grid;place-items:center;width:28px;height:28px;border:1px solid #4b514e;border-radius:50%;font-size:18px}.newsLead article{padding:24px}.newsLead article>img{margin-bottom:16px}.newsStack .articleMeta{margin-bottom:10px}.newsStack .miniBtn{margin-top:12px}.newsStack article>div{min-width:0}
+.logoCloud div span{font-size:15px;font-weight:700}.logoCloud div:nth-child(4) span{font-size:18px}
+@media(max-width:1180px){.serviceBadge{display:none}.callUs{border:0;padding:0}.articleMeta em,.articleMeta b{display:none}}
+@media(max-width:600px){.serviceArrows{display:none}.callUs{width:100%;order:3}.articleMeta em,.articleMeta b{display:flex}.newsStack .articleMeta{flex-wrap:wrap}}
+.section:before{display:none}
+@media(min-width:1181px){#services{height:1008px;min-height:1008px}.aboutDetail h2{font-size:42px;line-height:1.2}.aboutDetail .eyebrow{margin-bottom:28px}}
