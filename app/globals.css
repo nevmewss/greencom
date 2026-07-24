@@ -195,5 +195,108 @@ footer{padding-top:90px}.footerGrid{grid-template-columns:322px 1fr 1fr 1fr;gap:
 .avatarGroup{position:absolute;left:16px;top:12px;display:flex;align-items:center}.avatarGroup img{width:25px;height:25px;margin-right:-7px;border:2px solid #d9e5dc;border-radius:50%;object-fit:cover}.avatarGroup em{display:grid;place-items:center;width:24px;height:24px;margin-left:12px;border-radius:50%;background:#26342c;color:#58ef75;font-style:normal}
 .benefitIcon{position:relative;overflow:visible;background:transparent!important;border:0!important}.benefitIcon img:first-child{position:absolute;inset:0;width:100%;height:100%}.benefitIcon img:last-child{position:absolute;left:50%;top:50%;width:24px;height:24px;transform:translate(-50%,-50%)}
 .logoCloud div img{display:block;max-width:158px;max-height:47px;transform:rotate(-45deg)}
+
+/* Final Figma spacing pass: every page area owns its offsets. */
+.hero{position:relative;width:100%;isolation:isolate;background:#020403}
+.hero__media{position:absolute;z-index:0;inset:0;display:block;width:100%;height:100%;overflow:hidden}
+.hero__image{position:absolute;inset:0;display:block;width:100%;height:100%;max-width:none}
+.hero__inner{position:relative;z-index:1;width:100%;max-width:none;margin:0}
+
+@media (min-width:1181px){
+  .hero__inner{height:867px;min-height:867px;padding:0}
+  .hero__media{background:radial-gradient(ellipse at 69% 72%,#10242a 0%,#071214 42%,#020403 78%)}
+  .hero__image{object-fit:cover;object-position:center;transform:translate(270px,-30px) scale(1.14);transform-origin:center;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 18%,#000 100%);mask-image:linear-gradient(90deg,transparent 0,#000 18%,#000 100%)}
+  .hero__copy{position:absolute;left:max(90px,calc((100% - 1260px)/2));top:105px;width:610px;margin:0;padding:0}
+  .heroCard{right:max(60px,calc((100% - 1320px)/2));top:466px}
+  .heroDots{right:max(82px,calc((100% - 1276px)/2));bottom:176px}
+
+  .benefits{height:848px;min-height:848px;padding-top:0;padding-bottom:0}
+  .benefits>.container{width:min(1260px,calc(100% - 180px));margin-left:auto;margin-right:auto;padding-top:95px}
+  #services{height:1008px;min-height:1008px;padding-top:90px;padding-bottom:98px}
+  #services>.container{width:min(1260px,calc(100% - 180px));margin-left:auto;margin-right:auto}
+  .aboutDetail{height:823px;min-height:823px;padding-top:90px;padding-bottom:90px}
+  .aboutDetail>.container{width:min(1260px,calc(100% - 180px));margin-left:auto;margin-right:auto}
+  .partners{height:761px;min-height:761px;padding-top:90px;padding-bottom:90px}
+  .partners>.container{width:min(1260px,calc(100% - 180px));margin-left:auto;margin-right:auto}
+  .news{height:1028px;min-height:1028px;padding-top:90px;padding-bottom:90px}
+  .news>.container{width:min(1260px,calc(100% - 180px));margin-left:auto;margin-right:auto}
+  .contact{height:755px;min-height:755px;padding-top:90px;padding-bottom:90px}
+  .contact>.container{width:min(1260px,calc(100% - 180px));margin-left:auto;margin-right:auto}
+  .newsletter{height:314px;min-height:314px;padding-top:84px;padding-bottom:40px}
+  .newsletter>.container{width:min(1260px,calc(100% - 180px));margin-left:auto;margin-right:auto}
+  footer{height:530px;min-height:530px;padding-top:90px;padding-bottom:20px}
+  footer>.container{width:min(1260px,calc(100% - 180px));margin-left:auto;margin-right:auto}
+}
+
+@media (min-width:601px) and (max-width:1000px){
+  .hero__inner{height:760px;min-height:760px;padding:0}
+  .hero__media{inset:0;width:100%;height:100%;background:radial-gradient(ellipse at 70% 70%,#10242a 0%,#071214 44%,#020403 80%)}
+  .hero__image{object-fit:cover;object-position:center;transform:translateX(150px) scale(1.02,1.08);transform-origin:center;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 19%,#000 100%);mask-image:linear-gradient(90deg,transparent 0,#000 19%,#000 100%)}
+  .hero__copy{position:absolute;left:34px;top:72px;width:60%;margin:0;padding:0}
+  .hero__copy .pill{font-size:12px;padding:9px 14px}
+  .hero__copy .buttonRow{gap:12px}
+  .hero__copy .buttonRow .btn{width:174px;height:42px;padding:0}
+  .hero__copy .buttonRow .btn--ghost{width:143px}
+  .hero__copy .stats{top:412px}
+  .heroCard{right:30px;top:458px;width:170px}
+  .heroDots{display:none}
+
+  .benefits{height:720px;min-height:720px;padding-top:0;padding-bottom:0}
+  .benefits>.container{width:calc(100% - 60px);margin-left:30px;margin-right:30px;padding-top:33px}
+  #services{height:807px;min-height:807px;padding-top:72px;padding-bottom:0}
+  #services>.container{width:calc(100% - 60px);margin-left:30px;margin-right:30px}
+  .aboutDetail{padding-top:90px;padding-bottom:90px}
+  .aboutDetail>.container{width:calc(100% - 60px);margin-left:30px;margin-right:30px}
+  .partners{height:580px;min-height:580px;padding-top:78px;padding-bottom:78px}
+  .partners>.container{width:calc(100% - 60px);margin-left:30px;margin-right:30px}
+  .news{padding-top:80px;padding-bottom:80px}
+  .news>.container{width:calc(100% - 60px);margin-left:30px;margin-right:30px}
+  .contact{padding-top:80px;padding-bottom:80px}
+  .contact>.container{width:calc(100% - 60px);margin-left:30px;margin-right:30px}
+  .newsletter{height:250px;min-height:250px;padding-top:56px;padding-bottom:56px}
+  .newsletter>.container{width:calc(100% - 60px);margin-left:30px;margin-right:30px}
+  footer{padding-top:70px;padding-bottom:20px}
+  footer>.container{width:calc(100% - 60px);margin-left:30px;margin-right:30px}
+}
+
+@media (max-width:600px){
+  .header{height:64px}
+  .header .nav{width:calc(100% - 24px);height:64px;margin-left:12px;margin-right:12px}
+  .header .logo{width:128px;height:34px}
+  .header .actions{gap:6px}
+  .header .actions .light,.header .actions .cartButton,.header .menuButton{width:42px;height:42px}
+  .mainNav.open{top:64px}
+  .hero__inner{height:920px;min-height:920px;padding:0}
+  .hero>picture.hero__media{top:328px;right:-60px;bottom:142px;left:-70px;width:auto;height:auto}
+  .hero__image{object-fit:cover;object-position:center;transform:none}
+  .hero__copy{position:absolute;left:12px;right:12px;top:48px;width:auto;margin:0;padding:0}
+  .hero__copy .pill{width:280px;height:32px;padding:0 12px;font-size:11px}
+  .hero h1{line-height:1.25;margin-top:16px;margin-bottom:39px}
+  .hero__copy .buttonRow{gap:13px}
+  .hero__copy .buttonRow .btn{width:173px;height:44px;padding:0}
+  .hero__copy .buttonRow .btn--ghost{width:143px}
+  .hero__copy .stats{left:-2px;top:642px;gap:12px}
+  .hero__copy .stats>div{width:120px;height:104px;min-height:104px}
+  .hero__copy .stats>div:nth-child(2){width:126px}
+  .heroCard{right:10px;top:535px;width:168px}
+  .heroDots{display:none}
+
+  .benefits{height:auto;min-height:0;padding-top:34px;padding-bottom:62px}
+  .benefits>.container{width:calc(100% - 32px);margin-left:16px;margin-right:16px;padding-top:0}
+  #services{height:auto;min-height:0;padding-top:64px;padding-bottom:76px}
+  #services>.container{width:calc(100% - 32px);margin-left:16px;margin-right:16px}
+  .aboutDetail{height:auto;min-height:0;padding-top:72px;padding-bottom:72px}
+  .aboutDetail>.container{width:calc(100% - 32px);margin-left:16px;margin-right:16px}
+  .partners{height:auto;min-height:690px;padding-top:64px;padding-bottom:64px}
+  .partners>.container{width:calc(100% - 32px);margin-left:16px;margin-right:16px}
+  .news{height:auto;min-height:0;padding-top:70px;padding-bottom:70px}
+  .news>.container{width:calc(100% - 32px);margin-left:16px;margin-right:16px}
+  .contact{height:auto;min-height:0;padding-top:70px;padding-bottom:70px}
+  .contact>.container{width:calc(100% - 32px);margin-left:16px;margin-right:16px}
+  .newsletter{height:auto;min-height:0;padding-top:52px;padding-bottom:52px}
+  .newsletter>.container{width:calc(100% - 32px);margin-left:16px;margin-right:16px}
+  footer{height:auto;min-height:0;padding-top:54px;padding-bottom:43px}
+  footer>.container{width:calc(100% - 32px);margin-left:16px;margin-right:16px}
+}
 .photoCard>span{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.clientFaces{display:flex}.clientFaces img{width:25px;height:25px;margin-right:-7px;border:2px solid white;border-radius:50%;object-fit:cover}.photoCard>span b{margin-left:4px}.authorAvatar{overflow:hidden}.authorAvatar img{width:100%;height:100%;object-fit:cover;object-position:75% 28%}
 footer{background:linear-gradient(180deg,rgba(2,4,3,.12),rgba(2,4,3,.75)),url('/green-waves.png') center bottom/cover no-repeat,#020403}

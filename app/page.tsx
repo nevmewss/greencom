@@ -81,14 +81,14 @@ export default function Home() {
       </header>
 
       <section className="hero">
-        <div className="container hero__inner">
+        <picture className="hero__media"><source media="(max-width: 600px)" srcSet="/assets/hero-main-alt.png" /><img className="hero__image" src="/assets/hero-main.png" alt="Цифровий лист над мікросхемою" /></picture>
+        <div className="hero__inner">
           <div className="hero__copy">
             <span className="pill">Технологічні рішення для розвитку бізнесу</span>
             <h1><strong>Індивідуальні РІШЕННЯ</strong><br /><strong>АВТОМАТИЗАЦІЇ</strong><br />бізнесу</h1>
             <div className="buttonRow"><a className="btn" href="#services">Дізнатися більше</a><a className="btn btn--ghost" href="#contact">Консультація</a></div>
             <div className="stats"><div><b>50+</b><small>Рішень для автоматизації<br />розвитку бізнесу</small></div><div><span className="avatarGroup"><img src="/assets/client-avatar-1.png" alt="" /><img src="/assets/client-avatar-2.png" alt="" /><img src="/assets/client-avatar-3.png" alt="" /><img src="/assets/client-avatar-1.png" alt="" /><em>+</em></span><b>1000+</b><small>Задоволених клієнтів</small></div></div>
           </div>
-          <picture><source media="(max-width: 600px)" srcSet="/assets/hero-main-alt.png" /><img className="hero__image" src="/assets/hero-main.png" alt="Цифровий лист над мікросхемою" /></picture>
           <div className="heroCard"><b>АВТОМАТИЗАЦІЯ<br />бізнес-процесів</b><p>Налаштовуємо сучасні системи для ефективної роботи підприємств.</p><a href="#services">Детальніше</a></div>
           <div className="heroDots" aria-label="Слайди"><button className="active" aria-label="Слайд 1"></button><button aria-label="Слайд 2"></button><button aria-label="Слайд 3"></button></div>
         </div>
