@@ -3,18 +3,18 @@
 import { FormEvent, useState } from "react";
 
 const services = [
-  { tag: "Послуги", title: "Програмне забезпечення", text: "Комплексні рішення для обліку, продажів та автоматизації процесів." },
-  { tag: "Послуги", title: "Інтеграція систем", text: "Поєднуємо сервіси й дані в єдину керовану екосистему." },
-  { tag: "Обладнання", title: "Торгове обладнання", text: "Надійне оснащення для сучасного бізнесу.", image: "/assets/service-chip.png" },
-  { tag: "Обладнання", title: "Касові рішення", text: "Швидка робота персоналу та прозора аналітика.", image: "/assets/service-chip.png" },
-  { tag: "Послуги", title: "Послуги ІТС", text: "Супровід, консультації та своєчасні оновлення." },
-  { tag: "Обладнання", title: "Витратні матеріали", text: "Усе необхідне для безперервної роботи." },
+  { tag: "Послуги", title: "Програмне забезпечення", text: "Коротенький опис послуги для каталогу. В два рядки, може в один." },
+  { tag: "Послуги", title: "Програмне забезпечення", text: "Коротенький опис послуги для каталогу. В два рядки, може в один." },
+  { tag: "Обладнання", title: "Торгове обладнання", text: "Коротенький опис послуги для каталогу. В два рядки, може в один.", image: "/assets/service-chip.png" },
+  { tag: "Обладнання", title: "Торгове обладнання", text: "Коротенький опис послуги для каталогу. В два рядки, може в один.", image: "/assets/service-chip.png" },
+  { tag: "Послуги", title: "Послуги ІТС", text: "Коротенький опис послуги для каталогу. В два рядки, може в один." },
+  { tag: "Обладнання", title: "Витратні матеріали", text: "Коротенький опис послуги для каталогу. В два рядки, може в один." },
 ];
 
 const news = [
   { image: "/retail-tech.jpg", title: "Посібник з цифрової трансформації 2026 року" },
-  { image: "/developer-tech.jpg", title: "Як автоматизація допомагає бізнесу зростати" },
-  { image: "/hero-leaf.png", title: "Екологічні технології та ефективні процеси" },
+  { image: "/developer-tech.jpg", title: "Посібник з цифрової трансформації 2026 року" },
+  { image: "/hero-leaf.png", title: "Посібник з цифрової трансформації 2026 року" },
 ];
 
 function Arrow() {
@@ -74,8 +74,8 @@ export default function Home() {
           </nav>
           <div className="actions">
             <button className="searchButton" onClick={() => setSearchOpen(true)}><img src="/icons/search.svg" alt="" />пошук</button>
-            <button className="light" onClick={() => setLoginOpen(true)}><img src="/icons/user.svg" alt="" />Вхід</button>
-            <button className="cartButton" onClick={() => setCartOpen(true)}><span><img src="/icons/cart.svg" alt="" /><b>99</b></span>12 450₴</button>
+            <button className="light" onClick={() => setLoginOpen(true)}><img src="/icons/cart.svg" alt="" />Вхід</button>
+            <button className="cartButton" onClick={() => setCartOpen(true)}><span><img src="/icons/cart-badge.svg" alt="" /><b>99</b></span>12 450₴</button>
           </div>
         </div>
       </header>
@@ -84,9 +84,9 @@ export default function Home() {
         <div className="container hero__inner">
           <div className="hero__copy">
             <span className="pill">Технологічні рішення для розвитку бізнесу</span>
-            <h1>Індивідуальні РІШЕННЯ<br /><strong>АВТОМАТИЗАЦІЇ</strong><br />бізнесу</h1>
+            <h1><strong>Індивідуальні РІШЕННЯ</strong><br /><strong>АВТОМАТИЗАЦІЇ</strong><br />бізнесу</h1>
             <div className="buttonRow"><a className="btn" href="#services">Дізнатися більше</a><a className="btn btn--ghost" href="#contact">Консультація</a></div>
-            <div className="stats"><div><b>50+</b><small>Рішень для автоматизації<br />розвитку бізнесу</small></div><div><span className="avatarGroup"><i></i><i></i><i></i><i></i><em>+</em></span><b>1000+</b><small>Задоволених клієнтів</small></div></div>
+            <div className="stats"><div><b>50+</b><small>Рішень для автоматизації<br />розвитку бізнесу</small></div><div><span className="avatarGroup"><img src="/assets/client-avatar-1.png" alt="" /><img src="/assets/client-avatar-2.png" alt="" /><img src="/assets/client-avatar-3.png" alt="" /><img src="/assets/client-avatar-1.png" alt="" /><em>+</em></span><b>1000+</b><small>Задоволених клієнтів</small></div></div>
           </div>
           <picture><source media="(max-width: 600px)" srcSet="/assets/hero-main-alt.png" /><img className="hero__image" src="/assets/hero-main.png" alt="Цифровий лист над мікросхемою" /></picture>
           <div className="heroCard"><b>АВТОМАТИЗАЦІЯ<br />бізнес-процесів</b><p>Налаштовуємо сучасні системи для ефективної роботи підприємств.</p><a href="#services">Детальніше</a></div>
@@ -97,7 +97,7 @@ export default function Home() {
       <section className="section benefits" id="about">
         <div className="container">
           <div className="sectionHead"><div><span className="eyebrow">Переваги</span><h2>Чому обирають Нас<br />Якість, Якій<br />Довіряють</h2><a className="btn btn--outline" href="#contact">Дізнатися більше</a></div></div>
-          <div className="benefitGrid">{["Досвідчені фахівці","Індивідуальні рішення","Надійна підтримка","Безпека даних","Стабільний результат"].map((x,i)=><article key={x} className={`glass benefit b${i}`}><span className="benefitIcon">✦</span><h3>{x}</h3><p>Будуємо рішення навколо завдань вашого бізнесу та супроводжуємо на кожному етапі.</p></article>)}</div>
+          <div className="benefitGrid">{Array.from({length:5},(_,i)=><article key={i} className={`glass benefit b${i}`}><span className="benefitIcon"><img src="/assets/benefit-effect.svg" alt="" /><img src="/assets/benefit-icon.svg" alt="" /></span><h3>Досвідчені фахівці</h3><p>Lorem ipsum dolor sit amet consectetur. Nulla aliquam ultricies facilisi habitasse cursus diam aliquam vitae. Sed aliquet nisi morbi nisi.</p></article>)}</div>
         </div>
       </section>
 
@@ -111,24 +111,24 @@ export default function Home() {
 
       <section className="section aboutDetail" id="about-detail">
         <div className="container split">
-          <div className="photoCard"><img src="/developer-tech.jpg" alt="Фахівець працює з цифровими системами" /><span><b>120k+</b> Задоволених клієнтів</span></div>
+          <div className="photoCard"><img src="/developer-tech.jpg" alt="Фахівець працює з цифровими системами" /><span><i className="clientFaces"><img src="/assets/client-avatar-1.png" alt="" /><img src="/assets/client-avatar-2.png" alt="" /><img src="/assets/client-avatar-3.png" alt="" /></i><b>120k+</b> Задоволених клієнтів</span></div>
           <div><span className="eyebrow">Про нас</span><h2>Розкрийте Потенціал<br />Бізнесу Інноваційними<br />Рішеннями Автоматизації</h2><p>Трансформуйте свій бізнес за допомогою наших інноваційних ІТ-рішень, створених для вирішення ваших унікальних викликів.</p>
-            <ul className="checks"><li>Індивідуальні рішення для кожного бізнесу</li><li>Покращена безпека та захист даних</li><li>Швидке впровадження</li><li>Професійна підтримка</li></ul>
+            <ul className="checks"><li>Індивідуальні рішення для кожного бізнесу</li><li>Індивідуальні рішення для кожного бізнесу</li><li>Покращена безпека та захист даних</li><li>Покращена безпека та захист даних</li></ul>
             <div className="experience"><b>25</b><span>Років<br />досвіду</span><a className="callUs" href="tel:+1212345678900"><img src="/icons/phone.svg" alt="" /><small>Зателефонуйте нам</small><strong>+12 (123) 456 78900</strong></a><a className="btn" href="#contact">Дізнатися більше</a></div>
           </div>
         </div>
       </section>
 
-      <section className="section partners" id="partners"><div className="container split"><div><span className="eyebrow">Наші партнери</span><h2>Компанії Які<br />Довіряють Нам</h2><a className="btn" href="#contact">Дізнатися більше</a></div><div className="logoCloud">{["▯ NATIONAL GEOGRAPHIC","Walmart ✣","✣ slack","in LinkedIn","▯ NATIONAL GEOGRAPHIC","▯ NATIONAL GEOGRAPHIC","▯ NATIONAL GEOGRAPHIC"].map((x,i)=><div key={i}><span>{x}</span></div>)}</div></div></section>
+      <section className="section partners" id="partners"><div className="container split"><div><span className="eyebrow">Наші партнери</span><h2>Компанії Які<br />Довіряють Нам</h2><a className="btn" href="#contact">Дізнатися більше</a></div><div className="logoCloud">{["natgeo","walmart","slack","natgeo","natgeo","linkedin","natgeo"].map((x,i)=><div key={i}><img src={`/assets/partner-${x}.svg`} alt={x === "natgeo" ? "National Geographic" : x} /></div>)}</div></div></section>
 
-      <section className="section news" id="news"><div className="container newsLayout"><div className="newsLead"><span className="eyebrow">Новини</span><h2>Ділимося Останніми<br />Новинами у Сфері<br />Автоматизації</h2><a className="btn allNews" href="#">Всі новини</a><article><img src={news[0].image} alt="" /><div className="articleMeta"><span className="authorAvatar">JC</span><small>Jane Cooper<br />26.04.2026</small><em>Категорія</em><b>⋮</b></div><h3>{news[0].title}</h3><p>Перемога в цифровій гонці: практичні рішення для трансформації компанії.</p><a className="miniBtn" href="#">Дізнатися більше</a></article></div><div className="newsStack">{[news[2],news[1],news[2]].map((n,i)=><article key={i}><img src={n.image} alt="" /><div><div className="articleMeta"><span className="authorAvatar">JC</span><small>Jane Cooper<br />26.04.2026</small><em>Категорія</em><b>⋮</b></div><h3>{n.title}</h3><p>Перемога в цифровій гонці: дорожня карта цифрової трансформації компанії.</p><a className="miniBtn" href="#">Дізнатися більше</a></div></article>)}</div></div></section>
+      <section className="section news" id="news"><div className="container newsLayout"><div className="newsLead"><span className="eyebrow">Новини</span><h2>Ділимося Останніми<br />Новинами у Сфері<br />Автоматизації</h2><a className="btn allNews" href="#">Всі новини</a><article><img src={news[0].image} alt="" /><div className="articleMeta"><span className="authorAvatar"><img src="/developer-tech.jpg" alt="" /></span><small>Jane Cooper<br />26.04.2026</small><em>Категорія</em><b>⋮</b></div><h3>{news[0].title}</h3><p>Перемога в цифровій гонці: практичні рішення для трансформації компанії.</p><a className="miniBtn" href="#">Дізнатися більше</a></article></div><div className="newsStack">{[news[2],news[1],news[2]].map((n,i)=><article key={i}><img src={n.image} alt="" /><div><div className="articleMeta"><span className="authorAvatar"><img src="/developer-tech.jpg" alt="" /></span><small>Jane Cooper<br />26.04.2026</small><em>Категорія</em><b>⋮</b></div><h3>{n.title}</h3><p>Перемога в цифровій гонці: дорожня карта цифрової трансформації компанії.</p><a className="miniBtn" href="#">Дізнатися більше</a></div></article>)}</div></div></section>
 
-      <section className="section contact" id="contact"><div className="container split"><div><span className="eyebrow">Контакти</span><h2>Зв’яжіться з Нами<br />Ми Завжди на Зв’язку</h2><p>Ми завжди готові допомогти. Оберіть зручний спосіб зв’язку.</p><div className="contactCards"><a href="mailto:office@greencom.od.ua"><img src="/icons/footer-mail.svg" alt="" /><b>Електронна пошта</b><span>office@greencom.od.ua</span></a><a href="tel:+1212345678900"><img src="/icons/footer-phone.svg" alt="" /><b>Телефон</b><span>+12 (123) 456 78900</span></a><a href="https://maps.google.com" target="_blank" rel="noreferrer"><img src="/icons/location.svg" alt="" /><b>Адреса</b><span>Одеська обл., м. Біляївка</span></a></div></div>
+      <section className="section contact" id="contact"><div className="container split"><div><span className="eyebrow">Контакти</span><h2>Зв’яжіться з Нами<br />Ми Завжди на Зв’язку</h2><p>Ми завжди готові допомогти. Оберіть зручний спосіб зв’язку.</p><div className="contactCards"><a href="mailto:office@greencom.od.ua"><img src="/icons/footer-mail.svg" alt="" /><b>Електронна пошта</b><span>office@greencom.od.ua</span></a><a href="mailto:office@greencom.od.ua"><img src="/icons/phone.svg" alt="" /><b>Телефон</b><span>office@greencom.od.ua</span></a><a href="mailto:office@greencom.od.ua"><img src="/icons/footer-phone.svg" alt="" /><b>Адреса</b><span>office@greencom.od.ua</span></a></div></div>
           <form onSubmit={submit}><div className="fieldGrid"><label>Ім’я та прізви<input required placeholder="Іван Іванов" /></label><label>Електронна пошта<input type="email" required placeholder="Email" /></label><label>Номер телефону<input placeholder="+12 (123) 456 78900" /></label><label>Тема звернення<input placeholder="Введіть назву" /></label></div><label>Ваше повідомлення<textarea required placeholder="Напишіть ваше повідомлення" /></label><label className="consent"><input type="checkbox" required /> Я погоджуюсь на обробку персональних даних</label><button className="btn" type="submit">{sent ? "Надіслано ✓" : "Відправити"}</button></form>
         </div></section>
 
       <section className="newsletter"><img className="newsletterDecor newsletterDecor--left" src="/assets/newsletter-left.png" alt="" /><img className="newsletterDecor newsletterDecor--right" src="/assets/newsletter-right.png" alt="" /><div className="container"><div><h2>Підпишіться на нашу<br />Розсилку</h2><p>Отримуйте новини, оновлення та корисні рішення.</p></div><form onSubmit={submit}><div className="subscribeRow"><input type="email" required placeholder="Email" aria-label="Email для розсилки" /><button>Підписатися <span>→</span></button></div><label className="consent"><input type="checkbox" required /> Я погоджуюсь з політикою конфіденційності</label></form></div></section>
-      <footer><div className="container footerGrid"><div className="footerBrand"><a className="logo" href="#"><img src="/icons/logo.png" alt="GreenCom" /></a><p><img src="/icons/footer-mail.svg" alt="" />office@greencom.od.ua<br /><img src="/icons/footer-phone.svg" alt="" />+12 (123) 456 78900</p><p><img src="/icons/location.svg" alt="" />Одеська обл.,<br />м. Біляївка, вул. Тіниста, 42а</p></div>{[["Інформація","Про компанію","Контакти","Ціни","Партнери","FAQ"],["Підтримка","Про компанію","Контакти","Ціни","Вакансії","FAQ"],["Сервіси","Програмне забезпечення","Торгове обладнання","Послуги ІТС","Витратні матеріали"]].map(col=><div key={col[0]}><h4>{col[0]}</h4>{col.slice(1).map(x=><a key={x} href="#">{x}</a>)}</div>)}</div><div className="container copyright"><span>© 2026. All rights reserved</span><div className="socials"><a href="#" aria-label="Instagram"><img src="/icons/instagram.svg" alt="" /></a><a href="#" aria-label="Instagram 2"><img src="/icons/instagram.svg" alt="" /></a></div></div></footer>
+      <footer><div className="container footerGrid"><div className="footerBrand"><a className="logo" href="#"><img src="/icons/logo.png" alt="GreenCom" /></a><p><img src="/icons/footer-mail.svg" alt="" />office@greencom.od.ua<br /><img src="/icons/phone.svg" alt="" />+12 (123) 456 78900</p><p><img src="/icons/footer-phone.svg" alt="" />Одеська обл.,<br />м. Біляївка, вул. Тіниста, 42а</p></div>{[["Інформація","Про компанію","Контакти","Ціни","Партнери","FAQ"],["Підтримка","Про компанію","Контакти","Ціни","Вакансії","FAQ"],["Сервіси","Програмне забезпечення","Торгове обладнання","Послуги ІТС","Витратні матеріали"]].map(col=><div key={col[0]}><h4>{col[0]}</h4>{col.slice(1).map(x=><a key={x} href="#">{x}</a>)}</div>)}</div><div className="container copyright"><span>© 2026. All rights reserved</span><div className="socials"><a href="#" aria-label="Instagram"><img src="/icons/instagram.svg" alt="" /></a><a href="#" aria-label="Instagram 2"><img src="/icons/instagram.svg" alt="" /></a></div></div></footer>
 
       <button className="backTop" onClick={() => window.scrollTo({top:0,behavior:"smooth"})} aria-label="Повернутися нагору">↑</button>
       {searchOpen && <div className="overlay" role="dialog" aria-modal="true" aria-label="Пошук"><button className="overlayClose" onClick={() => setSearchOpen(false)} aria-label="Закрити">×</button><form className="searchPanel" onSubmit={(e) => {e.preventDefault();setSearchOpen(false)}}><img src="/icons/search.svg" alt="" /><input autoFocus placeholder="Що ви шукаєте?" aria-label="Пошуковий запит" /><button className="btn">Знайти</button></form></div>}
