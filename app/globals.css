@@ -34,3 +34,35 @@ footer{padding-top:90px}.footerGrid{grid-template-columns:322px 1fr 1fr 1fr;gap:
 @media(max-width:1000px){.benefits{height:950px}.benefits .container{padding-top:80px}.benefitGrid{position:relative;left:20%;top:20px;transform:scale(.8)}.aboutDetail,.partners,.news,.contact{height:auto;min-height:0}.aboutDetail .split,.contact .split{grid-template-columns:1fr 1fr;gap:40px}.photoCard{height:560px}.newsLayout{grid-template-columns:1fr}.newsLead article{height:auto}.newsStack{grid-template-columns:1fr 1fr}.newsStack article:last-child{display:none}.newsletter .container{grid-template-columns:1fr 1fr}.footerGrid{grid-template-columns:1.3fr 1fr 1fr}.footerGrid>div:last-child{display:none}}
 @media(max-width:600px){.hero picture{inset:260px -150px 180px -70px}.hero__image{object-fit:cover}.benefits{height:auto;min-height:0;padding:74px 0}.benefits .container{padding-top:0}.benefits .sectionHead{width:100%}.benefitGrid{left:auto;top:auto;transform:none;width:100%;height:auto}.benefit{width:100%;height:auto}.serviceGrid{display:grid;grid-template-columns:1fr}.serviceCard,.serviceCard:nth-child(n){height:auto;min-height:240px}.serviceCard.withImage{grid-template-columns:1fr}.serviceCard.withImage img{height:220px}.aboutDetail{padding:74px 0}.aboutDetail .split{grid-template-columns:1fr}.photoCard{height:430px}.partners{padding:74px 0}.partners .split{grid-template-columns:1fr}.logoCloud{height:620px;transform:scale(.61);transform-origin:top left;width:680px}.news{padding:74px 0}.newsLayout{grid-template-columns:1fr}.allNews{position:static}.newsLead article{margin-top:30px}.newsStack{grid-template-columns:1fr}.newsStack article{height:auto;grid-template-columns:1fr;padding:18px}.newsStack article:last-child{display:grid}.newsStack article>img{height:210px}.contact .split{grid-template-columns:1fr}.contact form{height:auto}.newsletter{height:auto;padding:60px 0}.newsletter .container{grid-template-columns:1fr}.subscribeRow{height:auto;display:grid;border:0;gap:10px}.newsletter .subscribeRow input{border:1px solid #7dff96}.footerGrid{grid-template-columns:1fr 1fr}.footerGrid>div:last-child{display:none}}
 @media(max-width:600px){.hero picture{inset:300px -150px 120px -70px}.hero__copy .stats{top:600px;bottom:auto;left:0;z-index:5}.hero h1{font-size:34px;line-height:1.04}}
+
+/* Desktop hero calibrated against the 1440px Figma frame */
+@media(min-width:1181px){
+  .container{width:calc(100% - 180px);max-width:none}
+  .topbar__inner,.nav{width:calc(100% - 180px)}
+  .topbar{height:45px}.header{height:88px}
+  .nav{gap:38px}.mainNav{gap:24px}.mainNav>a,.navDropdown>button{font-size:14px}
+  .mainNav>a,.navDropdown>button{padding:32px 0}
+  .actions .searchButton{width:204px}
+  .hero{height:763px;min-height:763px}
+  .hero__inner{width:100%;height:763px;min-height:763px;padding-top:105px}
+  .hero picture{inset:0}
+  .hero__image{width:100%;height:100%;object-fit:cover;object-position:center;transform:translateX(55px)}
+  .hero__copy{width:610px;margin-left:90px}
+  .hero h1{max-width:610px;margin:24px 0 42px;font-size:50px;line-height:1.08;letter-spacing:-.8px}
+  .hero h1 strong{font-size:1em}
+  .pill{padding:8px 15px;font-size:12px}
+  .buttonRow{gap:14px}.buttonRow .btn{min-width:210px;padding:14px 27px}
+  .stats{gap:22px;margin-top:116px}
+  .stats>div{width:168px;height:143px;min-height:0;padding:22px 30px;border-radius:28px}
+  .stats b{font-size:27px}.stats small{font-size:10px;line-height:1.35}
+  .stats>div:nth-child(2){position:relative;width:162px;padding-top:47px}
+  .avatarGroup{position:absolute;left:20px;top:15px;display:flex;align-items:center}
+  .avatarGroup i{width:27px;height:27px;margin-right:-7px;border:2px solid #d9e5dc;border-radius:50%;background:linear-gradient(145deg,#e3a8a2,#594448)}
+  .avatarGroup i:nth-child(2){background:linear-gradient(145deg,#e5c19e,#705741)}
+  .avatarGroup i:nth-child(3){background:linear-gradient(145deg,#aaa2d9,#50486f)}
+  .avatarGroup i:nth-child(4){background:linear-gradient(145deg,#d6d7d0,#656965)}
+  .avatarGroup em{display:grid;place-items:center;width:26px;height:26px;margin-left:13px;border-radius:50%;background:#26342c;color:#58ef75;font-style:normal}
+  .heroCard{right:74px;top:475px;width:233px;padding:26px;border-radius:29px}
+  .heroCard b{font-size:16px}.heroCard p{font-size:11px;line-height:1.35}
+  .heroDots{right:82px;bottom:55px}
+}

@@ -86,7 +86,7 @@ export default function Home() {
             <span className="pill">Технологічні рішення для розвитку бізнесу</span>
             <h1>Індивідуальні РІШЕННЯ<br /><strong>АВТОМАТИЗАЦІЇ</strong><br />бізнесу</h1>
             <div className="buttonRow"><a className="btn" href="#services">Дізнатися більше</a><a className="btn btn--ghost" href="#contact">Консультація</a></div>
-            <div className="stats"><div><b>50+</b><small>Рішень для автоматизації</small></div><div><b>1000+</b><small>Задоволених клієнтів</small></div></div>
+            <div className="stats"><div><b>50+</b><small>Рішень для автоматизації<br />розвитку бізнесу</small></div><div><span className="avatarGroup"><i></i><i></i><i></i><i></i><em>+</em></span><b>1000+</b><small>Задоволених клієнтів</small></div></div>
           </div>
           <picture><source media="(max-width: 600px)" srcSet="/assets/hero-main-alt.png" /><img className="hero__image" src="/assets/hero-main.png" alt="Цифровий лист над мікросхемою" /></picture>
           <div className="heroCard"><b>АВТОМАТИЗАЦІЯ<br />бізнес-процесів</b><p>Налаштовуємо сучасні системи для ефективної роботи підприємств.</p><a href="#services">Детальніше</a></div>
