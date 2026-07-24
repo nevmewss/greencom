@@ -42,3 +42,5 @@ next-env.d.ts
 /work/
 /figma-refs/
 /.devserver.*.log
+/.sites-package-stage/
+/greencom-site.tar.gz
