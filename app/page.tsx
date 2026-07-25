@@ -249,11 +249,12 @@ export default function Home() {
           slidesPerView={3}
           slidesPerGroup={1}
           spaceBetween={24}
+          speed={500}
           watchOverflow
           breakpoints={{
             0: { slidesPerView: 1, slidesPerGroup: 1, spaceBetween: 12, grid: { rows: 2, fill: "row" } },
             601: { slidesPerView: 2, slidesPerGroup: 1, spaceBetween: 16, grid: { rows: 2, fill: "row" } },
-            901: { slidesPerView: 3, slidesPerGroup: 1, spaceBetween: 24, grid: { rows: 2, fill: "row" } },
+            1180: { slidesPerView: 3, slidesPerGroup: 1, spaceBetween: 24, grid: { rows: 2, fill: "row" } },
           }}
           onSwiper={(swiper) => {
             serviceSwiper.current = swiper;
@@ -261,6 +262,7 @@ export default function Home() {
           }}
           onSlideChange={syncServiceNavigation}
           onBreakpoint={syncServiceNavigation}
+          onResize={syncServiceNavigation}
           onReachBeginning={syncServiceNavigation}
           onReachEnd={syncServiceNavigation}
         >
