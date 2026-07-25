@@ -1901,7 +1901,7 @@ h3 {
   background: var(--surface);
 }
 
-.newsletter__form input {
+.newsletter__form input:not(.checkbox) {
   min-width: 0;
   flex: 1;
   border: 0;
@@ -4221,7 +4221,7 @@ h3 {
     padding-left: 24px;
   }
 
-  .newsletter__form input {
+  .newsletter__form input:not(.checkbox) {
     width: 152px;
     font-size: 14px;
   }
@@ -4689,7 +4689,7 @@ h3 {
     width: 135px;
   }
 
-  .newsletter__form input {
+  .newsletter__form input:not(.checkbox) {
     width: auto;
   }
 
