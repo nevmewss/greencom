@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="152" height="35" viewBox="0 0 152 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Service Button">
+<path id="Vector 26" opacity="0.5" d="M63 18H24M38 32C38 24.4 28.5882 19.6667 24 18C28.5882 16.5 38 11 38 3" stroke="white" stroke-opacity="0.8" stroke-width="1.46591" stroke-linejoin="bevel"/>
+<path id="Vector 25" d="M82.0568 18H128.057M112.057 35C112.057 25.8276 122.645 20.0115 128.057 18C122.645 16.1897 112.057 9.65517 112.057 0" stroke="url(#paint0_linear_0_55)" stroke-width="1.46591" stroke-linejoin="bevel"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_0_55" x1="82.0568" y1="17.5" x2="128.057" y2="17.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#96FBC4"/>
+<stop offset="1" stop-color="#FFFEE8"/>
+</linearGradient>
+</defs>
+</svg>
