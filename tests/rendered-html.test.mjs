@@ -52,9 +52,14 @@ test("keeps interactive controls and exact design assets in the source", async (
   assert.match(page, /setMenuOpen/);
   assert.match(page, /setOpenDropdown/);
   assert.match(page, /setHeroSlide/);
-  assert.match(page, /setServicePage/);
+  assert.match(page, /from "swiper\/react"/);
+  assert.match(page, /serviceSwiper\.current\?\.slidePrev/);
+  assert.match(page, /serviceSwiper\.current\?\.slideNext/);
+  assert.match(page, /serviceNavigation\.isBeginning/);
+  assert.match(page, /serviceNavigation\.isEnd/);
   assert.match(page, /submitContact/);
   assert.match(page, /submitNewsletter/);
+  assert.match(css, /white-space:\s*nowrap/);
   assert.match(css, /desktop-page-background\.png/);
   assert.match(css, /tablet-page-background\.png/);
   assert.match(css, /mobile-page-background\.png/);

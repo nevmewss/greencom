@@ -1,6 +1,11 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
+import type { Swiper as SwiperInstance } from "swiper";
+import { A11y, Grid } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/grid";
 
 const benefits = Array.from({ length: 5 }, () => ({
   title: "Досвідчені фахівці",
@@ -9,11 +14,13 @@ const benefits = Array.from({ length: 5 }, () => ({
 
 const services = [
   { tag: "Послуги", title: "Програмне забезпечення" },
-  { tag: "Послуги", title: "Програмне забезпечення" },
-  { tag: "Обладнання", title: "Торгове обладнання", image: "/assets/service-chip.png" },
-  { tag: "Обладнання", title: "Торгове обладнання", image: "/assets/service-chip.png" },
+  { tag: "Послуги", title: "Системна інтеграція" },
+  { tag: "Обладнання", title: "Торгове обладнання" },
+  { tag: "Обладнання", title: "Касові рішення" },
   { tag: "Послуги", title: "Послуги ІТС" },
   { tag: "Обладнання", title: "Витратні матеріали" },
+  { tag: "Послуги", title: "ІТ-інфраструктура" },
+  { tag: "Послуги", title: "Автоматизація бізнесу" },
 ].map((item) => ({
   ...item,
   text: "Коротенький опис послуги для каталогу. В два рядки, може в один.",
@@ -109,10 +116,14 @@ export default function Home() {
   const [currency, setCurrency] = useState("USD");
   const [language, setLanguage] = useState("UA");
   const [heroSlide, setHeroSlide] = useState(0);
-  const [servicePage, setServicePage] = useState(0);
+  const serviceSwiper = useRef<SwiperInstance | null>(null);
+  const [serviceNavigation, setServiceNavigation] = useState({ isBeginning: true, isEnd: false });
   const [contactSent, setContactSent] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
-  const displayedServices = servicePage === 0 ? services : [...services.slice(3), ...services.slice(0, 3)];
+
+  function syncServiceNavigation(swiper: SwiperInstance) {
+    setServiceNavigation({ isBeginning: swiper.isBeginning, isEnd: swiper.isEnd });
+  }
 
   useEffect(() => {
     document.body.classList.toggle("no-scroll", menuOpen || searchOpen || loginOpen || cartOpen);
@@ -198,10 +209,10 @@ export default function Home() {
         </div>
         <div className="hero__stats">
           <article className="stat-card stat-card--solutions"><b>50+</b><p>Рішень для автоматизації та розвитку бізнесу</p></article>
-          <article className="stat-card stat-card--clients">
+          <a className="stat-card stat-card--clients" href="#partners" aria-label="1000+ задоволених клієнтів — переглянути партнерів">
             <span className="avatar-stack"><img src="/assets/client-avatar-1.png" alt="" /><img src="/assets/client-avatar-2.png" alt="" /><img src="/assets/client-avatar-3.png" alt="" /></span>
             <b>1000+</b><p>Задоволених клієнтів</p><i aria-hidden="true">→</i>
-          </article>
+          </a>
         </div>
         <article className="hero-feature">
           <h2>Автоматизація <span>бізнес-процесів</span></h2>
@@ -230,20 +241,61 @@ export default function Home() {
             <img src="/assets/service-badge-icon.svg" alt="" />
           </span>
         </div>
-        <div className={`services__grid services__grid--page-${servicePage}`}>
-          {displayedServices.map((service, index) => (
-            <article className={`service-card ${service.image ? "service-card--image" : ""}`} key={`${service.title}-${index}`}>
-              {service.image && <img className="service-card__image" src={service.image} alt="" />}
-              <div className="service-card__body">
-                <span>{service.tag}</span><h3>{service.title}</h3><p>{service.text}</p>
-                <Button outline className="button--small">Дізнатися більше</Button>
-              </div>
-            </article>
+        <Swiper
+          className="services__grid"
+          modules={[A11y, Grid]}
+          a11y={{ enabled: true }}
+          grid={{ rows: 2, fill: "row" }}
+          slidesPerView={3}
+          slidesPerGroup={1}
+          spaceBetween={24}
+          watchOverflow
+          breakpoints={{
+            0: { slidesPerView: 1, slidesPerGroup: 1, spaceBetween: 12, grid: { rows: 2, fill: "row" } },
+            601: { slidesPerView: 2, slidesPerGroup: 1, spaceBetween: 16, grid: { rows: 2, fill: "row" } },
+            901: { slidesPerView: 3, slidesPerGroup: 1, spaceBetween: 24, grid: { rows: 2, fill: "row" } },
+          }}
+          onSwiper={(swiper) => {
+            serviceSwiper.current = swiper;
+            syncServiceNavigation(swiper);
+          }}
+          onSlideChange={syncServiceNavigation}
+          onBreakpoint={syncServiceNavigation}
+          onReachBeginning={syncServiceNavigation}
+          onReachEnd={syncServiceNavigation}
+        >
+          {services.map((service, index) => (
+            <SwiperSlide key={`${service.title}-${index}`}>
+              <article className="service-card">
+                <div className="service-card__body">
+                  <span>{service.tag}</span>
+                  <h3>{service.title}</h3>
+                  <p>{service.text}</p>
+                  <Button outline className="button--small">Дізнатися більше</Button>
+                </div>
+              </article>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
         <div className="services__arrows">
-          <button onClick={() => setServicePage((servicePage + 1) % 2)} aria-label="Попередні послуги">←</button>
-          <button onClick={() => setServicePage((servicePage + 1) % 2)} aria-label="Наступні послуги">→</button>
+          <button
+            className="services__arrow services__arrow--prev"
+            type="button"
+            disabled={serviceNavigation.isBeginning}
+            onClick={() => serviceSwiper.current?.slidePrev()}
+            aria-label="Попередні послуги"
+          >
+            <span aria-hidden="true">←</span>
+          </button>
+          <button
+            className="services__arrow services__arrow--next"
+            type="button"
+            disabled={serviceNavigation.isEnd}
+            onClick={() => serviceSwiper.current?.slideNext()}
+            aria-label="Наступні послуги"
+          >
+            <span aria-hidden="true">→</span>
+          </button>
         </div>
       </section>
 
