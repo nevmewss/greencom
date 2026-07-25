@@ -8,9 +8,11 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
+    "build:pages": "vite build --config vite.github.config.ts",
+    "preview:pages": "vite preview --config vite.github.config.ts",
     "start": "vinext start",
-    "test": "npm run build && node --test tests/rendered-html.test.mjs",
-    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern .sites-package-stage --ignore-pattern .sites-stage-*",
+    "test": "npm run build && npm run build:pages && node --test tests/rendered-html.test.mjs tests/github-pages.test.mjs",
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern dist-github --ignore-pattern .next --ignore-pattern .sites-package-stage --ignore-pattern .sites-stage-*",
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
