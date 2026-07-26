@@ -2,13 +2,13 @@ import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render() {
+async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("http://localhost/", {
+    new Request(`http://localhost${pathname}`, {
       headers: { accept: "text/html" },
     }),
     {
@@ -41,6 +41,19 @@ test("server-renders the GreenCom home page", async () => {
   assert.match(html, /id="newsletter"/);
   assert.match(html, /class="footer/);
   assert.doesNotMatch(html, /sites-skeleton|Your site is taking shape/);
+});
+
+test("server-renders the responsive About page", async () => {
+  const response = await render("/about");
+  assert.equal(response.status, 200);
+
+  const html = await response.text();
+  assert.match(html, /Технології, які створюють/);
+  assert.match(html, /id="partners"/);
+  assert.match(html, /id="contact"/);
+  assert.match(html, /class="about-results/);
+  assert.match(html, /class="about-team/);
+  assert.match(html, /class="about-history/);
 });
 
 test("keeps interactive controls and exact design assets in the source", async () => {

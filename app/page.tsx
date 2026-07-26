@@ -156,7 +156,7 @@ export default function Home() {
               <a href="tel:+1212345678900"><img src="/icons/phone.svg" alt="" />+12 (123) 456 78900</a>
             </div>
             <nav className="topbar__nav">
-              <a href="#about-detail">Про компанію</a><i />
+              <a href="./about/">Про компанію</a><i />
               <a href="#partners">Партнери</a><i />
               <a href="#news">Вакансії</a><i />
               <a href="#news">База знань</a><i />

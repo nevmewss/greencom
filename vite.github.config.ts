@@ -1,12 +1,14 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { resolve } from "node:path";
 
 const githubPagesBase = "/greencom/";
+const githubPagesRoot = resolve(process.cwd(), "github-pages");
 
 export default defineConfig({
   base: githubPagesBase,
-  root: "github-pages",
-  publicDir: "../public",
+  root: githubPagesRoot,
+  publicDir: resolve(process.cwd(), "public"),
   plugins: [
     {
       name: "github-pages-public-paths",
@@ -14,12 +16,12 @@ export default defineConfig({
       transform(code, id) {
         const normalizedId = id.replaceAll("\\", "/");
 
-        if (!normalizedId.endsWith("/app/page.tsx")) {
+        if (!/\/app\/(?:about\/)?page\.tsx$/.test(normalizedId)) {
           return null;
         }
 
         return code.replace(
-          /(["'`])\/(?=(?:assets|icons)\/|(?:developer-tech|retail-tech)\.jpg)/g,
+          /(["'`])\/(?=(?:assets|icons|fonts)\/|(?:developer-tech|retail-tech)\.jpg)/g,
           `$1${githubPagesBase}`,
         );
       },
@@ -27,8 +29,14 @@ export default defineConfig({
     react(),
   ],
   build: {
-    outDir: "../dist-github",
+    outDir: resolve(process.cwd(), "dist-github"),
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        home: resolve(githubPagesRoot, "index.html"),
+        about: resolve(githubPagesRoot, "about/index.html"),
+      },
+    },
   },
   preview: {
     host: "127.0.0.1",
