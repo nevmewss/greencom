@@ -197,7 +197,10 @@ export default function Home() {
       </header>
 
       <section className="hero" id="top">
-        <div className="hero__media"><img src="/assets/figma-hero-tablet.png" alt="Цифровий лист над мікросхемою" /></div>
+        <picture className="hero__media">
+          <source media="(min-width: 1295px)" srcSet="/assets/hero-main.png" />
+          <img src="/assets/figma-hero-tablet.png" alt="Цифровий лист над мікросхемою" />
+        </picture>
         <div className="hero__copy">
           <span className="hero__pill">Технологічні рішення для розвитку бізнесу</span>
           <h1>

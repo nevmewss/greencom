@@ -5946,3 +5946,152 @@ h3 {
     right: 10px;
   }
 }
+
+/* Final artwork pass: keep every decorative layer green and fully visible. */
+
+.site-shell {
+  isolation: isolate;
+  background: #000;
+}
+
+.site-shell::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  filter: sepia(1) hue-rotate(72deg) saturate(2.1) brightness(0.78);
+}
+
+.about-overview::after {
+  background:
+    linear-gradient(90deg, #000 8%, transparent 47%, rgba(0, 74, 25, 0.24)),
+    url("/assets/about-streams.png") right 20px center / min(980px, 70vw) auto no-repeat;
+  opacity: 0.2;
+  filter: sepia(1) hue-rotate(72deg) saturate(2.15) brightness(0.8);
+}
+
+.about-results::after {
+  background:
+    url("/assets/bg-circuit-shape.png") left center / 520px auto no-repeat,
+    radial-gradient(circle at 66% 48%, rgba(0, 106, 35, 0.32), transparent 43%),
+    url("/green-waves.png") center / 100% auto no-repeat;
+  opacity: 0.2;
+  filter: sepia(1) hue-rotate(72deg) saturate(2.15) brightness(0.78);
+}
+
+.about-team::after {
+  background:
+    radial-gradient(circle at 24% 63%, rgba(0, 108, 35, 0.2), transparent 33%),
+    url("/assets/about-streams.png") left 20px center / min(780px, 55vw) auto no-repeat;
+  opacity: 0.16;
+  filter: sepia(1) hue-rotate(72deg) saturate(2.15) brightness(0.78);
+}
+
+.about-history::before {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  right: 18px;
+  width: min(830px, 59vw);
+  aspect-ratio: 2400 / 1792;
+  background: url("/assets/about-streams.png") center / contain no-repeat;
+  content: "";
+  pointer-events: none;
+  transform: translateY(-50%);
+  filter: sepia(1) hue-rotate(72deg) saturate(2.2) brightness(0.76);
+  opacity: 0.2;
+}
+
+.about-history::after {
+  background:
+    url("/assets/bg-circuit-shape.png") left center / 500px auto no-repeat,
+    radial-gradient(circle at 55% 82%, rgba(0, 111, 37, 0.23), transparent 35%);
+  opacity: 0.2;
+  filter: sepia(1) hue-rotate(72deg) saturate(2.1) brightness(0.76);
+}
+
+.about-team-card__image::before {
+  filter: sepia(1) hue-rotate(72deg) saturate(2.2) brightness(0.78);
+}
+
+@media (min-width: 1295px) {
+  .site-shell::before {
+    background: url("/assets/desktop-page-background.png") center 899px / 100% 6168px no-repeat;
+  }
+
+  .hero__media img {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: contain;
+    object-position: center bottom;
+    transform: none;
+  }
+}
+
+@media (min-width: 825px) and (max-width: 1294px) {
+  .site-shell::before {
+    background: url("/assets/tablet-page-background.png") center 730px / 100% 7149px no-repeat;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 824px) {
+  .site-shell::before {
+    background: url("/assets/tablet-page-background.png") center 730px / 100% 7149px no-repeat;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1294px) {
+  .hero__media img {
+    top: auto;
+    bottom: 0;
+    transform: translateX(-50%);
+  }
+
+  .about-overview::after {
+    background-size: 760px auto;
+  }
+
+  .about-team::after {
+    background-size: 600px auto;
+  }
+
+  .about-history::before {
+    right: 0;
+    width: min(790px, 95vw);
+  }
+}
+
+@media (max-width: 600px) {
+  .site-shell::before {
+    background: url("/assets/mobile-page-background.png") center 825px / 360px 9698px no-repeat;
+  }
+
+  .about-overview::after {
+    background-position: right center;
+    background-size: 420px auto;
+  }
+
+  .about-results::after {
+    background-size: 300px auto, auto, 760px auto;
+    background-position: left 80px, center, center;
+  }
+
+  .about-team::after {
+    background-position: left bottom;
+    background-size: 360px auto;
+  }
+
+  .about-history::before {
+    top: 58%;
+    right: -45px;
+    width: 520px;
+  }
+
+  .about-history::after {
+    background-position: left 120px, center;
+    background-size: 300px auto, auto;
+  }
+}
