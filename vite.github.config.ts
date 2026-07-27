@@ -16,7 +16,7 @@ export default defineConfig({
       transform(code, id) {
         const normalizedId = id.replaceAll("\\", "/");
 
-        if (!/\/app\/(?:about\/)?page\.tsx$/.test(normalizedId)) {
+        if (!/\/app\/.*\.tsx$/.test(normalizedId)) {
           return null;
         }
 
@@ -35,6 +35,9 @@ export default defineConfig({
       input: {
         home: resolve(githubPagesRoot, "index.html"),
         about: resolve(githubPagesRoot, "about/index.html"),
+        contact: resolve(githubPagesRoot, "contact/index.html"),
+        notFound: resolve(githubPagesRoot, "404/index.html"),
+        errorDocument: resolve(githubPagesRoot, "404.html"),
       },
     },
   },

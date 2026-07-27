@@ -56,22 +56,39 @@ test("server-renders the responsive About page", async () => {
   assert.match(html, /class="about-history/);
 });
 
+test("server-renders the Contact page and custom 404", async () => {
+  const contactResponse = await render("/contact");
+  assert.equal(contactResponse.status, 200);
+  const contactHtml = await contactResponse.text();
+  assert.match(contactHtml, /class="contact-page/);
+  assert.match(contactHtml, /class="contact-office/);
+  assert.match(contactHtml, /class="contact-faq/);
+  assert.match(contactHtml, /id="contact-form"/);
+
+  const notFoundResponse = await render("/missing-page");
+  assert.equal(notFoundResponse.status, 404);
+  const notFoundHtml = await notFoundResponse.text();
+  assert.match(notFoundHtml, /not-found-page/);
+  assert.match(notFoundHtml, /not-found-art\.png/);
+});
+
 test("keeps interactive controls and exact design assets in the source", async () => {
-  const [page, css] = await Promise.all([
+  const [page, shared, css] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/site.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
 
-  assert.match(page, /setMenuOpen/);
-  assert.match(page, /setOpenDropdown/);
+  assert.match(shared, /setMenuOpen/);
+  assert.match(shared, /setOpenDropdown/);
   assert.match(page, /setHeroSlide/);
   assert.match(page, /from "swiper\/react"/);
   assert.match(page, /serviceSwiper\.current\?\.slidePrev/);
   assert.match(page, /serviceSwiper\.current\?\.slideNext/);
   assert.match(page, /serviceNavigation\.isBeginning/);
   assert.match(page, /serviceNavigation\.isEnd/);
-  assert.match(page, /submitContact/);
-  assert.match(page, /submitNewsletter/);
+  assert.match(shared, /submitContact/);
+  assert.match(shared, /submitNewsletter/);
   assert.match(css, /white-space:\s*nowrap/);
   assert.match(css, /desktop-page-background\.png/);
   assert.match(css, /tablet-page-background\.png/);

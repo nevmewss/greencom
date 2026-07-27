@@ -1,11 +1,21 @@
 "use client";
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { A11y, Grid } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/grid";
+import {
+  BackToTop,
+  Button,
+  ContactFormPanel,
+  Eyebrow,
+  NewsletterSection,
+  SiteFooter,
+  SiteHeader,
+  type SiteLinks,
+} from "./components/site";
 
 const benefits = Array.from({ length: 5 }, () => ({
   title: "Досвідчені фахівці",
@@ -38,28 +48,6 @@ const news = [
 }));
 
 const partnerLogos = ["natgeo", "walmart", "slack", "natgeo", "natgeo", "linkedin", "natgeo"];
-
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return <span className="eyebrow">{children}</span>;
-}
-
-function Button({
-  children,
-  href = "#contact",
-  outline = false,
-  className = "",
-}: {
-  children: React.ReactNode;
-  href?: string;
-  outline?: boolean;
-  className?: string;
-}) {
-  return (
-    <a className={`button ${outline ? "button--outline" : ""} ${className}`} href={href}>
-      {children}
-    </a>
-  );
-}
 
 function BenefitCard({ index }: { index: number }) {
   const benefit = benefits[index];
@@ -103,98 +91,27 @@ function NewsCard({ index, featured = false }: { index: number; featured?: boole
   );
 }
 
-function Check({ defaultChecked = false }: { defaultChecked?: boolean }) {
-  return <input className="checkbox" type="checkbox" defaultChecked={defaultChecked} required />;
-}
+const homeLinks: SiteLinks = {
+  home: "#top",
+  about: "./about/",
+  services: "#services",
+  news: "#news",
+  contact: "#contact",
+  partners: "#partners",
+};
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [currency, setCurrency] = useState("USD");
-  const [language, setLanguage] = useState("UA");
   const [heroSlide, setHeroSlide] = useState(0);
   const serviceSwiper = useRef<SwiperInstance | null>(null);
   const [serviceNavigation, setServiceNavigation] = useState({ isBeginning: true, isEnd: false });
-  const [contactSent, setContactSent] = useState(false);
-  const [subscribed, setSubscribed] = useState(false);
 
   function syncServiceNavigation(swiper: SwiperInstance) {
     setServiceNavigation({ isBeginning: swiper.isBeginning, isEnd: swiper.isEnd });
   }
 
-  useEffect(() => {
-    document.body.classList.toggle("no-scroll", menuOpen || searchOpen || loginOpen || cartOpen);
-    return () => document.body.classList.remove("no-scroll");
-  }, [menuOpen, searchOpen, loginOpen, cartOpen]);
-
-  function submitContact(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setContactSent(true);
-  }
-
-  function submitNewsletter(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubscribed(true);
-  }
-
-  function closeMenu() {
-    setMenuOpen(false);
-    setOpenDropdown(null);
-  }
-
   return (
     <main className="site-shell">
-      <header className="site-header">
-        <div className="topbar">
-          <div className="topbar__inner">
-            <div className="topbar__contacts">
-              <a href="mailto:example@domain.com"><img src="/icons/mail.svg" alt="" />example@domain.com</a>
-              <i />
-              <a href="tel:+1212345678900"><img src="/icons/phone.svg" alt="" />+12 (123) 456 78900</a>
-            </div>
-            <nav className="topbar__nav">
-              <a href="./about/">Про компанію</a><i />
-              <a href="#partners">Партнери</a><i />
-              <a href="#news">Вакансії</a><i />
-              <a href="#news">База знань</a><i />
-              <div className="header-select">
-                <button onClick={() => setOpenDropdown(openDropdown === "currency" ? null : "currency")}>{currency}<img src="/icons/chevron.svg" alt="" /></button>
-                {openDropdown === "currency" && <div className="header-dropdown header-dropdown--small">{["USD", "EUR", "UAH"].map((item) => <button key={item} onClick={() => { setCurrency(item); setOpenDropdown(null); }}>{item}</button>)}</div>}
-              </div><i />
-              <div className="header-select">
-                <button onClick={() => setOpenDropdown(openDropdown === "language" ? null : "language")}>{language}<img src="/icons/chevron.svg" alt="" /></button>
-                {openDropdown === "language" && <div className="header-dropdown header-dropdown--small">{["UA", "EN", "PL"].map((item) => <button key={item} onClick={() => { setLanguage(item); setOpenDropdown(null); }}>{item}</button>)}</div>}
-              </div>
-            </nav>
-          </div>
-        </div>
-        <div className="navbar">
-          <a className="brand" href="#top" aria-label="GreenCom — головна"><img src="/icons/logo.png" alt="GreenCom" /></a>
-          <nav className={`desktop-nav ${menuOpen ? "is-open" : ""}`}>
-            <a className="is-active" href="#top" onClick={closeMenu}>Головна</a>
-            <div className="nav-item">
-              <button onClick={() => setOpenDropdown(openDropdown === "services" ? null : "services")}>Послуги<img src="/icons/chevron.svg" alt="" /></button>
-              {openDropdown === "services" && <div className="header-dropdown"><a href="#services" onClick={closeMenu}>Програмне забезпечення</a><a href="#services" onClick={closeMenu}>Інтеграція систем</a><a href="#services" onClick={closeMenu}>Послуги ІТС</a></div>}
-            </div>
-            <div className="nav-item">
-              <button onClick={() => setOpenDropdown(openDropdown === "equipment" ? null : "equipment")}>Обладнання<img src="/icons/chevron.svg" alt="" /></button>
-              {openDropdown === "equipment" && <div className="header-dropdown"><a href="#services" onClick={closeMenu}>Торгове обладнання</a><a href="#services" onClick={closeMenu}>Касові рішення</a><a href="#services" onClick={closeMenu}>Витратні матеріали</a></div>}
-            </div>
-            <a href="#news" onClick={closeMenu}>Кейси</a>
-            <a href="#contact" onClick={closeMenu}>Контакти</a>
-            <a href="#services" onClick={closeMenu}>Ціни</a>
-          </nav>
-          <div className="navbar__actions">
-            <button className="search-trigger" onClick={() => setSearchOpen(true)}><img src="/icons/search.svg" alt="" /><span>пошук</span></button>
-            <button className="login-trigger" onClick={() => setLoginOpen(true)}><img src="/icons/user.svg?v=2" alt="" /><span>Вхід</span></button>
-            <button className="cart-trigger" onClick={() => setCartOpen(true)}><span className="cart-trigger__icon"><img src="/icons/cart-badge.svg" alt="" /><b>99</b></span><span>12 450₴</span></button>
-            <button className={`menu-trigger ${menuOpen ? "is-open" : ""}`} onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Закрити меню" : "Відкрити меню"}><span /><span /><span /></button>
-          </div>
-        </div>
-      </header>
+      <SiteHeader links={homeLinks} />
 
       <section className="hero" id="top">
         <picture className="hero__media">
@@ -345,54 +262,12 @@ export default function Home() {
             <a href="#contact"><span><span className="location-icon"><img src="/assets/contact-location-outer.svg" alt="" /><img src="/assets/contact-location-inner.svg" alt="" /></span></span><b>Адреса</b><em>office@greencom.od.ua</em></a>
           </div>
         </div>
-        <form className="contact-form" onSubmit={submitContact}>
-          <div className="contact-form__grid">
-            <label>Ім’я та прізвище<span><input required placeholder="Іван Іванов" /><img src="/assets/form-user.svg" alt="" /></span></label>
-            <label>Електронна пошта<span><input type="email" required placeholder="Email" /><img src="/assets/form-email.svg" alt="" /></span></label>
-            <label>Номер телефону<span><input placeholder="+12 (123) 456 78900" /><img src="/assets/form-phone.svg" alt="" /></span></label>
-            <label>Тема звернення<span><select defaultValue=""><option value="" disabled>Введіть назву</option><option>Консультація</option><option>Обладнання</option><option>Послуги ІТС</option></select><img src="/assets/form-chevron.svg" alt="" /></span></label>
-          </div>
-          <label className="contact-form__message">Ваше повідомлення<textarea required placeholder="Напишіть ваше повідомлення" /></label>
-          <label className="consent"><Check defaultChecked />Відправивши це повідомлення Ви приймаєте політику конфіденційності</label>
-          <button className="button" type="submit">{contactSent ? "Надіслано ✓" : "Відправити"}</button>
-        </form>
+        <ContactFormPanel />
       </section>
 
-      <section className="newsletter" id="newsletter">
-        <img className="newsletter__decor newsletter__decor--left" src="/assets/newsletter-left.png" alt="" />
-        <img className="newsletter__decor newsletter__decor--right" src="/assets/newsletter-right.png" alt="" />
-        <div className="newsletter__content"><h2>Підпишіться на нашу розсилку</h2><p>Отримуйте новини, оновлення та корисні рішення для автоматизації бізнесу прямо на вашу електронну пошту.</p></div>
-        <form className="newsletter__form" onSubmit={submitNewsletter}>
-          <div><input type="email" required placeholder="Email" aria-label="Email для розсилки" /><button type="submit">{subscribed ? "Готово ✓" : "Підписатися"} <span>›</span></button></div>
-          <label className="consent"><Check defaultChecked />підписуючись. Ви приймаєте політику конфіденційності</label>
-        </form>
-      </section>
-
-      <footer className="footer section-bg section-bg--circuits" id="footer">
-        <div className="footer__main">
-          <div className="footer__brand">
-            <img src="/icons/logo.png" alt="GreenCom" />
-            <i />
-            <div className="footer__contact"><span><img src="/icons/footer-mail.svg" alt="" /></span><p><b>Контактна інформація</b><a href="mailto:office@greencom.od.ua">office@greencom.od.ua</a><a href="tel:+1212345678900">+12 (123) 456 78900</a></p></div>
-            <i />
-            <div className="footer__contact"><span><span className="location-icon"><img src="/icons/location-outer.svg" alt="" /><img src="/icons/location-inner.svg" alt="" /></span></span><p><b>Адреса</b><em>Одеська обл.,</em><em>м. Біляївка, вул. Тіниста, 42а</em></p></div>
-          </div>
-          <nav className="footer__nav">
-            {[
-              ["Інформація", "Про компанію", "Контакти", "Ціни", "Партнери", "Вакансії", "FAQ"],
-              ["Підтримка", "Про компанію", "Контакти", "Ціни", "Партнери", "Вакансії", "FAQ"],
-              ["Сервіси", "Програмне забезпечення", "Торгове обладнання", "Послуги ІТС", "Витратні матеріали"],
-            ].map((column) => <div key={column[0]}><h3>{column[0]}</h3>{column.slice(1).map((item) => <a href="#" key={item}>{item}</a>)}</div>)}
-          </nav>
-        </div>
-        <div className="footer__bottom"><span>© 2026. All rights reserved</span><div><a href="#" aria-label="Instagram"><img src="/icons/instagram.svg" alt="" /></a><a href="#" aria-label="Instagram"><img src="/icons/instagram.svg" alt="" /></a></div></div>
-      </footer>
-
-      <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Повернутися нагору">↑</button>
-
-      {searchOpen && <div className="overlay" role="dialog" aria-modal="true" aria-label="Пошук"><button className="overlay__close" onClick={() => setSearchOpen(false)} aria-label="Закрити">×</button><form className="search-panel" onSubmit={(event) => { event.preventDefault(); setSearchOpen(false); }}><img src="/icons/search.svg" alt="" /><input autoFocus placeholder="Що ви шукаєте?" /><button className="button">Знайти</button></form></div>}
-      {loginOpen && <div className="overlay" role="dialog" aria-modal="true" aria-labelledby="login-title"><div className="modal"><button className="overlay__close" onClick={() => setLoginOpen(false)} aria-label="Закрити">×</button><img src="/icons/logo.png" alt="GreenCom" /><h2 id="login-title">Вхід до кабінету</h2><label>Email<input type="email" placeholder="name@email.com" /></label><label>Пароль<input type="password" placeholder="••••••••" /></label><button className="button" onClick={() => setLoginOpen(false)}>Увійти</button><a href="#">Забули пароль?</a></div></div>}
-      {cartOpen && <><button className="drawer-backdrop" onClick={() => setCartOpen(false)} aria-label="Закрити кошик" /><aside className="drawer"><div className="drawer__head"><h2>Кошик</h2><button onClick={() => setCartOpen(false)} aria-label="Закрити">×</button></div><div className="drawer__item"><img src="/retail-tech.jpg" alt="" /><div><b>Торгове обладнання</b><span>1 × 12 450₴</span></div></div><div className="drawer__total"><span>Разом</span><b>12 450₴</b></div><button className="button">Оформити замовлення</button></aside></>}
+      <NewsletterSection />
+      <SiteFooter links={homeLinks} />
+      <BackToTop />
     </main>
   );
 }

@@ -6041,3 +6041,1334 @@ h3 {
     background: #000 url("/assets/about-page-background-mobile.png") center 678px / max(360px, 100vw) 7802px no-repeat;
   }
 }
+
+/* Contact page */
+
+.contact-page {
+  position: relative;
+  width: 100%;
+  height: 4553px;
+  overflow: hidden;
+  background: #000;
+}
+
+.contact-page::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background:
+    url("/assets/about-page-background-desktop.png") center 485px / max(1440px, 100vw) auto no-repeat,
+    #000;
+  content: "";
+  pointer-events: none;
+}
+
+.contact-page > section,
+.contact-page > footer {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.contact-page-hero {
+  height: 485px;
+  background: #000;
+}
+
+.contact-page-hero__image {
+  position: absolute;
+  z-index: 0;
+  top: 56px;
+  left: 0;
+  width: 100%;
+  height: 429px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.contact-page-hero::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.72) 29%, rgba(0, 0, 0, 0.03) 67%),
+    linear-gradient(0deg, #000 0%, transparent 34%);
+  content: "";
+  pointer-events: none;
+}
+
+.contact-page__breadcrumbs {
+  position: absolute;
+  z-index: 3;
+  top: 159px;
+  left: max(10px, calc((100% - 1260px) / 2));
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.contact-page__breadcrumbs a,
+.not-found-page__breadcrumbs a {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.contact-page__breadcrumbs i,
+.not-found-page__breadcrumbs i {
+  width: 1px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.contact-page__breadcrumbs span,
+.not-found-page__breadcrumbs span {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.contact-page-hero__copy {
+  position: absolute;
+  z-index: 2;
+  top: 235px;
+  left: max(10px, calc((100% - 1260px) / 2));
+  width: 642px;
+}
+
+.contact-page-hero__copy h1 {
+  font-family: var(--heading);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: capitalize;
+}
+
+.contact-page-hero__copy p {
+  width: 600px;
+  margin-top: 9px;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.contact-office {
+  height: 667px;
+  padding: 90px max(10px, calc((100% - 1260px) / 2));
+}
+
+.contact-office::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background:
+    url("/assets/bg-circuit-shape.png") left -108px top 56px / 548px auto no-repeat,
+    url("/assets/about-streams.png") right -190px top -48px / 880px auto no-repeat;
+  content: "";
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.contact-office__panel {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 100%;
+  height: 487px;
+  grid-template-columns: 577px 1fr;
+  gap: 24px;
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 70% 45%, rgba(84, 125, 91, 0.3), transparent 46%),
+    rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 0 60px rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(13px);
+}
+
+.contact-office__photo {
+  width: 577px;
+  height: 407px;
+  border-radius: 25px;
+  object-fit: cover;
+}
+
+.contact-office__details {
+  padding-left: 0;
+}
+
+.contact-office__details h2 {
+  margin-top: 25px;
+  font-family: var(--heading);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.contact-office__methods {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.contact-office__method {
+  display: flex;
+  width: 100%;
+  height: 89px;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.06);
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
+.contact-office__method:hover,
+.contact-office__method:focus-visible {
+  border-color: rgba(3, 192, 48, 0.72);
+  background: rgba(3, 192, 48, 0.1);
+  outline: 0;
+  transform: translateX(4px);
+}
+
+.contact-office__method > span {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  place-items: center;
+  border: 1px solid rgba(3, 192, 48, 0.62);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.contact-office__method > span img {
+  width: 22px;
+  height: 22px;
+}
+
+.contact-office__method p {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.contact-office__method b {
+  color: var(--mint);
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.contact-office__method em {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 16px;
+  font-style: normal;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.contact-map {
+  height: 831px;
+  padding: 90px max(10px, calc((100% - 1260px) / 2));
+}
+
+.contact-map__panel {
+  position: relative;
+  width: 100%;
+  height: 651px;
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+}
+
+.contact-map__panel > img {
+  width: 100%;
+  height: 571px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.contact-map__marker {
+  position: absolute;
+  z-index: 2;
+  top: 42%;
+  left: 50%;
+  display: grid;
+  width: 59px;
+  height: 59px;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(3, 192, 48, 0.42) 0%, rgba(3, 192, 48, 0.12) 42%, transparent 72%);
+  filter: drop-shadow(0 8px 20px rgba(3, 192, 48, 0.9));
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.contact-map__marker::after {
+  position: absolute;
+  right: -28px;
+  bottom: -8px;
+  left: -28px;
+  height: 13px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(3, 192, 48, 0.92), rgba(3, 192, 48, 0.14) 45%, transparent 72%);
+  content: "";
+  filter: blur(3px);
+}
+
+.contact-map__marker img:first-child {
+  position: absolute;
+  z-index: 1;
+  width: 42px;
+  height: 59px;
+}
+
+.contact-map__marker img:last-child {
+  position: absolute;
+  z-index: 2;
+  top: 17px;
+  width: 15px;
+  height: 15px;
+}
+
+.contact-map__address {
+  position: absolute;
+  top: 137px;
+  left: 663px;
+  width: 263px;
+  height: 92px;
+  padding: 26px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-right-color: var(--green);
+  border-radius: 20px;
+  background: rgba(26, 30, 31, 0.74);
+  font-size: 16px;
+  line-height: 1.4;
+  backdrop-filter: blur(10px);
+}
+
+.contact-faq {
+  display: grid;
+  height: 635px;
+  grid-template-columns: 511px 1fr;
+  gap: 24px;
+  padding: 90px max(10px, calc((100% - 1260px) / 2));
+}
+
+.contact-faq__intro h2,
+.contact-page-form__intro h2 {
+  margin-top: 28px;
+  font-family: var(--heading);
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.25;
+  text-transform: capitalize;
+}
+
+.contact-faq__intro h2 strong {
+  font-weight: 700;
+}
+
+.contact-faq__intro > p,
+.contact-page-form__intro > p {
+  width: 511px;
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.contact-faq__intro .button {
+  margin-top: 44px;
+}
+
+.contact-faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-faq__list article {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.055);
+  backdrop-filter: blur(8px);
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.contact-faq__list article:hover {
+  border-color: rgba(3, 192, 48, 0.5);
+}
+
+.contact-faq__list article.is-open {
+  background: rgba(35, 45, 46, 0.78);
+}
+
+.contact-faq__list button {
+  display: flex;
+  width: 100%;
+  height: 49px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: left;
+}
+
+.contact-faq__list button i {
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.contact-faq__list article.is-open button {
+  height: 49px;
+}
+
+.contact-faq__list article > p {
+  margin: 0 15px 14px;
+  padding-top: 11px;
+  border-top: 1px solid rgba(255, 255, 255, 0.7);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.contact-page-form {
+  height: 933px;
+  padding: 90px max(10px, calc((100% - 1260px) / 2));
+}
+
+.contact-page-form__intro {
+  height: 178px;
+}
+
+.contact-page-form__intro h2 {
+  margin-top: 28px;
+}
+
+.contact-page-form__panel {
+  width: 100%;
+  height: 575px;
+  padding: 40px;
+}
+
+.contact-page-form__panel .contact-form__grid {
+  grid-template-columns: 1fr 1fr;
+  gap: 29px 26px;
+}
+
+.contact-page-form__panel .contact-form__message {
+  margin-top: 29px;
+}
+
+.contact-page-form__panel textarea {
+  height: 200px;
+}
+
+.contact-page-form__panel > .button {
+  margin-top: 34px;
+}
+
+.contact-page__newsletter {
+  height: 454px;
+  padding-top: 90px;
+  padding-bottom: 70px;
+  background: transparent;
+}
+
+.contact-page__newsletter::before {
+  position: absolute;
+  z-index: 0;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  height: 314px;
+  background: var(--surface);
+  content: "";
+}
+
+.contact-page__newsletter .newsletter__decor {
+  top: 118px;
+}
+
+.contact-page__footer {
+  height: 526px;
+}
+
+.contact-page .back-to-top {
+  top: auto;
+  right: 86px;
+  bottom: 134px;
+}
+
+/* 404 */
+
+.not-found-page {
+  position: relative;
+  width: 100%;
+  height: 1346px;
+  overflow: hidden;
+  background: #000;
+}
+
+.not-found-page::before {
+  position: absolute;
+  z-index: 0;
+  inset: 135px 0 0;
+  background:
+    url("/assets/about-page-background-desktop.png") center top / max(1440px, 100vw) auto no-repeat,
+    radial-gradient(circle at 54% 34%, rgba(0, 105, 37, 0.24), transparent 35%);
+  content: "";
+  opacity: 0.78;
+  pointer-events: none;
+}
+
+.not-found-page > section,
+.not-found-page > footer {
+  position: relative;
+  z-index: 1;
+}
+
+.not-found-page__breadcrumbs {
+  position: absolute;
+  z-index: 3;
+  top: 159px;
+  left: max(10px, calc((100% - 1260px) / 2));
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.not-found-page__content {
+  height: 810px;
+  overflow: hidden;
+}
+
+.not-found-page__copy {
+  position: absolute;
+  z-index: 2;
+  top: 251px;
+  left: max(10px, calc((100% - 1260px) / 2));
+  width: 510px;
+}
+
+.not-found-page__copy > strong {
+  display: block;
+  height: 211px;
+  font-family: var(--heading);
+  font-size: 240px;
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.055em;
+}
+
+.not-found-page__copy h1 {
+  margin-top: 20px;
+  font-family: var(--heading);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.not-found-page__copy p {
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.not-found-page__copy p + p {
+  margin-top: 12px;
+}
+
+.not-found-page__copy .button {
+  margin-top: 25px;
+}
+
+.not-found-page__content > img {
+  position: absolute;
+  z-index: 1;
+  top: 168px;
+  left: calc(50% - 309px);
+  width: 1114px;
+  height: auto;
+  max-width: none;
+}
+
+.not-found-page .footer {
+  height: 526px;
+}
+
+.not-found-page .back-to-top {
+  top: auto;
+  right: 86px;
+  bottom: 18px;
+}
+
+@media (min-width: 601px) and (max-width: 1294px) {
+  .contact-page {
+    height: 4672px;
+  }
+
+  .contact-page::before {
+    background:
+      url("/assets/about-page-background-tablet.png") center 347px / max(834px, 100vw) auto no-repeat,
+      #000;
+  }
+
+  .contact-page-hero {
+    height: 283px;
+  }
+
+  .contact-page-hero__image {
+    top: 0;
+    height: 283px;
+    object-position: center;
+  }
+
+  .contact-page-hero::after {
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.66) 40%, transparent 76%),
+      linear-gradient(0deg, #000 0%, transparent 30%);
+  }
+
+  .contact-page__breadcrumbs {
+    top: 20px;
+    left: 30px;
+    font-size: 12px;
+  }
+
+  .contact-page-hero__copy {
+    top: 102px;
+    left: 30px;
+    width: 470px;
+  }
+
+  .contact-page-hero__copy h1 {
+    font-size: 48px;
+  }
+
+  .contact-page-hero__copy p {
+    width: 465px;
+    font-size: 14px;
+  }
+
+  .contact-office {
+    height: 1011px;
+    padding: 60px 30px;
+  }
+
+  .contact-office__panel {
+    display: flex;
+    height: 891px;
+    flex-direction: column;
+    gap: 24px;
+    padding: 40px;
+    border-radius: 30px;
+  }
+
+  .contact-office__photo {
+    width: 100%;
+    height: 407px;
+  }
+
+  .contact-office__details {
+    padding: 0;
+  }
+
+  .contact-office__details h2 {
+    margin-top: 24px;
+    font-size: 28px;
+  }
+
+  .contact-office__methods {
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .contact-office__method {
+    height: 89px;
+  }
+
+  .contact-map {
+    height: 771px;
+    padding: 60px 30px;
+  }
+
+  .contact-map__panel {
+    width: 100%;
+    height: 651px;
+    padding: 24px;
+  }
+
+  .contact-map__panel > img {
+    height: 571px;
+  }
+
+  .contact-map__address {
+    display: none;
+  }
+
+  .contact-map__marker {
+    top: 42%;
+    left: 54%;
+  }
+
+  .contact-faq {
+    display: block;
+    height: 837px;
+    padding: 60px 30px;
+  }
+
+  .contact-faq__intro {
+    width: 340px;
+    height: 239px;
+  }
+
+  .contact-faq__intro .eyebrow {
+    display: flex;
+    height: 22px;
+    line-height: 22.4px;
+  }
+
+  .contact-faq__intro h2 {
+    width: 500px;
+    margin-top: 6px;
+    font-size: 26px;
+    line-height: 1.2;
+  }
+
+  .contact-faq__intro > p {
+    width: 500px;
+    height: 50px;
+    margin-top: 24px;
+  }
+
+  .contact-faq__intro .button {
+    height: 45px;
+    min-height: 45px;
+    margin-top: 30px;
+    padding: 0 22px;
+    font-size: 14px;
+  }
+
+  .contact-faq__list {
+    gap: 15px;
+    margin-top: 23px;
+  }
+
+  .contact-faq__list article.is-open {
+    height: 130px;
+  }
+
+  .contact-faq__list article:not(.is-open) {
+    height: 50px;
+  }
+
+  .contact-faq__list button {
+    height: 49px;
+  }
+
+  .contact-page-form {
+    display: flex;
+    height: 869px;
+    flex-direction: column;
+    gap: 24px;
+    padding: 60px 30px;
+  }
+
+  .contact-page-form__intro {
+    height: 150px;
+    flex: 0 0 150px;
+  }
+
+  .contact-page-form__intro .eyebrow {
+    display: flex;
+    height: 22px;
+    line-height: 22.4px;
+  }
+
+  .contact-page-form__intro h2 {
+    margin-top: 24px;
+    font-size: 40px;
+    line-height: 50px;
+    white-space: nowrap;
+  }
+
+  .contact-page-form__intro > p {
+    width: 774px;
+    height: 30px;
+    margin-top: 24px;
+  }
+
+  .contact-page-form__panel {
+    height: 575px;
+    flex: 0 0 575px;
+    padding: 39px;
+  }
+
+  .contact-page-form__panel label {
+    line-height: 9px;
+  }
+
+  .contact-page-form__panel .contact-form__grid {
+    gap: 33px 29px;
+  }
+
+  .contact-page-form__panel .contact-form__message {
+    margin-top: 24px;
+  }
+
+  .contact-page-form__panel textarea {
+    height: 168px;
+  }
+
+  .contact-page-form__panel .consent {
+    height: 24px;
+    margin-top: 10px;
+    padding: 2px 0;
+  }
+
+  .contact-page-form__panel > .button {
+    height: 45px;
+    min-height: 45px;
+    margin-top: 44px;
+  }
+
+  .contact-page__newsletter {
+    height: 394px;
+    padding: 60px 30px;
+    background: transparent;
+  }
+
+  .contact-page__newsletter::before {
+    top: 60px;
+    height: 274px;
+  }
+
+  .contact-page__newsletter .newsletter__decor {
+    top: 60px;
+  }
+
+  .contact-page__footer {
+    height: 464px;
+  }
+
+  .contact-page .back-to-top {
+    right: 26px;
+    bottom: 70px;
+  }
+
+  .not-found-page {
+    height: 1087px;
+  }
+
+  .not-found-page::before {
+    inset: 64px 0 0;
+    background:
+      url("/assets/about-page-background-tablet.png") center top / max(834px, 100vw) auto no-repeat,
+      radial-gradient(circle at 57% 28%, rgba(0, 105, 37, 0.24), transparent 38%);
+  }
+
+  .not-found-page__breadcrumbs {
+    display: none;
+  }
+
+  .not-found-page__content {
+    height: 588px;
+  }
+
+  .not-found-page__copy {
+    top: 106px;
+    left: 30px;
+    width: 336px;
+  }
+
+  .not-found-page__copy > strong {
+    height: 130px;
+    font-size: 164px;
+  }
+
+  .not-found-page__copy h1 {
+    margin-top: 41px;
+    font-size: 20px;
+    line-height: 1.11;
+    white-space: nowrap;
+  }
+
+  .not-found-page__copy p {
+    margin-top: 24px;
+    font-size: 16px;
+  }
+
+  .not-found-page__copy p + p {
+    margin-top: 10px;
+  }
+
+  .not-found-page__copy .button {
+    width: 265px;
+    margin-top: 25px;
+  }
+
+  .not-found-page__content > img {
+    top: 137px;
+    left: calc(50% - 177px);
+    width: 697px;
+  }
+
+  .not-found-page .footer {
+    height: 464px;
+  }
+
+  .not-found-page .back-to-top {
+    right: 26px;
+    bottom: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-page {
+    height: 4699px;
+  }
+
+  .contact-page::before {
+    background:
+      url("/assets/about-page-background-mobile.png") center 378px / max(360px, 100vw) auto no-repeat,
+      #000;
+  }
+
+  .contact-page-hero {
+    height: 314px;
+  }
+
+  .contact-page-hero__image {
+    top: 0;
+    height: 314px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .contact-page-hero::after {
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.66) 0%, rgba(0, 0, 0, 0.35) 45%, transparent 79%),
+      linear-gradient(0deg, #000 0%, transparent 28%);
+  }
+
+  .contact-page__breadcrumbs {
+    top: 20px;
+    left: 10px;
+    gap: 8px;
+    font-size: 10px;
+  }
+
+  .contact-page-hero__copy {
+    top: 74px;
+    left: 7px;
+    width: 282px;
+  }
+
+  .contact-page-hero__copy h1 {
+    font-size: 40px;
+    line-height: 1.2;
+  }
+
+  .contact-page-hero__copy p {
+    width: 278px;
+    margin-top: 6px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .contact-office {
+    height: 933px;
+    padding: 40px 0;
+  }
+
+  .contact-office__panel {
+    display: flex;
+    width: 340px;
+    height: 853px;
+    flex-direction: column;
+    gap: 24px;
+    margin-left: 6px;
+    padding: 18px;
+    border-radius: 32px;
+  }
+
+  .contact-office__photo {
+    width: 304px;
+    height: 407px;
+    border-radius: 24px;
+    object-position: center;
+  }
+
+  .contact-office__details {
+    padding: 0;
+  }
+
+  .contact-office__details .eyebrow {
+    font-size: 16px;
+  }
+
+  .contact-office__details h2 {
+    margin-top: 24px;
+    font-size: 24px;
+  }
+
+  .contact-office__methods {
+    gap: 14px;
+    margin-top: 22px;
+  }
+
+  .contact-office__method {
+    height: 89px;
+    gap: 14px;
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .contact-office__method > span {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  .contact-office__method p {
+    gap: 8px;
+  }
+
+  .contact-office__method b,
+  .contact-office__method em {
+    font-size: 16px;
+  }
+
+  .contact-office__method em {
+    max-width: 224px;
+    white-space: normal;
+  }
+
+  .contact-map {
+    height: 258.573px;
+    padding: 40px 0;
+  }
+
+  .contact-map__panel {
+    width: 345px;
+    height: 178.573px;
+    margin-left: 6px;
+    padding: 10px;
+    border-radius: 7px;
+  }
+
+  .contact-map__panel > img {
+    height: 158.573px;
+    border-radius: 4px;
+  }
+
+  .contact-map__address {
+    top: 16px;
+    left: 170px;
+    display: block;
+    width: 148px;
+    height: 51px;
+    padding: 9px 10px;
+    border-radius: 12px;
+    font-size: 9px;
+    line-height: 1.35;
+  }
+
+  .contact-map__marker {
+    top: 43%;
+    left: 49%;
+    width: 25px;
+    height: 25px;
+    filter: drop-shadow(0 4px 10px rgba(3, 192, 48, 0.9));
+  }
+
+  .contact-map__marker::after {
+    right: -12px;
+    bottom: -4px;
+    left: -12px;
+    height: 6px;
+  }
+
+  .contact-map__marker img:first-child {
+    width: 17.5px;
+    height: 25px;
+  }
+
+  .contact-map__marker img:last-child {
+    top: 7px;
+    width: 6.5px;
+    height: 6.5px;
+  }
+
+  .contact-faq {
+    display: block;
+    height: 908px;
+    padding: 40px 6px;
+  }
+
+  .contact-faq__intro {
+    width: 340px;
+    height: 290px;
+  }
+
+  .contact-faq__intro .eyebrow {
+    display: flex;
+    font-size: 16px;
+  }
+
+  .contact-faq__intro h2 {
+    margin-top: 6px;
+    font-size: 26px;
+    line-height: 1.2;
+  }
+
+  .contact-faq__intro > p {
+    width: 340px;
+    height: 70px;
+    margin-top: 24px;
+    font-size: 14px;
+  }
+
+  .contact-faq__intro .button {
+    height: 46px;
+    min-height: 46px;
+    margin-top: 30px;
+    padding: 0 22px;
+    font-size: 14px;
+  }
+
+  .contact-faq__list {
+    width: 345px;
+    gap: 12px;
+    margin-top: 23px;
+  }
+
+  .contact-faq__list article {
+    border-radius: 9px;
+  }
+
+  .contact-faq__list article.is-open {
+    height: 190px;
+  }
+
+  .contact-faq__list article:not(.is-open) {
+    height: 50px;
+  }
+
+  .contact-faq__list button {
+    height: 49px;
+    padding: 0 15px;
+    font-size: 16px;
+  }
+
+  .contact-faq__list article.is-open button {
+    height: 49px;
+  }
+
+  .contact-faq__list article > p {
+    margin: 0 15px 14px;
+    font-size: 14px;
+  }
+
+  .contact-page-form {
+    display: flex;
+    height: 876.098px;
+    flex-direction: column;
+    gap: 24px;
+    padding: 60px 0;
+  }
+
+  .contact-page-form__intro {
+    width: 345px;
+    height: 150.098px;
+    flex: 0 0 150.098px;
+    margin-left: 6px;
+  }
+
+  .contact-page-form__intro .eyebrow {
+    display: flex;
+    font-size: 13.82px;
+    line-height: 1.4;
+  }
+
+  .contact-page-form__intro h2 {
+    margin-top: 10.366px;
+    font-size: 19.34px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .contact-page-form__intro > p {
+    width: 340px;
+    height: 70px;
+    margin-top: 27.18px;
+    font-size: 14px;
+  }
+
+  .contact-page-form__panel {
+    width: 345px;
+    height: 582px;
+    flex: 0 0 582px;
+    margin-left: 6px;
+    padding: 19px;
+    border-radius: 30px;
+  }
+
+  .contact-page-form__panel .contact-form__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .contact-page-form__panel label {
+    font-size: 12px;
+    line-height: 9px;
+  }
+
+  .contact-page-form__panel input:not(.checkbox),
+  .contact-page-form__panel select {
+    height: 48px;
+  }
+
+  .contact-page-form__panel .contact-form__message {
+    margin-top: 24px;
+  }
+
+  .contact-page-form__panel textarea {
+    height: 90px;
+  }
+
+  .contact-page-form__panel .consent {
+    min-height: 30px;
+    margin-top: 20px;
+    padding: 2px 0;
+  }
+
+  .contact-page-form__panel > .button {
+    height: 45px;
+    min-height: 45px;
+    margin-top: 20px;
+    padding: 0 22px;
+    font-size: 14px;
+  }
+
+  .contact-page__newsletter {
+    height: 505px;
+    padding: 60px 0;
+    background: transparent;
+  }
+
+  .contact-page__newsletter::before {
+    top: 60px;
+    height: 385px;
+  }
+
+  .contact-page__newsletter .newsletter__decor {
+    top: 60px;
+  }
+
+  .contact-page__footer {
+    height: 847px;
+  }
+
+  .contact-page .back-to-top {
+    right: 10px;
+    bottom: 8px;
+  }
+
+  .not-found-page {
+    height: 1846px;
+  }
+
+  .not-found-page::before {
+    inset: 64px 0 0;
+    background:
+      url("/assets/about-page-background-mobile.png") center top / max(360px, 100vw) auto no-repeat,
+      radial-gradient(circle at 60% 38%, rgba(0, 105, 37, 0.24), transparent 38%);
+  }
+
+  .not-found-page__breadcrumbs {
+    top: 84px;
+    left: 10px;
+    display: flex;
+    gap: 8px;
+    font-size: 10px;
+  }
+
+  .not-found-page__breadcrumbs span::before {
+    content: "Вакансії";
+    font-size: 10px;
+  }
+
+  .not-found-page__breadcrumbs span {
+    font-size: 0;
+  }
+
+  .not-found-page__content {
+    height: 935px;
+  }
+
+  .not-found-page__copy {
+    top: 127px;
+    left: 15px;
+    width: 336px;
+  }
+
+  .not-found-page__copy > strong {
+    height: 130px;
+    font-size: 166px;
+  }
+
+  .not-found-page__copy h1 {
+    margin-top: 41px;
+    font-size: 20px;
+    line-height: 1.11;
+    white-space: nowrap;
+  }
+
+  .not-found-page__copy p {
+    margin-top: 24px;
+    font-size: 16px;
+  }
+
+  .not-found-page__copy p + p {
+    margin-top: 10px;
+  }
+
+  .not-found-page__copy .button {
+    width: 265px;
+    margin-top: 25px;
+  }
+
+  .not-found-page__content > img {
+    top: 551px;
+    left: -98px;
+    width: 572px;
+  }
+
+  .not-found-page .footer {
+    height: 847px;
+  }
+
+  .not-found-page .back-to-top {
+    right: 10px;
+    bottom: 8px;
+  }
+}
