@@ -5947,7 +5947,7 @@ h3 {
   }
 }
 
-/* Final artwork pass: keep every decorative layer green and fully visible. */
+/* Exact artwork layers exported from the Home and About Figma frames. */
 
 .site-shell {
   isolation: isolate;
@@ -5956,59 +5956,34 @@ h3 {
 
 .site-shell::before {
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   inset: 0;
   content: "";
   pointer-events: none;
   filter: sepia(1) hue-rotate(72deg) saturate(2.1) brightness(0.78);
 }
 
-.about-overview::after {
-  background:
-    linear-gradient(90deg, #000 8%, transparent 47%, rgba(0, 74, 25, 0.24)),
-    url("/assets/about-streams.png") right 20px center / min(980px, 70vw) auto no-repeat;
-  opacity: 0.2;
-  filter: sepia(1) hue-rotate(72deg) saturate(2.15) brightness(0.8);
+.about-page {
+  background: #000;
 }
 
-.about-results::after {
-  background:
-    url("/assets/bg-circuit-shape.png") left center / 520px auto no-repeat,
-    radial-gradient(circle at 66% 48%, rgba(0, 106, 35, 0.32), transparent 43%),
-    url("/green-waves.png") center / 100% auto no-repeat;
-  opacity: 0.2;
-  filter: sepia(1) hue-rotate(72deg) saturate(2.15) brightness(0.78);
-}
-
-.about-team::after {
-  background:
-    radial-gradient(circle at 24% 63%, rgba(0, 108, 35, 0.2), transparent 33%),
-    url("/assets/about-streams.png") left 20px center / min(780px, 55vw) auto no-repeat;
-  opacity: 0.16;
-  filter: sepia(1) hue-rotate(72deg) saturate(2.15) brightness(0.78);
-}
-
-.about-history::before {
+.about-page::before {
   position: absolute;
-  z-index: -1;
-  top: 50%;
-  right: 18px;
-  width: min(830px, 59vw);
-  aspect-ratio: 2400 / 1792;
-  background: url("/assets/about-streams.png") center / contain no-repeat;
+  z-index: 0;
+  inset: 0;
   content: "";
   pointer-events: none;
-  transform: translateY(-50%);
-  filter: sepia(1) hue-rotate(72deg) saturate(2.2) brightness(0.76);
-  opacity: 0.2;
+  filter: none;
 }
 
-.about-history::after {
-  background:
-    url("/assets/bg-circuit-shape.png") left center / 500px auto no-repeat,
-    radial-gradient(circle at 55% 82%, rgba(0, 111, 37, 0.23), transparent 35%);
-  opacity: 0.2;
-  filter: sepia(1) hue-rotate(72deg) saturate(2.1) brightness(0.76);
+.about-page .about-overview::after,
+.about-page .about-results::after,
+.about-page .about-team::after,
+.about-page .about-history::before,
+.about-page .about-history::after,
+.about-page .partners::before,
+.about-page .contact::before {
+  display: none;
 }
 
 .about-team-card__image::before {
@@ -6017,7 +5992,11 @@ h3 {
 
 @media (min-width: 1295px) {
   .site-shell::before {
-    background: url("/assets/desktop-page-background.png") center 899px / 100% 6168px no-repeat;
+    background: url("/assets/desktop-page-background.png") center 899px / 1440px 6168px no-repeat;
+  }
+
+  .about-page::before {
+    background: #000 url("/assets/about-page-background-desktop.png") center 516px / 1440px 5724px no-repeat;
   }
 
   .hero__media img {
@@ -6031,36 +6010,19 @@ h3 {
   }
 }
 
-@media (min-width: 825px) and (max-width: 1294px) {
-  .site-shell::before {
-    background: url("/assets/tablet-page-background.png") center 730px / 100% 7149px no-repeat;
-  }
-}
-
-@media (min-width: 601px) and (max-width: 824px) {
-  .site-shell::before {
-    background: url("/assets/tablet-page-background.png") center 730px / 100% 7149px no-repeat;
-  }
-}
-
 @media (min-width: 601px) and (max-width: 1294px) {
+  .site-shell::before {
+    background: url("/assets/tablet-page-background.png") center 730px / 834px 7149px no-repeat;
+  }
+
+  .about-page::before {
+    background: #000 url("/assets/about-page-background-tablet.png") center 216px / 834px 6157px no-repeat;
+  }
+
   .hero__media img {
     top: auto;
     bottom: 0;
     transform: translateX(-50%);
-  }
-
-  .about-overview::after {
-    background-size: 760px auto;
-  }
-
-  .about-team::after {
-    background-size: 600px auto;
-  }
-
-  .about-history::before {
-    right: 0;
-    width: min(790px, 95vw);
   }
 }
 
@@ -6069,29 +6031,7 @@ h3 {
     background: url("/assets/mobile-page-background.png") center 825px / 360px 9698px no-repeat;
   }
 
-  .about-overview::after {
-    background-position: right center;
-    background-size: 420px auto;
-  }
-
-  .about-results::after {
-    background-size: 300px auto, auto, 760px auto;
-    background-position: left 80px, center, center;
-  }
-
-  .about-team::after {
-    background-position: left bottom;
-    background-size: 360px auto;
-  }
-
-  .about-history::before {
-    top: 58%;
-    right: -45px;
-    width: 520px;
-  }
-
-  .about-history::after {
-    background-position: left 120px, center;
-    background-size: 300px auto, auto;
+  .about-page::before {
+    background: #000 url("/assets/about-page-background-mobile.png") center 678px / 360px 7802px no-repeat;
   }
 }
