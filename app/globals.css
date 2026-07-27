@@ -5992,11 +5992,11 @@ h3 {
 
 @media (min-width: 1295px) {
   .site-shell::before {
-    background: url("/assets/desktop-page-background.png") center 899px / 1440px 6168px no-repeat;
+    background: url("/assets/desktop-page-background.png") center 899px / max(1440px, 100vw) 6168px no-repeat;
   }
 
   .about-page::before {
-    background: #000 url("/assets/about-page-background-desktop.png") center 516px / 1440px 5724px no-repeat;
+    background: #000 url("/assets/about-page-background-desktop.png") center 516px / max(1440px, 100vw) 5724px no-repeat;
   }
 
   .hero__media img {
@@ -6012,11 +6012,11 @@ h3 {
 
 @media (min-width: 601px) and (max-width: 1294px) {
   .site-shell::before {
-    background: url("/assets/tablet-page-background.png") center 730px / 834px 7149px no-repeat;
+    background: url("/assets/tablet-page-background.png") center 730px / max(834px, 100vw) 7149px no-repeat;
   }
 
   .about-page::before {
-    background: #000 url("/assets/about-page-background-tablet.png") center 216px / 834px 6157px no-repeat;
+    background: #000 url("/assets/about-page-background-tablet.png") center 216px / max(834px, 100vw) 6157px no-repeat;
   }
 
   .hero__media img {
@@ -6028,10 +6028,10 @@ h3 {
 
 @media (max-width: 600px) {
   .site-shell::before {
-    background: url("/assets/mobile-page-background.png") center 825px / 360px 9698px no-repeat;
+    background: url("/assets/mobile-page-background.png") center 825px / max(360px, 100vw) 9698px no-repeat;
   }
 
   .about-page::before {
-    background: #000 url("/assets/about-page-background-mobile.png") center 678px / 360px 7802px no-repeat;
+    background: #000 url("/assets/about-page-background-mobile.png") center 678px / max(360px, 100vw) 7802px no-repeat;
   }
 }
