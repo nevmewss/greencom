@@ -6013,12 +6013,25 @@ h3 {
 }
 
 @media (min-width: 1295px) {
+  .site-shell,
+  .about-page,
+  .contact-page,
+  .not-found-page {
+    width: 1440px;
+  }
+
   .site-shell::before {
-    background: url("/assets/desktop-page-background.png") center 899px / max(1440px, 100vw) 6168px no-repeat;
+    background: url("/assets/desktop-page-background.png") center 899px / 1440px 6168px no-repeat;
   }
 
   .about-page::before {
-    background: #000 url("/assets/about-page-background-desktop.png") center 516px / max(1440px, 100vw) 5724px no-repeat;
+    background: #000 url("/assets/about-page-background-desktop.png") center 516px / 1440px 5724px no-repeat;
+  }
+
+  .hero__media {
+    left: 50%;
+    width: 1451px;
+    transform: translateX(-50%);
   }
 
   .hero__media img {
@@ -6027,31 +6040,9 @@ h3 {
     width: 100%;
     height: 100%;
     aspect-ratio: auto;
-    object-fit: contain;
+    object-fit: fill;
     object-position: center bottom;
     transform: none;
-  }
-}
-
-@media (min-width: 1755px) {
-  .hero__media {
-    background:
-      radial-gradient(ellipse 58% 88% at 76% 52%, rgba(15, 43, 46, 0.92), rgba(4, 15, 17, 0.72) 58%, transparent 84%),
-      #000;
-  }
-
-  .hero__media img {
-    inset: 0 auto 0 50%;
-    width: 1451px;
-    height: 979px;
-    object-fit: fill;
-    transform: translateX(-50%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 92%, transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 92%, transparent 100%);
-  }
-
-  .hero__media::after {
-    z-index: 2;
   }
 }
 
@@ -6096,7 +6087,7 @@ h3 {
   z-index: 0;
   inset: 0;
   background:
-    url("/assets/about-page-background-desktop.png") center 485px / max(1440px, 100vw) auto no-repeat,
+    url("/assets/about-page-background-desktop.png") center 485px / 1440px auto no-repeat,
     #000;
   content: "";
   pointer-events: none;
@@ -6568,7 +6559,7 @@ h3 {
   z-index: 0;
   inset: 135px 0 0;
   background:
-    url("/assets/about-page-background-desktop.png") center top / max(1440px, 100vw) auto no-repeat,
+    url("/assets/about-page-background-desktop.png") center top / 1440px auto no-repeat,
     radial-gradient(circle at 54% 34%, rgba(0, 105, 37, 0.24), transparent 35%);
   content: "";
   opacity: 0.78;
