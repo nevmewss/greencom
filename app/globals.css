@@ -8784,6 +8784,23 @@ body,
 }
 
 @media (max-width: 600px) {
+  .hero__dots {
+    right: calc(var(--fluid-gutter) + 40px) !important;
+  }
+
+  .about__bottom {
+    width: 100% !important;
+  }
+
+  .about__bottom::before,
+  .about__bottom .button {
+    width: 100% !important;
+  }
+
+  .about-history__image {
+    width: min(332.473px, 100%) !important;
+  }
+
   .contact-page-hero::after {
     background:
       linear-gradient(
