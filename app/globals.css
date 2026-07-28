@@ -1420,12 +1420,6 @@ h3 {
   background: var(--surface);
   content: "";
   transform: rotate(45deg);
-  transition: border-color 180ms ease, background 180ms ease;
-}
-
-.partner:hover::before {
-  border-color: rgba(3, 192, 48, 0.45);
-  background: rgba(3, 192, 48, 0.08);
 }
 
 .partner span {
