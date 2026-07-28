@@ -122,8 +122,9 @@ export default function Home() {
 
       <PageHero variant="slider" className="hero" id="top">
         <picture className="hero__media">
-          <source media="(min-width: 1295px)" srcSet="/assets/figma-hero-tablet.png" />
-          <img src="/assets/figma-hero-tablet.png" alt="Цифровий лист над мікросхемою" />
+          <source media="(min-width: 1295px)" srcSet="/assets/home-hero-desktop.png" />
+          <source media="(min-width: 601px)" srcSet="/assets/home-hero-tablet.png" />
+          <img src="/assets/home-hero-mobile.png" alt="Цифровий лист над мікросхемою" />
         </picture>
         <div className="hero__copy">
           <span className="hero__pill">Технологічні рішення для розвитку бізнесу</span>
@@ -170,7 +171,7 @@ export default function Home() {
         <div className="benefits__layout">
           <div className="benefits__intro">
             <Eyebrow>Переваги</Eyebrow>
-            <h2><strong>Чому</strong> обирають нас<br />Якість, якій<br className="benefits__mobile-break" />Довіряють</h2>
+            <h2><strong>Чому</strong> обирають нас<br />Якість, якій<br className="benefits__mobile-break" />{" "}Довіряють</h2>
             <Button outline>Дізнатися більше</Button>
           </div>
           {benefits.map((_, index) => <BenefitCard key={index} index={index} />)}

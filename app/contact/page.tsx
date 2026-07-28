@@ -54,7 +54,11 @@ export default function ContactPage() {
       <SiteHeader links={contactLinks} />
 
       <PageHero variant="image" className="contact-page-hero" id="top">
-        <img className="contact-page-hero__image" src="/assets/contact-hero.png" alt="" />
+        <picture className="contact-page-hero__media">
+          <source media="(min-width: 1295px)" srcSet="/assets/contact-hero-desktop-exact.png" />
+          <source media="(min-width: 601px)" srcSet="/assets/contact-hero-tablet-exact.png" />
+          <img className="contact-page-hero__image" src="/assets/contact-hero-mobile-exact.png" alt="" />
+        </picture>
         <nav className="contact-page__breadcrumbs" aria-label="Навігаційний ланцюжок">
           <a href="../">Головна</a><i /><span>Контакти</span>
         </nav>

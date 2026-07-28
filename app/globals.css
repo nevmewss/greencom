@@ -7802,3 +7802,770 @@ h3 {
     background-size: auto, 112vw auto, max(100vw, 360px) auto;
   }
 }
+
+/* ========================================================================== */
+/* Fluid layout and exact full-page artwork pass                               */
+/* ========================================================================== */
+
+:root {
+  --fluid-gutter: max(10px, calc((100vw - 1260px) / 2));
+  --fluid-content: calc(100vw - (2 * var(--fluid-gutter)));
+}
+
+html {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+body,
+.site-shell,
+.about-page,
+.contact-page,
+.not-found-page {
+  width: 100%;
+  max-width: none;
+}
+
+/* The exported page artwork is the only decorative layer. Keeping old
+   component pseudos enabled duplicated and clipped the Figma backgrounds. */
+.site-shell .section-bg::before,
+.about-page .section-bg::before,
+.contact-page .section-bg::before,
+.not-found-page .section-bg::before,
+.site-shell .partners::before,
+.about-page .partners::before,
+.contact-page .partners::before,
+.contact-office::before,
+.about-overview::after,
+.about-results::after,
+.about-team::after,
+.about-history::before,
+.about-history::after {
+  display: none !important;
+}
+
+.site-shell {
+  background: #000;
+}
+
+.site-shell::before {
+  inset: 899px 0 auto !important;
+  width: 100% !important;
+  height: 6168px !important;
+  background: url("/assets/desktop-page-background.png") center top / 100% 6168px no-repeat !important;
+  opacity: 1 !important;
+}
+
+.about-page {
+  background: #000;
+}
+
+.about-page::before {
+  inset: 516px 0 auto !important;
+  width: 100% !important;
+  height: 5724px !important;
+  background: url("/assets/about-page-background-desktop.png") center top / 100% 5724px no-repeat !important;
+  opacity: 1 !important;
+}
+
+.contact-page {
+  background: #000;
+}
+
+.contact-page::before {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: url("/assets/contact-page-background-desktop.png") center top / 100% 100% no-repeat !important;
+  opacity: 1 !important;
+}
+
+.not-found-page::before {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: url("/assets/not-found-background-desktop.png") center top / 100% 100% no-repeat !important;
+  opacity: 1 !important;
+}
+
+.hero__media {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 979px !important;
+}
+
+.hero__media picture,
+.hero__media img,
+.about-hero__media picture,
+.about-hero__media img,
+.contact-page-hero__media,
+.contact-page-hero__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__media img,
+.contact-page-hero__media img {
+  max-width: none;
+  object-fit: fill;
+  object-position: center;
+  transform: none;
+}
+
+.about-hero__media img {
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  transform: none;
+}
+
+.contact-page-hero__media {
+  position: absolute;
+  z-index: 0;
+  top: 56px;
+  left: 0;
+  height: 429px;
+}
+
+.contact-page-hero__image {
+  position: static;
+}
+
+.about-hero__media {
+  inset: 0 !important;
+  z-index: 0 !important;
+  width: 100% !important;
+  height: 661px !important;
+}
+
+.about-hero__shade {
+  z-index: 1 !important;
+}
+
+.about-breadcrumbs,
+.about-hero__content {
+  z-index: 2 !important;
+}
+
+@media (min-width: 1295px) {
+  .benefits__layout,
+  .services__head,
+  .services__grid,
+  .news__cards {
+    max-width: 1260px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1294px) {
+  :root {
+    --fluid-gutter: clamp(30px, calc(30px + ((100vw - 834px) * 0.1)), 76px);
+  }
+
+  .site-shell::before {
+    inset: 730px 0 auto !important;
+    height: 7149px !important;
+    background-image: url("/assets/tablet-page-background.png") !important;
+    background-size: 100% 7149px !important;
+  }
+
+  .about-page::before {
+    inset: 216px 0 auto !important;
+    height: 6157px !important;
+    background-image: url("/assets/about-page-background-tablet.png") !important;
+    background-size: 100% 6157px !important;
+  }
+
+  .contact-page::before {
+    background-image: url("/assets/contact-page-background-tablet.png") !important;
+  }
+
+  .not-found-page::before {
+    background-image: url("/assets/not-found-background-tablet.png") !important;
+  }
+
+  .site-shell .footer::before,
+  .about-page .footer::before {
+    display: block !important;
+    inset: 0 !important;
+    width: 100% !important;
+  }
+
+  .navbar__inner,
+  .topbar__inner {
+    width: var(--fluid-content) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+    padding-inline: 0 !important;
+  }
+
+  /* Home hero */
+  .hero {
+    height: 652px !important;
+  }
+
+  .hero__media {
+    top: -48px !important;
+    height: 705px !important;
+  }
+
+  .hero__copy {
+    top: 26px !important;
+    left: var(--fluid-gutter) !important;
+    width: min(461px, var(--fluid-content)) !important;
+  }
+
+  .hero__stats {
+    top: 407px !important;
+    left: var(--fluid-gutter) !important;
+    width: var(--fluid-content) !important;
+  }
+
+  .hero-feature {
+    right: var(--fluid-gutter) !important;
+    left: auto !important;
+  }
+
+  .hero__dots {
+    right: var(--fluid-gutter) !important;
+    left: auto !important;
+  }
+
+  /* Every tablet content block consumes all available frame width. */
+  .benefits__layout,
+  .services__head,
+  .services__grid,
+  .news__cards {
+    width: var(--fluid-content) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+  }
+
+  .services,
+  .about,
+  .partners,
+  .news,
+  .contact,
+  .about-overview,
+  .about-results,
+  .about-team,
+  .about-history,
+  .contact-office,
+  .contact-map,
+  .contact-faq,
+  .contact-page-form {
+    padding-inline: var(--fluid-gutter) !important;
+  }
+
+  .services__head,
+  .services__grid,
+  .about__visual,
+  .about__content,
+  .news__head,
+  .contact__info,
+  .contact-form,
+  .about-section-inner,
+  .about-results__panel,
+  .about-team__intro,
+  .about-team__slider,
+  .about-history__visual,
+  .about-history__timeline,
+  .contact-office__panel,
+  .contact-map__panel,
+  .contact-faq__intro,
+  .contact-faq__list,
+  .contact-page-form__intro,
+  .contact-page-form__panel {
+    max-width: none !important;
+  }
+
+  .about__visual,
+  .about__content,
+  .news__head,
+  .contact__info,
+  .contact-form,
+  .about-section-inner,
+  .about-results__panel,
+  .about-history__visual,
+  .about-history__timeline,
+  .contact-office__panel,
+  .contact-map__panel,
+  .contact-page-form__intro,
+  .contact-page-form__panel {
+    width: 100% !important;
+  }
+
+  .about-team {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  }
+
+  .about-team__slider {
+    width: 100% !important;
+  }
+
+  .partners__intro {
+    left: var(--fluid-gutter) !important;
+  }
+
+  .partners__cloud {
+    right: var(--fluid-gutter) !important;
+    left: auto !important;
+  }
+
+  .news__cards {
+    left: var(--fluid-gutter) !important;
+  }
+
+  .newsletter__content {
+    left: 0 !important;
+    right: auto !important;
+    width: 100% !important;
+  }
+
+  .newsletter__form {
+    right: auto !important;
+    left: 0 !important;
+    width: 100% !important;
+  }
+
+  .newsletter {
+    padding-inline: var(--fluid-gutter) !important;
+  }
+
+  .footer__main,
+  .footer__bottom {
+    width: var(--fluid-content) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+  }
+
+  /* About page */
+  .about-hero {
+    height: 532px !important;
+  }
+
+  .about-hero__media {
+    top: -12px !important;
+    height: 544px !important;
+  }
+
+  .about-hero__content {
+    left: var(--fluid-gutter) !important;
+    width: min(735px, var(--fluid-content)) !important;
+  }
+
+  .about-history {
+    grid-template-columns: 1fr !important;
+  }
+
+  .about-history__image {
+    width: 100% !important;
+  }
+
+  .about-history__image i {
+    right: 0 !important;
+    width: 73.64% !important;
+  }
+
+  .about-history__image img {
+    width: 92.5% !important;
+  }
+
+  .about-history__timeline article {
+    width: 100% !important;
+  }
+
+  /* Contact page */
+  .contact-page-hero {
+    height: 283px !important;
+  }
+
+  .contact-page-hero__media {
+    top: 0 !important;
+    height: 283px !important;
+  }
+
+  .contact-page__breadcrumbs,
+  .contact-page-hero__copy,
+  .not-found-page__breadcrumbs,
+  .not-found-page__copy {
+    left: var(--fluid-gutter) !important;
+  }
+
+  .contact-page-hero__copy {
+    width: min(642px, var(--fluid-content)) !important;
+  }
+
+  .contact-page-hero__copy p,
+  .contact-faq__intro > p,
+  .contact-page-form__intro > p {
+    width: 100% !important;
+  }
+
+  .contact-office__panel {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  }
+
+  .contact-office__photo {
+    width: 100% !important;
+  }
+
+  .contact-map__address {
+    left: 52.62% !important;
+  }
+
+  .contact-faq {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 824px) {
+  /* Keep the Figma tablet composition while letting the 601–824 range breathe. */
+  :root {
+    --fluid-gutter: clamp(20px, calc(20px + ((100vw - 600px) * 0.0446)), 30px);
+  }
+
+  .about {
+    height: 1490.456px !important;
+  }
+
+  .footer,
+  .about-page .footer,
+  .contact-page .footer {
+    height: 464px !important;
+  }
+
+  .about-page {
+    min-height: 7241px !important;
+  }
+
+  .contact-page {
+    min-height: 4672px !important;
+  }
+
+  .contact-page-hero__copy {
+    top: clamp(88px, calc(88px + ((100vw - 601px) * 0.471)), 193px) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --fluid-gutter: clamp(10px, calc(10px + ((100vw - 360px) * 0.04167)), 20px);
+  }
+
+  .site-shell::before {
+    inset: 825px 0 auto !important;
+    height: 9698px !important;
+    background-image: url("/assets/mobile-page-background.png") !important;
+    background-size: 100% 9698px !important;
+  }
+
+  .about-page::before {
+    inset: 678px 0 auto !important;
+    height: 7802px !important;
+    background-image: url("/assets/about-page-background-mobile.png") !important;
+    background-size: 100% 7802px !important;
+  }
+
+  .contact-page::before {
+    background-image: url("/assets/contact-page-background-mobile.png") !important;
+  }
+
+  .not-found-page::before {
+    background-image: url("/assets/not-found-background-mobile.png") !important;
+  }
+
+  .mobile-header,
+  .mobile-header__main,
+  .mobile-menu {
+    width: 100% !important;
+  }
+
+  /* Exact mobile hero art spans the viewport; content remains independently
+     aligned to the Figma gutter. */
+  .hero {
+    height: 813.177px !important;
+  }
+
+  .hero__media {
+    top: 249px !important;
+    height: 434px !important;
+  }
+
+  .hero__copy {
+    left: var(--fluid-gutter) !important;
+    width: var(--fluid-content) !important;
+    max-width: none !important;
+  }
+
+  .hero-feature {
+    right: var(--fluid-gutter) !important;
+    left: auto !important;
+  }
+
+  .hero__stats {
+    left: var(--fluid-gutter) !important;
+    width: min(100%, 256px) !important;
+  }
+
+  .hero__dots {
+    right: var(--fluid-gutter) !important;
+    left: auto !important;
+  }
+
+  /* Shared full-width mobile content. */
+  .benefits__layout,
+  .services__head,
+  .services__grid,
+  .about__visual,
+  .about__content,
+  .partners__cloud,
+  .news__head,
+  .news__cards,
+  .contact__info,
+  .contact-form,
+  .newsletter__content,
+  .newsletter__form,
+  .footer__brand,
+  .footer__nav,
+  .about-section-inner,
+  .about-results__panel,
+  .about-team__intro,
+  .about-team__slider,
+  .about-history__visual,
+  .about-history__timeline,
+  .contact-office__panel,
+  .contact-map__panel,
+  .contact-faq__intro,
+  .contact-faq__list,
+  .contact-page-form__intro,
+  .contact-page-form__panel,
+  .not-found-page__copy {
+    width: var(--fluid-content) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+  }
+
+  .services,
+  .about,
+  .partners,
+  .news,
+  .contact,
+  .about-overview,
+  .about-results,
+  .about-team,
+  .about-history,
+  .contact-office,
+  .contact-map,
+  .contact-faq,
+  .contact-page-form {
+    padding-inline: var(--fluid-gutter) !important;
+  }
+
+  .services__head,
+  .services__grid,
+  .about__visual,
+  .about__content,
+  .news__head,
+  .news__cards,
+  .contact__info,
+  .contact-form,
+  .newsletter__content,
+  .newsletter__form,
+  .footer__brand,
+  .footer__nav,
+  .about-section-inner,
+  .about-results__panel,
+  .about-team__intro,
+  .about-team__slider,
+  .about-history__visual,
+  .about-history__timeline,
+  .contact-office__panel,
+  .contact-map__panel,
+  .contact-faq__intro,
+  .contact-faq__list,
+  .contact-page-form__intro,
+  .contact-page-form__panel {
+    left: auto !important;
+    right: auto !important;
+  }
+
+  .benefits__intro,
+  .about-results__intro,
+  .about-team__intro > p,
+  .about-overview__copy,
+  .about__content > p,
+  .about__content ul,
+  .contact__info > p,
+  .contact-faq__intro > p,
+  .contact-page-form__intro > p {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .service-card,
+  .services__grid .service-card,
+  .services__grid .service-card:nth-child(n),
+  .news-card,
+  .news__stack,
+  .contact__methods,
+  .contact__methods a {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .news-card__image,
+  .news-card__body,
+  .news__stack .news-card__image,
+  .news__stack .news-card__body {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .about__photo {
+    width: 100% !important;
+  }
+
+  .about__border {
+    right: 0 !important;
+    left: auto !important;
+  }
+
+  .partners__intro {
+    left: var(--fluid-gutter) !important;
+    width: min(294px, var(--fluid-content)) !important;
+  }
+
+  .partners__cloud {
+    left: var(--fluid-gutter) !important;
+  }
+
+  .partner--1 {
+    left: calc(50% - 55.5px) !important;
+  }
+
+  .partner--2 {
+    left: 8% !important;
+  }
+
+  .partner--3 {
+    left: calc(50% - 55.5px) !important;
+  }
+
+  .partner--4 {
+    right: 2% !important;
+    left: auto !important;
+  }
+
+  .partner--5 {
+    left: 0 !important;
+  }
+
+  .partner--6 {
+    left: calc(50% - 55.5px) !important;
+  }
+
+  .partner--7 {
+    right: 0 !important;
+    left: auto !important;
+  }
+
+  .newsletter__content,
+  .newsletter__form {
+    position: relative !important;
+    top: auto !important;
+  }
+
+  .newsletter__form > div {
+    width: 100% !important;
+  }
+
+  .footer__main,
+  .footer__bottom {
+    width: var(--fluid-content) !important;
+    max-width: none !important;
+    margin-inline: auto !important;
+  }
+
+  /* About */
+  .about-hero__media {
+    top: 233px !important;
+    height: 434px !important;
+  }
+
+  .about-hero__content {
+    left: var(--fluid-gutter) !important;
+    width: var(--fluid-content) !important;
+  }
+
+  .about-results__grid,
+  .about-results__grid article {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .about-results__grid {
+    gap: clamp(11px, calc(11px + ((100vw - 360px) * 0.0583)), 18px) !important;
+  }
+
+  .about-team-card {
+    width: 100% !important;
+  }
+
+  .about-team-card__image {
+    width: 100% !important;
+  }
+
+  .about-history__image {
+    width: 100% !important;
+  }
+
+  .about-history__timeline article {
+    width: 100% !important;
+  }
+
+  /* Contact */
+  .contact-page-hero {
+    height: 314px !important;
+  }
+
+  .contact-page-hero__media {
+    top: -9px !important;
+    height: 323px !important;
+  }
+
+  .contact-page__breadcrumbs,
+  .contact-page-hero__copy,
+  .not-found-page__breadcrumbs,
+  .not-found-page__copy {
+    left: var(--fluid-gutter) !important;
+  }
+
+  .contact-page-hero__copy,
+  .contact-page-hero__copy p {
+    width: var(--fluid-content) !important;
+    max-width: none !important;
+  }
+
+  .contact-office__photo {
+    width: 100% !important;
+  }
+
+  .contact-map__address {
+    right: 24px !important;
+    left: auto !important;
+    max-width: calc(100% - 48px) !important;
+  }
+
+  .contact-page-form__intro {
+    min-height: 150px;
+  }
+
+  .not-found-page__copy {
+    margin-inline: 0 !important;
+  }
+}

@@ -74,9 +74,9 @@ export default function AboutPage() {
 
       <PageHero variant="image" className="about-hero" id="top">
         <picture className="about-hero__media">
-          <source media="(max-width: 600px)" srcSet="/assets/about-hero-mobile.png" />
-          <source media="(max-width: 1294px)" srcSet="/assets/about-hero-tablet.png" />
-          <img src="/assets/about-hero.png" alt="Сучасний офіс GreenCom із серверним обладнанням" />
+          <source media="(min-width: 1295px)" srcSet="/assets/about-hero.png" />
+          <source media="(min-width: 601px)" srcSet="/assets/about-hero-tablet.png" />
+          <img src="/assets/about-hero-mobile.png" alt="Сучасний офіс GreenCom із серверним обладнанням" />
         </picture>
         <div className="about-hero__shade" />
         <nav className="about-breadcrumbs" aria-label="Навігаційний ланцюжок">
