@@ -6023,12 +6023,35 @@ h3 {
 
   .hero__media img {
     inset: 0;
+    z-index: 1;
     width: 100%;
     height: 100%;
     aspect-ratio: auto;
     object-fit: contain;
     object-position: center bottom;
     transform: none;
+  }
+}
+
+@media (min-width: 1755px) {
+  .hero__media {
+    background:
+      radial-gradient(ellipse 58% 88% at 76% 52%, rgba(15, 43, 46, 0.92), rgba(4, 15, 17, 0.72) 58%, transparent 84%),
+      #000;
+  }
+
+  .hero__media img {
+    inset: 0 auto 0 50%;
+    width: 1451px;
+    height: 979px;
+    object-fit: fill;
+    transform: translateX(-50%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 92%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 5%, #000 92%, transparent 100%);
+  }
+
+  .hero__media::after {
+    z-index: 2;
   }
 }
 
