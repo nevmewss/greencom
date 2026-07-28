@@ -115,7 +115,7 @@ export default function Home() {
 
       <section className="hero" id="top">
         <picture className="hero__media">
-          <source media="(min-width: 1295px)" srcSet="/assets/hero-main.png" />
+          <source media="(min-width: 1295px)" srcSet="/assets/figma-hero-tablet.png" />
           <img src="/assets/figma-hero-tablet.png" alt="Цифровий лист над мікросхемою" />
         </picture>
         <div className="hero__copy">
