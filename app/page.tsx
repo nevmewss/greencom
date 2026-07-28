@@ -182,7 +182,7 @@ export default function Home() {
         <div className="services__head">
           <div><Eyebrow>Наші пропозиції</Eyebrow><h2><strong>Пропонуємо</strong> найкращі<br />Рішення Автоматизації <strong>Бізнесу</strong></h2></div>
           <span className="services__badge" aria-label="Рекомендовані рішення">
-            <img src="/assets/service-sticker.png" alt="" />
+            <img src="/assets/service-sticker-4x.png" alt="" />
           </span>
         </div>
         <Swiper
