@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
-import { A11y, Grid } from "swiper/modules";
+import { A11y, Autoplay, Grid } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/grid";
@@ -48,6 +48,12 @@ const news = [
 }));
 
 const partnerLogos = ["natgeo", "walmart", "slack", "natgeo", "natgeo", "linkedin", "natgeo"];
+
+const heroSlides = [
+  "Налаштовуємо сучасні системи для ефективної роботи підприємств.",
+  "Поєднуємо обладнання, дані та процеси в єдину систему.",
+  "Допомагаємо бізнесу зростати завдяки технологіям.",
+];
 
 function BenefitCard({ index }: { index: number }) {
   const benefit = benefits[index];
@@ -102,6 +108,7 @@ const homeLinks: SiteLinks = {
 
 export default function Home() {
   const [heroSlide, setHeroSlide] = useState(0);
+  const heroSwiper = useRef<SwiperInstance | null>(null);
   const serviceSwiper = useRef<SwiperInstance | null>(null);
   const [serviceNavigation, setServiceNavigation] = useState({ isBeginning: true, isEnd: false });
 
@@ -134,12 +141,29 @@ export default function Home() {
             <b>1000+</b><p>Задоволених клієнтів</p><i aria-hidden="true">→</i>
           </a>
         </div>
-        <article className="hero-feature">
-          <h2>Автоматизація <span>бізнес-процесів</span></h2>
-          <p>{heroSlide === 0 ? "Налаштовуємо сучасні системи для ефективної роботи підприємств." : heroSlide === 1 ? "Поєднуємо обладнання, дані та процеси в єдину систему." : "Допомагаємо бізнесу зростати завдяки технологіям."}</p>
-          <a href="#services">Детальніше</a>
+        <article className="hero-feature" aria-label="Рішення автоматизації">
+          <Swiper
+            className="hero-feature__swiper"
+            modules={[A11y, Autoplay]}
+            loop
+            speed={650}
+            autoplay={{ delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true }}
+            onSwiper={(swiper) => {
+              heroSwiper.current = swiper;
+              setHeroSlide(swiper.realIndex);
+            }}
+            onSlideChange={(swiper) => setHeroSlide(swiper.realIndex)}
+          >
+            {heroSlides.map((text, index) => (
+              <SwiperSlide key={text}>
+                <h2>Автоматизація <span>бізнес-процесів</span></h2>
+                <p>{text}</p>
+                <a href="#services" aria-label={`Детальніше про рішення ${index + 1}`}>Детальніше</a>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </article>
-        <div className="hero__dots">{[0, 1, 2].map((item) => <button key={item} className={heroSlide === item ? "is-active" : ""} onClick={() => setHeroSlide(item)} aria-label={`Слайд ${item + 1}`} />)}</div>
+        <div className="hero__dots">{heroSlides.map((_, item) => <button key={item} className={heroSlide === item ? "is-active" : ""} onClick={() => heroSwiper.current?.slideToLoop(item)} aria-label={`Слайд ${item + 1}`} aria-current={heroSlide === item ? "true" : undefined} />)}</div>
       </section>
 
       <section className="benefits section-bg section-bg--waves" id="benefits">
