@@ -57,27 +57,6 @@ export function SiteHeader({
     return () => document.body.classList.remove("no-scroll");
   }, [menuOpen, searchOpen, loginOpen, cartOpen]);
 
-  useEffect(() => {
-    const shell = document.querySelector<HTMLElement>(".site-shell, .about-page, .contact-page, .not-found-page");
-    if (!shell) return;
-
-    const syncDesktopScale = () => {
-      if (window.innerWidth >= 1295) {
-        const viewportWidth = document.documentElement.clientWidth;
-        shell.style.setProperty("zoom", String(viewportWidth / 1440));
-      } else {
-        shell.style.removeProperty("zoom");
-      }
-    };
-
-    syncDesktopScale();
-    window.addEventListener("resize", syncDesktopScale);
-    return () => {
-      window.removeEventListener("resize", syncDesktopScale);
-      shell.style.removeProperty("zoom");
-    };
-  }, []);
-
   function closeMenu() {
     setMenuOpen(false);
     setOpenDropdown(null);
