@@ -12,6 +12,8 @@ import {
   ContactFormPanel,
   Eyebrow,
   NewsletterSection,
+  PageHero,
+  PartnersSection,
   SiteFooter,
   SiteHeader,
   type SiteLinks,
@@ -46,8 +48,6 @@ const news = [
   title: "Посібник з цифрової трансформації 2026 року",
   text: "Перемога в цифровій гонці: Дорожня карта трансформації 2025 року. Цифрова трансформація наступного покоління",
 }));
-
-const partnerLogos = ["natgeo", "walmart", "slack", "natgeo", "natgeo", "linkedin", "natgeo"];
 
 const heroSlides = [
   "Налаштовуємо сучасні системи для ефективної роботи підприємств.",
@@ -120,7 +120,7 @@ export default function Home() {
     <main className="site-shell">
       <SiteHeader links={homeLinks} />
 
-      <section className="hero" id="top">
+      <PageHero variant="slider" className="hero" id="top">
         <picture className="hero__media">
           <source media="(min-width: 1295px)" srcSet="/assets/figma-hero-tablet.png" />
           <img src="/assets/figma-hero-tablet.png" alt="Цифровий лист над мікросхемою" />
@@ -164,7 +164,7 @@ export default function Home() {
           </Swiper>
         </article>
         <div className="hero__dots">{heroSlides.map((_, item) => <button key={item} className={heroSlide === item ? "is-active" : ""} onClick={() => heroSwiper.current?.slideToLoop(item)} aria-label={`Слайд ${item + 1}`} aria-current={heroSlide === item ? "true" : undefined} />)}</div>
-      </section>
+      </PageHero>
 
       <section className="benefits section-bg section-bg--waves" id="benefits">
         <div className="benefits__layout">
@@ -266,14 +266,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="partners section-bg section-bg--waves" id="partners">
-        <div className="partners__intro"><Eyebrow>Наші партнери</Eyebrow><h2><strong>Компанії</strong> які<br />Довіряють нам</h2><Button>Дізнатися більше</Button></div>
-        <div className="partners__cloud">{partnerLogos.map((logo, index) => <div className={`partner partner--${index + 1}`} key={`${logo}-${index}`}><span><img src={`/assets/partner-${logo}.svg`} alt={logo} /></span></div>)}</div>
-      </section>
+      <PartnersSection />
 
       <section className="news section-bg section-bg--waves" id="news">
-        <div className="news__head"><Eyebrow>Новини</Eyebrow><h2><strong>Ділимося</strong> Останніми<br />Новинами у Сфері<br /><strong>Автоматизації</strong></h2><Button>Всі новини</Button></div>
-        <div className="news__cards"><NewsCard index={0} featured /><div className="news__stack"><NewsCard index={1} /><NewsCard index={2} /><NewsCard index={3} /></div></div>
+        <div className="news__head"><Eyebrow>Новини</Eyebrow><h2><strong>Ділимося</strong> Останніми<br />Новинами у Сфері<br /><strong>Автоматизації</strong></h2><Button href="#news-list">Всі новини</Button></div>
+        <div className="news__cards" id="news-list"><NewsCard index={0} featured /><div className="news__stack"><NewsCard index={1} /><NewsCard index={2} /><NewsCard index={3} /></div></div>
       </section>
 
       <section className="contact section-bg section-bg--waves" id="contact">

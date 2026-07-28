@@ -7,6 +7,7 @@ import {
   ContactFormPanel,
   Eyebrow,
   NewsletterSection,
+  PageHero,
   SiteFooter,
   SiteHeader,
   type SiteLinks,
@@ -52,7 +53,7 @@ export default function ContactPage() {
     <main className="contact-page">
       <SiteHeader links={contactLinks} />
 
-      <section className="contact-page-hero" id="top">
+      <PageHero variant="image" className="contact-page-hero" id="top">
         <img className="contact-page-hero__image" src="/assets/contact-hero.png" alt="" />
         <nav className="contact-page__breadcrumbs" aria-label="Навігаційний ланцюжок">
           <a href="../">Головна</a><i /><span>Контакти</span>
@@ -61,7 +62,7 @@ export default function ContactPage() {
           <h1>Контакти</h1>
           <p>Зв’яжіться з нами для консультації, підтримки або обговорення вашого проєкту. Ми завжди готові допомогти з автоматизацією, IT-рішеннями та технологіями для бізнесу.</p>
         </div>
-      </section>
+      </PageHero>
 
       <section className="contact-office">
         <div className="contact-office__panel">

@@ -33,6 +33,47 @@ export function Button({
   );
 }
 
+export type PageHeroVariant = "slider" | "standard" | "image";
+
+export function PageHero({
+  variant,
+  className = "",
+  id,
+  children,
+}: {
+  variant: PageHeroVariant;
+  className?: string;
+  id?: string;
+  children: ReactNode;
+}) {
+  return (
+    <section className={`page-hero page-hero--${variant} ${className}`} id={id}>
+      {children}
+    </section>
+  );
+}
+
+const partnerLogos = ["natgeo", "walmart", "slack", "natgeo", "natgeo", "linkedin", "natgeo"];
+
+export function PartnersSection({ id = "partners" }: { id?: string }) {
+  return (
+    <section className="partners section-bg section-bg--waves" id={id}>
+      <div className="partners__intro">
+        <Eyebrow>Наші партнери</Eyebrow>
+        <h2><strong>Компанії</strong> які<br />Довіряють нам</h2>
+        <Button href="#contact">Дізнатися більше</Button>
+      </div>
+      <div className="partners__cloud">
+        {partnerLogos.map((logo, index) => (
+          <div className={`partner partner--${index + 1}`} key={`${logo}-${index}`}>
+            <span><img src={`/assets/partner-${logo}.svg`} alt={logo} /></span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function Check({ defaultChecked = false }: { defaultChecked?: boolean }) {
   return <input className="checkbox" type="checkbox" defaultChecked={defaultChecked} required />;
 }

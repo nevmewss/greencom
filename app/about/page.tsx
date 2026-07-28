@@ -11,12 +11,12 @@ import {
   ContactFormPanel,
   Eyebrow,
   NewsletterSection,
+  PageHero,
+  PartnersSection,
   SiteFooter,
   SiteHeader,
   type SiteLinks,
 } from "../components/site";
-
-const partnerLogos = ["natgeo", "walmart", "slack", "natgeo", "natgeo", "linkedin", "natgeo"];
 
 const achievements = [
   { value: "24/7", text: "успішно реалізованих проєктів для бізнесу різних масштабів" },
@@ -72,7 +72,7 @@ export default function AboutPage() {
     <main className="about-page">
       <SiteHeader links={aboutLinks} />
 
-      <section className="about-hero" id="top">
+      <PageHero variant="image" className="about-hero" id="top">
         <picture className="about-hero__media">
           <source media="(max-width: 600px)" srcSet="/assets/about-hero-mobile.png" />
           <source media="(max-width: 1294px)" srcSet="/assets/about-hero-tablet.png" />
@@ -88,7 +88,7 @@ export default function AboutPage() {
           <p>GreenCore — це команда експертів, яка з 2019 року допомагає компаніям оптимізувати процеси, підвищувати ефективність та масштабувати свій бізнес за допомогою сучасних технологічних рішень.</p>
           <Button outline href="#contact">Зв&apos;язатися з нами</Button>
         </div>
-      </section>
+      </PageHero>
 
       <section className="about-overview">
         <div className="about-section-inner">
@@ -172,10 +172,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="partners section-bg section-bg--waves" id="partners">
-        <div className="partners__intro"><Eyebrow>Наші партнери</Eyebrow><h2><strong>Компанії</strong> які<br />Довіряють нам</h2><Button>Дізнатися більше</Button></div>
-        <div className="partners__cloud">{partnerLogos.map((logo, index) => <div className={`partner partner--${index + 1}`} key={`${logo}-${index}`}><span><img src={`/assets/partner-${logo}.svg`} alt={logo} /></span></div>)}</div>
-      </section>
+      <PartnersSection />
 
       <section className="contact section-bg section-bg--waves" id="contact">
         <div className="contact__info">
