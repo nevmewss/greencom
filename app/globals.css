@@ -3667,8 +3667,9 @@ h3 {
   .services__badge {
     position: absolute;
     top: 118px;
-    right: 11px;
+    right: auto;
     bottom: auto;
+    left: 73.235%;
     width: 80px;
     height: 80px;
     animation: none;
