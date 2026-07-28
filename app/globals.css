@@ -7427,7 +7427,6 @@ h3 {
 }
 
 .hero__buttons .button:last-child,
-.stat-card--solutions,
 .hero-feature,
 .news-card,
 .contact__methods a,
@@ -7450,6 +7449,19 @@ h3 {
     radial-gradient(130% 95% at 5% -8%, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.045) 25%, transparent 52%),
     linear-gradient(138deg, rgba(255, 255, 255, 0.075) 0%, rgba(255, 255, 255, 0.035) 46%, rgba(21, 31, 34, 0.16) 100%);
   box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(11px) saturate(128%);
+  backdrop-filter: blur(11px) saturate(128%);
+}
+
+.stat-card--solutions {
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(11px) saturate(128%);
+  backdrop-filter: blur(11px) saturate(128%);
+}
+
+.stat-card--clients {
   -webkit-backdrop-filter: blur(11px) saturate(128%);
   backdrop-filter: blur(11px) saturate(128%);
 }
