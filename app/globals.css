@@ -2553,7 +2553,7 @@ h3 {
 
   .hero__dots {
     top: 556px;
-    right: 31px;
+    right: 30px;
     left: auto;
   }
 
@@ -3041,8 +3041,8 @@ h3 {
   }
 
   .hero-feature {
-    right: auto;
-    left: calc(50% + 386px);
+    right: max(30px, calc(50% - 627px));
+    left: auto;
   }
 
   .stat-card--clients {
@@ -3279,8 +3279,7 @@ h3 {
   }
 
   .hero__dots {
-    right: auto;
-    right: 40px;
+    right: 30px;
     left: auto;
   }
 
@@ -3567,8 +3566,8 @@ h3 {
 
   .hero__dots {
     top: 628px;
-    right: auto;
-    left: 241px;
+    right: 10px;
+    left: auto;
   }
 
   .hero__stats {
@@ -4359,7 +4358,8 @@ h3 {
   }
 
   .hero__dots {
-    left: calc(50% + 61px);
+    right: calc(50% - 170px);
+    left: auto;
   }
 
   .hero__stats {
