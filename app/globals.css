@@ -2824,8 +2824,9 @@ h3 {
   }
 
   .about__bottom .button {
+    right: 0;
     left: 459px;
-    width: 315px;
+    width: auto;
   }
 
   .partners {
@@ -8031,7 +8032,7 @@ body,
   }
 
   .hero__dots {
-    right: var(--fluid-gutter) !important;
+    right: calc(var(--fluid-gutter) + 10px) !important;
     left: auto !important;
   }
 
@@ -8313,7 +8314,7 @@ body,
   }
 
   .hero__dots {
-    right: var(--fluid-gutter) !important;
+    right: calc(var(--fluid-gutter) + 13px) !important;
     left: auto !important;
   }
 
@@ -8784,10 +8785,6 @@ body,
 }
 
 @media (max-width: 600px) {
-  .hero__dots {
-    right: calc(var(--fluid-gutter) + 40px) !important;
-  }
-
   .about__bottom {
     width: 100% !important;
   }
