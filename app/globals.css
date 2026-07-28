@@ -8587,6 +8587,17 @@ body,
   z-index: 2;
 }
 
+.contact-page-hero::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.96) 0%,
+      rgba(0, 0, 0, 0.72) 29%,
+      rgba(0, 0, 0, 0.03) 67%
+    ),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.48) 0%, transparent 34%) !important;
+}
+
 @media (min-width: 1295px) {
   .about-page .site-header,
   .contact-page .site-header {
@@ -8599,9 +8610,8 @@ body,
 
   .about-page .navbar,
   .contact-page .navbar {
-    background:
-      linear-gradient(180deg, rgba(8, 12, 13, 0.62), rgba(8, 12, 13, 0.34));
-    backdrop-filter: blur(10px);
+    background: rgba(8, 12, 13, 0.28);
+    backdrop-filter: blur(5px);
   }
 
   .about-page .newsletter__content,
@@ -8611,6 +8621,17 @@ body,
 }
 
 @media (min-width: 825px) and (max-width: 1294px) {
+  .contact-page-hero::after {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.92) 0%,
+        rgba(0, 0, 0, 0.66) 40%,
+        transparent 76%
+      ),
+      linear-gradient(0deg, rgba(0, 0, 0, 0.46) 0%, transparent 30%) !important;
+  }
+
   .contact-page-hero {
     height: clamp(
       283px,
@@ -8656,6 +8677,77 @@ body,
 }
 
 @media (min-width: 601px) and (max-width: 824px) {
+  .contact-page-hero::after {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.92) 0%,
+        rgba(0, 0, 0, 0.66) 40%,
+        transparent 76%
+      ),
+      linear-gradient(0deg, rgba(0, 0, 0, 0.46) 0%, transparent 30%) !important;
+  }
+
+  .about__content {
+    height: 421.456px !important;
+  }
+
+  .about__bottom {
+    top: 370px !important;
+    display: grid !important;
+    width: 100% !important;
+    height: 51.456px !important;
+    grid-template-columns:
+      128px
+      1px
+      minmax(200px, 229px)
+      1px
+      minmax(195px, 315px);
+    column-gap:
+      clamp(
+        8px,
+        calc(8px + ((100vw - 601px) * 0.04484)),
+        18px
+      );
+    align-items: center;
+    justify-content: space-between;
+    transform: none !important;
+  }
+
+  .about__experience {
+    position: static !important;
+    width: 128px !important;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .about__bottom > i {
+    position: static !important;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .about__bottom > i:last-of-type {
+    display: block !important;
+    grid-column: 4;
+  }
+
+  .about__phone {
+    position: static !important;
+    width: 100% !important;
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .about__bottom .button {
+    position: static !important;
+    width: 100% !important;
+    height: 45px !important;
+    min-height: 45px !important;
+    grid-column: 5;
+    grid-row: 1;
+  }
+
   .contact-page-hero {
     height: calc(314px - ((100vw - 360px) * 0.0654)) !important;
   }
@@ -8675,12 +8767,34 @@ body,
   }
 
   .partners__cloud {
-    right: auto !important;
-    left: 50% !important;
+    right: clamp(
+      -15px,
+      calc(-15px + ((100vw - 601px) * 0.067265)),
+      0px
+    ) !important;
+    left: auto !important;
+    transform: none !important;
+    scale: clamp(
+      0.8,
+      calc(0.8 + 0.2 * ((100vw - 601px) / 223px)),
+      1
+    );
+    transform-origin: top right !important;
   }
 }
 
 @media (max-width: 600px) {
+  .contact-page-hero::after {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.7) 0%,
+        rgba(0, 0, 0, 0.38) 45%,
+        transparent 79%
+      ),
+      linear-gradient(0deg, rgba(0, 0, 0, 0.46) 0%, transparent 28%) !important;
+  }
+
   .services__badge {
     z-index: 5;
   }
