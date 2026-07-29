@@ -122,7 +122,7 @@ export default function Home() {
 
       <PageHero variant="slider" className="hero" id="top">
         <picture className="hero__media">
-          <source media="(min-width: 1295px)" srcSet="/assets/home-hero-desktop.png" />
+          <source media="(min-width: 1024px)" srcSet="/assets/home-hero-desktop.png" />
           <source media="(min-width: 601px)" srcSet="/assets/home-hero-tablet.png" />
           <img src="/assets/home-hero-mobile.png" alt="Цифровий лист над мікросхемою" />
         </picture>

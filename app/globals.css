@@ -8978,3 +8978,138 @@ body,
     ) !important;
   }
 }
+
+/*
+ * Wide tablet / compact desktop bridge.
+ *
+ * The 834px tablet artwork must not be stretched horizontally all the way to
+ * the desktop breakpoint. From 1024px onward use the desktop artwork and grow
+ * the complete composition proportionally while keeping its visible bottom
+ * aligned across the header-mode switch.
+ */
+@media (min-width: 1024px) and (max-width: 1294px) {
+  :root {
+    --hero-wide-scale: clamp(
+      1,
+      calc(1 + ((100vw - 1024px) / 1148.94px)),
+      1.235
+    );
+  }
+
+  .hero {
+    margin-top: 0 !important;
+    height: clamp(
+      700px,
+      calc(700px + ((100vw - 1024px) * 0.42963)),
+      816px
+    ) !important;
+  }
+
+  .hero__media {
+    top: clamp(
+      -64px,
+      calc((100vw - 1024px) * -0.23704),
+      0px
+    ) !important;
+    height: clamp(
+      696px,
+      calc(696px + ((100vw - 1024px) * 0.68148)),
+      880px
+    ) !important;
+  }
+
+  .hero__copy {
+    top: clamp(
+      74px,
+      calc(74px + ((100vw - 1024px) * 0.28889)),
+      152px
+    ) !important;
+    width: clamp(
+      461px,
+      calc(461px + ((100vw - 1024px) * 0.28148)),
+      537px
+    ) !important;
+    transform: scale(var(--hero-wide-scale)) !important;
+    transform-origin: top left !important;
+  }
+
+  .hero__stats {
+    top: clamp(
+      455px,
+      calc(455px + ((100vw - 1024px) * 0.27407)),
+      529px
+    ) !important;
+    width: 256px !important;
+    transform: scale(var(--hero-wide-scale)) !important;
+    transform-origin: top left !important;
+  }
+
+  .hero-feature {
+    top: clamp(
+      455px,
+      calc(455px + ((100vw - 1024px) * 0.06667)),
+      473px
+    ) !important;
+    transform: scale(var(--hero-wide-scale)) !important;
+    transform-origin: top right !important;
+  }
+
+  .hero__dots {
+    top: clamp(
+      604px,
+      calc(604px + ((100vw - 1024px) * 0.23704)),
+      668px
+    ) !important;
+    transform: scale(var(--hero-wide-scale)) !important;
+    transform-origin: top right !important;
+  }
+}
+
+/* Continue the same geometry after the header changes to its desktop mode. */
+@media (min-width: 1295px) and (max-width: 1439px) {
+  :root {
+    --hero-desktop-scale: clamp(
+      0.8993,
+      calc(100vw / 1440px),
+      1
+    );
+  }
+
+  .hero {
+    height: 67.9861vw !important;
+  }
+
+  .hero__media {
+    top: 0 !important;
+    height: 67.9861vw !important;
+  }
+
+  .hero__copy {
+    top: 16.6667vw !important;
+    left: 6.3194vw !important;
+    transform: scale(var(--hero-desktop-scale)) !important;
+    transform-origin: top left !important;
+  }
+
+  .hero__stats {
+    top: 45.8333vw !important;
+    left: 6.6667vw !important;
+    transform: scale(var(--hero-desktop-scale)) !important;
+    transform-origin: top left !important;
+  }
+
+  .hero-feature {
+    top: 41.5278vw !important;
+    right: 6.4583vw !important;
+    transform: scale(var(--hero-desktop-scale)) !important;
+    transform-origin: top right !important;
+  }
+
+  .hero__dots {
+    top: 56.5278vw !important;
+    right: 7.6389vw !important;
+    width: 120px !important;
+    transform: scale(var(--hero-desktop-scale)) !important;
+    transform-origin: top right !important;
+  }
+}
