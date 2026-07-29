@@ -8917,199 +8917,676 @@ body,
 }
 
 /*
- * Home hero bridge
+ * Home hero — authoritative Figma geometry.
  *
- * The mobile and tablet frames use substantially different vertical
- * compositions. Interpolate their exact endpoint geometry instead of
- * switching the complete tablet composition on at 601px.
+ * Anchors:
+ *   Home mob  360 × 813.177
+ *   Home Tab  834 × 652 (artwork visually starts 48px above the frame)
+ *   Home 12  1440 × 979
+ *
+ * Every layer has its own measured coordinates.  The intermediate widths are
+ * interpolated between those three frames; nothing is scaled with transform.
  */
-@media (min-width: 601px) and (max-width: 824px) {
-  .hero {
-    height: clamp(
-      652px,
-      calc(813.177px - ((100vw - 600px) * 0.71954)),
-      813.177px
-    ) !important;
-  }
 
-  .hero__media {
-    top: clamp(
-      -48px,
-      calc(249px - ((100vw - 660px) * 1.81098)),
-      249px
-    ) !important;
-    height: clamp(
-      434px,
-      calc(434px + ((100vw - 600px) * 1.20982)),
-      705px
-    ) !important;
-  }
-
-  .hero__copy {
-    top: clamp(
-      0px,
-      calc((100vw - 600px) * 0.11607),
-      26px
-    ) !important;
-  }
-
-  .hero__stats {
-    top: clamp(
-      407px,
-      calc(681px - ((100vw - 600px) * 1.22321)),
-      681px
-    ) !important;
-    width: min(100%, 256px) !important;
-  }
-
-  .hero-feature {
-    top: clamp(
-      407px,
-      calc(487px - ((100vw - 600px) * 0.35714)),
-      487px
-    ) !important;
-  }
-
-  .hero__dots {
-    top: clamp(
-      556px,
-      calc(628px - ((100vw - 600px) * 0.32143)),
-      628px
-    ) !important;
+@media (max-width: 1294px) {
+  .navbar {
+    padding-inline: 10px !important;
   }
 }
 
-/*
- * Wide tablet / compact desktop bridge.
- *
- * The 834px tablet artwork must not be stretched horizontally all the way to
- * the desktop breakpoint. From 1024px onward use the desktop artwork and grow
- * the complete composition proportionally while keeping its visible bottom
- * aligned across the header-mode switch.
- */
-@media (min-width: 1024px) and (max-width: 1294px) {
-  :root {
-    --hero-wide-scale: clamp(
-      1,
-      calc(1 + ((100vw - 1024px) / 1148.94px)),
-      1.235
-    );
-  }
-
+@media (min-width: 360px) and (max-width: 833px) {
   .hero {
-    margin-top: 0 !important;
-    height: clamp(
-      700px,
-      calc(700px + ((100vw - 1024px) * 0.42963)),
-      816px
-    ) !important;
+    height: calc(813.177px - ((100vw - 360px) * 0.340036)) !important;
+    margin-top: 48px !important;
   }
 
   .hero__media {
-    top: clamp(
-      -64px,
-      calc((100vw - 1024px) * -0.23704),
-      0px
-    ) !important;
-    height: clamp(
-      696px,
-      calc(696px + ((100vw - 1024px) * 0.68148)),
-      880px
-    ) !important;
+    inset: auto auto auto 0 !important;
+    top: calc(249px - ((100vw - 360px) * 0.626582)) !important;
+    width: 100vw !important;
+    height: calc(434px + ((100vw - 360px) * 0.57173)) !important;
+    transform: none !important;
+  }
+
+  .hero__media img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: fill !important;
+    object-position: center !important;
+    transform: none !important;
+  }
+
+  .hero__media::after {
+    display: none !important;
   }
 
   .hero__copy {
-    top: clamp(
-      74px,
-      calc(74px + ((100vw - 1024px) * 0.28889)),
-      152px
-    ) !important;
-    width: clamp(
-      461px,
-      calc(461px + ((100vw - 1024px) * 0.28148)),
-      537px
-    ) !important;
-    transform: scale(var(--hero-wide-scale)) !important;
-    transform-origin: top left !important;
+    top: calc((100vw - 360px) * 0.054852) !important;
+    left: calc(12px + ((100vw - 360px) * 0.044304)) !important;
+    display: flex !important;
+    width: calc(338px + ((100vw - 360px) * 0.259494)) !important;
+    max-width: none !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    transform: none !important;
+  }
+
+  .hero__pill {
+    width: 281px !important;
+    height: 29px !important;
+    min-height: 29px !important;
+    padding: 6px 12px !important;
+    border-radius: 11.764px !important;
+    font-family: var(--nav) !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    line-height: 16.608px !important;
+    letter-spacing: 0 !important;
+  }
+
+  .hero h1 {
+    width: 100% !important;
+    height: 193px !important;
+    margin-top: 6.92px !important;
+    font-size: calc(34px + ((100vw - 360px) * 0.004219)) !important;
+    line-height: 46.779px !important;
+  }
+
+  .hero__line-one {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
+
+  .hero__line-one > span {
+    font-size: calc(26px + ((100vw - 360px) * 0.004219)) !important;
+    line-height: 46.779px !important;
+  }
+
+  .hero__buttons {
+    align-items: center !important;
+    gap: 12px !important;
+    margin-top: 24px !important;
+  }
+
+  .hero__buttons .button {
+    min-height: 0 !important;
+    padding-inline: 24px !important;
+    font-size: 14px !important;
+    letter-spacing: 0.28px !important;
+  }
+
+  .hero__buttons .button:first-child {
+    width: 173px !important;
+    height: 40px !important;
+  }
+
+  .hero__buttons .button:last-child {
+    width: 142px !important;
+    height: 44px !important;
   }
 
   .hero__stats {
-    top: clamp(
-      455px,
-      calc(455px + ((100vw - 1024px) * 0.27407)),
-      529px
-    ) !important;
-    width: 256px !important;
-    transform: scale(var(--hero-wide-scale)) !important;
-    transform-origin: top left !important;
+    top: calc(709px - ((100vw - 360px) * 0.580635)) !important;
+    left: calc(10px + ((100vw - 360px) * 0.048523)) !important;
+    display: flex !important;
+    width: 255.689px !important;
+    height: 104.177px !important;
+    align-items: center !important;
+    gap: 12px !important;
+    transform: none !important;
+  }
+
+  .stat-card--solutions {
+    width: 119px !important;
+    height: 104.177px !important;
+    padding: 18px !important;
+    border-radius: 23.826px !important;
+  }
+
+  .stat-card--solutions b {
+    font-size: 24px !important;
+  }
+
+  .stat-card p {
+    margin-top: 3px !important;
+    font-size: 10px !important;
+  }
+
+  .stat-card--clients {
+    width: 124.689px !important;
+    height: 101.677px !important;
+    padding: 55px 16px 14px !important;
+  }
+
+  .stat-card--clients .avatar-stack {
+    top: 23px !important;
+    left: 17px !important;
+  }
+
+  .stat-card--clients .avatar-stack img {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .stat-card--clients b {
+    font-size: 14px !important;
+  }
+
+  .stat-card--clients p {
+    font-size: 9px !important;
+  }
+
+  .stat-card--clients i {
+    width: 24px !important;
+    height: 24px !important;
   }
 
   .hero-feature {
-    top: clamp(
-      455px,
-      calc(455px + ((100vw - 1024px) * 0.06667)),
-      473px
-    ) !important;
-    transform: scale(var(--hero-wide-scale)) !important;
-    transform-origin: top right !important;
+    top: calc(487px - ((100vw - 360px) * 0.168776)) !important;
+    right: calc(10px + ((100vw - 360px) * 0.042194)) !important;
+    left: auto !important;
+    width: 168px !important;
+    height: 130.956px !important;
+    min-height: 130.956px !important;
+    border-radius: 18.584px !important;
+    transform: none !important;
+  }
+
+  .hero-feature__swiper .swiper-slide {
+    padding: 12px !important;
+  }
+
+  .hero-feature h2 {
+    height: 30px !important;
+    font-family: var(--font-roboto, Roboto), Arial, sans-serif !important;
+    font-size: 14px !important;
+    letter-spacing: -0.657px !important;
+  }
+
+  .hero-feature h2 span {
+    font-size: 12px !important;
+    letter-spacing: 0.96px !important;
+  }
+
+  .hero-feature p {
+    height: 39px !important;
+    margin-top: 4.956px !important;
+    font-size: 11px !important;
+    line-height: normal !important;
+  }
+
+  .hero-feature a {
+    width: 76px !important;
+    height: 23px !important;
+    min-height: 23px !important;
+    margin-top: 10px !important;
+    padding: 0 !important;
+    border-radius: 12.312px !important;
+    font-size: 10px !important;
   }
 
   .hero__dots {
-    top: clamp(
-      604px,
-      calc(604px + ((100vw - 1024px) * 0.23704)),
-      668px
-    ) !important;
-    transform: scale(var(--hero-wide-scale)) !important;
-    transform-origin: top right !important;
+    top: calc(628px - ((100vw - 360px) * 0.151899)) !important;
+    right: calc(23px + ((100vw - 360px) * 0.035865)) !important;
+    left: auto !important;
+    width: 96px !important;
+    gap: 9px !important;
+    transform: none !important;
+  }
+
+  .hero__dots button {
+    width: 26px !important;
+    height: 4px !important;
   }
 }
 
-/* Continue the same geometry after the header changes to its desktop mode. */
+@media (min-width: 620px) and (max-width: 833px) {
+  .hero h1 {
+    height: 141px !important;
+  }
+
+  .hero__line-one {
+    flex-direction: row !important;
+    align-items: baseline !important;
+  }
+}
+
+@media (min-width: 834px) and (max-width: 1294px) {
+  .hero {
+    height: calc(652px + ((100vw - 834px) * 0.354785)) !important;
+    margin-top: 48px !important;
+  }
+
+  .hero__media {
+    inset: auto auto auto 0 !important;
+    top: calc(-48px - ((100vw - 834px) * 0.105611)) !important;
+    width: 100vw !important;
+    height: calc(705px + ((100vw - 834px) * 0.452145)) !important;
+    transform: none !important;
+  }
+
+  .hero__media img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: fill !important;
+    object-position: center !important;
+    transform: none !important;
+  }
+
+  .hero__media::after {
+    display: none !important;
+  }
+
+  .hero__copy {
+    top: calc(26px + ((100vw - 834px) * 0.168317)) !important;
+    left: calc(33px + ((100vw - 834px) * 0.09571)) !important;
+    display: flex !important;
+    width: calc(461px + ((100vw - 834px) * 0.457096)) !important;
+    max-width: none !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    transform: none !important;
+  }
+
+  .hero__pill {
+    width: calc(281px + ((100vw - 834px) * 0.094059)) !important;
+    height: calc(29px + ((100vw - 834px) * 0.008251)) !important;
+    min-height: calc(29px + ((100vw - 834px) * 0.008251)) !important;
+    padding: calc(6px + ((100vw - 834px) * 0.00165))
+      calc(12px + ((100vw - 834px) * 0.006601)) !important;
+    border-radius: calc(11.764px + ((100vw - 834px) * 0.00864)) !important;
+    font-family: var(--body) !important;
+    font-size: calc(12px + ((100vw - 834px) * 0.0033)) !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+    letter-spacing: calc((100vw - 834px) * 0.001155) !important;
+  }
+
+  .hero h1 {
+    width: 100% !important;
+    height: calc(141px + ((100vw - 834px) * 0.10396)) !important;
+    margin-top: calc(6.92px + ((100vw - 834px) * 0.005083)) !important;
+    font-size: calc(36px + ((100vw - 834px) * 0.026403)) !important;
+    line-height: calc(46.779px + ((100vw - 834px) * 0.034358)) !important;
+  }
+
+  .hero__line-one {
+    flex-direction: row !important;
+    align-items: baseline !important;
+    gap: calc(4px + ((100vw - 834px) * 0.013201)) !important;
+  }
+
+  .hero__line-one > span {
+    font-size: calc(28px + ((100vw - 834px) * 0.019802)) !important;
+    line-height: inherit !important;
+  }
+
+  .hero__buttons {
+    gap: 12px !important;
+    margin-top: calc(24px + ((100vw - 834px) * 0.028053)) !important;
+  }
+
+  .hero__buttons .button {
+    min-height: 0 !important;
+    padding-inline: calc(24px + ((100vw - 834px) * 0.013201)) !important;
+    font-size: calc(14px + ((100vw - 834px) * 0.0033)) !important;
+  }
+
+  .hero__buttons .button:first-child {
+    width: calc(173px + ((100vw - 834px) * 0.056106)) !important;
+    height: calc(40px + ((100vw - 834px) * 0.016502)) !important;
+  }
+
+  .hero__buttons .button:last-child {
+    width: calc(142px + ((100vw - 834px) * 0.047855)) !important;
+    height: calc(44px + ((100vw - 834px) * 0.009901)) !important;
+  }
+
+  .hero__stats {
+    top: calc(433.779px + ((100vw - 834px) * 0.188484)) !important;
+    left: calc(33px + ((100vw - 834px) * 0.10396)) !important;
+    display: flex !important;
+    width: auto !important;
+    height: calc(104.177px + ((100vw - 834px) * 0.060764)) !important;
+    align-items: center !important;
+    gap: calc(12px + ((100vw - 834px) * 0.019802)) !important;
+    transform: none !important;
+  }
+
+  .stat-card--solutions {
+    width: calc(119px + ((100vw - 834px) * 0.074257)) !important;
+    height: calc(104.177px + ((100vw - 834px) * 0.060764)) !important;
+    padding: calc(18px + ((100vw - 834px) * 0.019802)) !important;
+    border-radius: calc(23.826px + ((100vw - 834px) * 0.010188)) !important;
+  }
+
+  .stat-card--solutions b {
+    font-size: calc(24px + ((100vw - 834px) * 0.012241)) !important;
+  }
+
+  .stat-card p {
+    font-size: calc(10px + ((100vw - 834px) * 0.00165)) !important;
+  }
+
+  .stat-card--clients {
+    width: calc(124.689px + ((100vw - 834px) * 0.053319)) !important;
+    height: calc(101.677px + ((100vw - 834px) * 0.038281)) !important;
+    padding:
+      calc(55px - ((100vw - 834px) * 0.011551))
+      calc(16px + ((100vw - 834px) * 0.006601))
+      calc(14px + ((100vw - 834px) * 0.006601)) !important;
+  }
+
+  .stat-card--clients .avatar-stack {
+    top: calc(23px + ((100vw - 834px) * 0.006601)) !important;
+    left: calc(17px + ((100vw - 834px) * 0.008251)) !important;
+  }
+
+  .stat-card--clients .avatar-stack img {
+    width: calc(24px + ((100vw - 834px) * 0.009901)) !important;
+    height: calc(24px + ((100vw - 834px) * 0.009901)) !important;
+  }
+
+  .stat-card--clients b {
+    font-size: calc(14px + ((100vw - 834px) * 0.006601)) !important;
+  }
+
+  .stat-card--clients p {
+    font-size: calc(9px + ((100vw - 834px) * 0.0033)) !important;
+  }
+
+  .stat-card--clients i {
+    width: calc(24px + ((100vw - 834px) * 0.009901)) !important;
+    height: calc(24px + ((100vw - 834px) * 0.009901)) !important;
+  }
+
+  .hero-feature {
+    top: calc(407px + ((100vw - 834px) * 0.130363)) !important;
+    right: calc(30px + ((100vw - 834px) * 0.10396)) !important;
+    left: auto !important;
+    width: calc(168px + ((100vw - 834px) * 0.09571)) !important;
+    height: calc(130.956px + ((100vw - 834px) * 0.118884)) !important;
+    min-height: calc(130.956px + ((100vw - 834px) * 0.118884)) !important;
+    border-radius: calc(18.584px + ((100vw - 834px) * 0.018838)) !important;
+    transform: none !important;
+  }
+
+  .hero-feature__swiper .swiper-slide {
+    padding: calc(12px + ((100vw - 834px) * 0.029703)) !important;
+  }
+
+  .hero-feature h2 {
+    height: calc(30px + ((100vw - 834px) * 0.026403)) !important;
+    font-size: calc(14px + ((100vw - 834px) * 0.009901)) !important;
+  }
+
+  .hero-feature h2 span {
+    font-size: calc(12px + ((100vw - 834px) * 0.009901)) !important;
+  }
+
+  .hero-feature p {
+    height: auto !important;
+    margin-top: calc(4.956px + ((100vw - 834px) * 0.005023)) !important;
+    font-size: calc(11px + ((100vw - 834px) * 0.00165)) !important;
+  }
+
+  .hero-feature a {
+    width: calc(76px + ((100vw - 834px) * 0.021452)) !important;
+    height: calc(23px + ((100vw - 834px) * 0.009901)) !important;
+    min-height: calc(23px + ((100vw - 834px) * 0.009901)) !important;
+    margin-top: calc(10px + ((100vw - 834px) * 0.008251)) !important;
+    font-size: calc(10px + ((100vw - 834px) * 0.0033)) !important;
+  }
+
+  .hero__dots {
+    top: calc(556px + ((100vw - 834px) * 0.240924)) !important;
+    right: calc(40px + ((100vw - 834px) * 0.115512)) !important;
+    left: auto !important;
+    width: auto !important;
+    gap: 9px !important;
+    transform: none !important;
+  }
+
+  .hero__dots button {
+    width: calc(26px + ((100vw - 834px) * 0.013201)) !important;
+    height: calc(4px + ((100vw - 834px) * 0.0033)) !important;
+  }
+}
+
 @media (min-width: 1295px) and (max-width: 1439px) {
-  :root {
-    --hero-desktop-scale: clamp(
-      0.8993,
-      calc(100vw / 1440px),
-      1
-    );
-  }
-
   .hero {
-    height: 67.9861vw !important;
+    height: calc(764px + ((100vw - 834px) * 0.354785)) !important;
+    margin-top: 0 !important;
   }
 
   .hero__media {
-    top: 0 !important;
-    height: 67.9861vw !important;
+    inset: auto auto auto 0 !important;
+    top: calc(64px - ((100vw - 834px) * 0.105611)) !important;
+    width: 100vw !important;
+    height: calc(705px + ((100vw - 834px) * 0.452145)) !important;
+    transform: none !important;
+  }
+
+  .hero__media img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: fill !important;
+    object-position: center !important;
+    transform: none !important;
+  }
+
+  .hero__media::after {
+    display: none !important;
   }
 
   .hero__copy {
-    top: 16.6667vw !important;
-    left: 6.3194vw !important;
-    transform: scale(var(--hero-desktop-scale)) !important;
-    transform-origin: top left !important;
+    top: calc(138px + ((100vw - 834px) * 0.168317)) !important;
+    left: calc(33px + ((100vw - 834px) * 0.09571)) !important;
+    display: flex !important;
+    width: calc(461px + ((100vw - 834px) * 0.457096)) !important;
+    max-width: none !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    transform: none !important;
+  }
+
+  .hero__pill {
+    width: calc(281px + ((100vw - 834px) * 0.094059)) !important;
+    height: calc(29px + ((100vw - 834px) * 0.008251)) !important;
+    min-height: calc(29px + ((100vw - 834px) * 0.008251)) !important;
+    padding: calc(6px + ((100vw - 834px) * 0.00165))
+      calc(12px + ((100vw - 834px) * 0.006601)) !important;
+    border-radius: calc(11.764px + ((100vw - 834px) * 0.00864)) !important;
+    font-size: calc(12px + ((100vw - 834px) * 0.0033)) !important;
+    line-height: 1.4 !important;
+    letter-spacing: calc((100vw - 834px) * 0.001155) !important;
+  }
+
+  .hero h1 {
+    width: 100% !important;
+    height: calc(141px + ((100vw - 834px) * 0.10396)) !important;
+    margin-top: calc(6.92px + ((100vw - 834px) * 0.005083)) !important;
+    font-size: calc(36px + ((100vw - 834px) * 0.026403)) !important;
+    line-height: calc(46.779px + ((100vw - 834px) * 0.034358)) !important;
+  }
+
+  .hero__line-one {
+    flex-direction: row !important;
+    align-items: baseline !important;
+    gap: calc(4px + ((100vw - 834px) * 0.013201)) !important;
+  }
+
+  .hero__line-one > span {
+    font-size: calc(28px + ((100vw - 834px) * 0.019802)) !important;
+    line-height: inherit !important;
+  }
+
+  .hero__buttons {
+    gap: 12px !important;
+    margin-top: calc(24px + ((100vw - 834px) * 0.028053)) !important;
+  }
+
+  .hero__buttons .button {
+    min-height: 0 !important;
+    padding-inline: calc(24px + ((100vw - 834px) * 0.013201)) !important;
+    font-size: calc(14px + ((100vw - 834px) * 0.0033)) !important;
+  }
+
+  .hero__buttons .button:first-child {
+    width: calc(173px + ((100vw - 834px) * 0.056106)) !important;
+    height: calc(40px + ((100vw - 834px) * 0.016502)) !important;
+  }
+
+  .hero__buttons .button:last-child {
+    width: calc(142px + ((100vw - 834px) * 0.047855)) !important;
+    height: calc(44px + ((100vw - 834px) * 0.009901)) !important;
   }
 
   .hero__stats {
-    top: 45.8333vw !important;
-    left: 6.6667vw !important;
-    transform: scale(var(--hero-desktop-scale)) !important;
-    transform-origin: top left !important;
+    top: calc(545.779px + ((100vw - 834px) * 0.188484)) !important;
+    left: calc(33px + ((100vw - 834px) * 0.10396)) !important;
+    width: auto !important;
+    height: calc(104.177px + ((100vw - 834px) * 0.060764)) !important;
+    align-items: center !important;
+    gap: calc(12px + ((100vw - 834px) * 0.019802)) !important;
+    transform: none !important;
+  }
+
+  .stat-card--solutions {
+    width: calc(119px + ((100vw - 834px) * 0.074257)) !important;
+    height: calc(104.177px + ((100vw - 834px) * 0.060764)) !important;
+    padding: calc(18px + ((100vw - 834px) * 0.019802)) !important;
+    border-radius: calc(23.826px + ((100vw - 834px) * 0.010188)) !important;
+  }
+
+  .stat-card--solutions b {
+    font-size: calc(24px + ((100vw - 834px) * 0.012241)) !important;
+  }
+
+  .stat-card p {
+    font-size: calc(10px + ((100vw - 834px) * 0.00165)) !important;
+  }
+
+  .stat-card--clients {
+    width: calc(124.689px + ((100vw - 834px) * 0.053319)) !important;
+    height: calc(101.677px + ((100vw - 834px) * 0.038281)) !important;
+  }
+
+  .stat-card--clients .avatar-stack img {
+    width: calc(24px + ((100vw - 834px) * 0.009901)) !important;
+    height: calc(24px + ((100vw - 834px) * 0.009901)) !important;
   }
 
   .hero-feature {
-    top: 41.5278vw !important;
-    right: 6.4583vw !important;
-    transform: scale(var(--hero-desktop-scale)) !important;
-    transform-origin: top right !important;
+    top: calc(519px + ((100vw - 834px) * 0.130363)) !important;
+    right: calc(30px + ((100vw - 834px) * 0.10396)) !important;
+    left: auto !important;
+    width: calc(168px + ((100vw - 834px) * 0.09571)) !important;
+    height: calc(130.956px + ((100vw - 834px) * 0.118884)) !important;
+    min-height: calc(130.956px + ((100vw - 834px) * 0.118884)) !important;
+    border-radius: calc(18.584px + ((100vw - 834px) * 0.018838)) !important;
+    transform: none !important;
+  }
+
+  .hero-feature__swiper .swiper-slide {
+    padding: calc(12px + ((100vw - 834px) * 0.029703)) !important;
+  }
+
+  .hero-feature h2 {
+    height: calc(30px + ((100vw - 834px) * 0.026403)) !important;
+    font-size: calc(14px + ((100vw - 834px) * 0.009901)) !important;
+  }
+
+  .hero-feature h2 span {
+    font-size: calc(12px + ((100vw - 834px) * 0.009901)) !important;
+  }
+
+  .hero-feature p {
+    height: auto !important;
+    font-size: calc(11px + ((100vw - 834px) * 0.00165)) !important;
+  }
+
+  .hero-feature a {
+    width: calc(76px + ((100vw - 834px) * 0.021452)) !important;
+    height: calc(23px + ((100vw - 834px) * 0.009901)) !important;
+    min-height: calc(23px + ((100vw - 834px) * 0.009901)) !important;
+    margin-top: calc(10px + ((100vw - 834px) * 0.008251)) !important;
+    font-size: calc(10px + ((100vw - 834px) * 0.0033)) !important;
   }
 
   .hero__dots {
-    top: 56.5278vw !important;
-    right: 7.6389vw !important;
-    width: 120px !important;
-    transform: scale(var(--hero-desktop-scale)) !important;
-    transform-origin: top right !important;
+    top: calc(668px + ((100vw - 834px) * 0.240924)) !important;
+    right: calc(40px + ((100vw - 834px) * 0.115512)) !important;
+    left: auto !important;
+    width: auto !important;
+    gap: 9px !important;
+    transform: none !important;
+  }
+
+  .hero__dots button {
+    width: calc(26px + ((100vw - 834px) * 0.013201)) !important;
+    height: calc(4px + ((100vw - 834px) * 0.0033)) !important;
+  }
+}
+
+@media (min-width: 834px) and (max-width: 1439px) {
+  .stat-card p {
+    margin-top: calc(3px + ((100vw - 834px) * 0.00165)) !important;
+  }
+
+  .stat-card--clients {
+    padding:
+      calc(55px - ((100vw - 834px) * 0.011551))
+      calc(16px + ((100vw - 834px) * 0.006601))
+      calc(14px + ((100vw - 834px) * 0.006601)) !important;
+  }
+
+  .stat-card--clients .avatar-stack {
+    top: calc(23px + ((100vw - 834px) * 0.006601)) !important;
+    left: calc(17px + ((100vw - 834px) * 0.008251)) !important;
+  }
+
+  .stat-card--clients b {
+    font-size: calc(14px + ((100vw - 834px) * 0.006601)) !important;
+  }
+
+  .stat-card--clients p {
+    font-size: calc(9px + ((100vw - 834px) * 0.0033)) !important;
+  }
+
+  .stat-card--clients i {
+    width: calc(24px + ((100vw - 834px) * 0.009901)) !important;
+    height: calc(24px + ((100vw - 834px) * 0.009901)) !important;
+    background-size: calc(8px + ((100vw - 834px) * 0.0033))
+      calc(8px + ((100vw - 834px) * 0.0033)) !important;
+  }
+
+  .hero-feature h2 {
+    letter-spacing: calc(-0.657px - ((100vw - 834px) * 0.000665)) !important;
+  }
+
+  .hero-feature h2 span {
+    letter-spacing: calc(0.96px + ((100vw - 834px) * 0.000792)) !important;
+  }
+
+  .hero-feature p {
+    height: calc(39px + ((100vw - 834px) * 0.009901)) !important;
+    margin-top: calc(4.956px + ((100vw - 834px) * 0.005023)) !important;
+    line-height: calc(13px + ((100vw - 834px) * 0.0033)) !important;
+  }
+
+  .hero-feature a {
+    padding-inline: calc((100vw - 834px) * 0.013201) !important;
+    border-radius: calc(12.312px + ((100vw - 834px) * 0.009386)) !important;
   }
 }
