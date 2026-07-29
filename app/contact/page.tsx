@@ -126,7 +126,7 @@ export default function ContactPage() {
       </section>
 
       <NewsletterSection className="contact-page__newsletter" />
-      <SiteFooter links={contactLinks} className="contact-page__footer" />
+      <SiteFooter links={contactLinks} />
       <BackToTop />
     </main>
   );

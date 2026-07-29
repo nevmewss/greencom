@@ -64,6 +64,8 @@ test("server-renders the Contact page and custom 404", async () => {
   assert.match(contactHtml, /class="contact-office/);
   assert.match(contactHtml, /class="contact-faq/);
   assert.match(contactHtml, /id="contact-form"/);
+  assert.match(contactHtml, /class="footer section-bg section-bg--circuits "/);
+  assert.doesNotMatch(contactHtml, /contact-page__footer/);
 
   const notFoundResponse = await render("/missing-page");
   assert.equal(notFoundResponse.status, 404);
@@ -93,6 +95,9 @@ test("keeps interactive controls and exact design assets in the source", async (
   assert.match(css, /desktop-page-background\.png/);
   assert.match(css, /tablet-page-background\.png/);
   assert.match(css, /mobile-page-background\.png/);
+  assert.match(css, /@media \(hover: hover\) and \(pointer: fine\)/);
+  assert.match(css, /\.partner:hover::before/);
+  assert.doesNotMatch(css, /\.contact-page\s*\{[^}]*height:\s*(?:4553|4672|4699)px/s);
 
   await Promise.all([
     access(new URL("../public/assets/desktop-page-background.png", import.meta.url)),
