@@ -1049,8 +1049,8 @@ h3 {
 .services__grid {
   position: relative;
   width: 1260px;
-  height: 564px;
-  margin-top: 60px;
+  height: 570px;
+  margin-top: 54px;
 }
 
 .service-card {
@@ -1064,12 +1064,10 @@ h3 {
   background: rgba(59, 70, 83, 0.4);
   -webkit-backdrop-filter: blur(11px);
   backdrop-filter: blur(11px);
-  transition: border-color 180ms ease, transform 180ms ease;
-}
-
-.service-card:hover {
-  border-color: rgba(3, 192, 48, 0.45);
-  transform: none;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
 }
 
 .service-card:nth-child(1) { top: 0; left: 0; width: 352px; }
@@ -2679,8 +2677,8 @@ h3 {
 
   .services__grid {
     width: 100%;
-    height: 517px;
-    margin-top: 40px;
+    height: 523px;
+    margin-top: 34px;
   }
 
   .service-card {
@@ -3667,8 +3665,8 @@ h3 {
 
   .services__grid {
     width: 340px;
-    height: 739px;
-    margin-top: 47px;
+    height: 745px;
+    margin-top: 41px;
   }
 
   .service-card {
@@ -4744,6 +4742,7 @@ h3 {
 
 .services__grid.swiper {
   overflow: hidden;
+  padding-top: 6px;
   touch-action: pan-y;
 }
 
@@ -7415,6 +7414,15 @@ h3 {
   box-shadow: var(--glass-shadow);
   -webkit-backdrop-filter: blur(11px) saturate(128%);
   backdrop-filter: blur(11px) saturate(128%);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease,
+    transform 180ms ease;
+}
+
+.stat-card--solutions b {
+  transition: color 180ms ease;
 }
 
 .stat-card--clients {
@@ -7447,20 +7455,22 @@ h3 {
   backdrop-filter: blur(11px) saturate(125%);
   transition:
     border-color 180ms ease,
+    background 180ms ease,
     box-shadow 180ms ease,
     filter 180ms ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .partner:hover::before {
-    border-color: rgba(3, 192, 48, 0.5);
+    border-color: rgba(3, 192, 48, 0.45);
+    background: rgba(3, 192, 48, 0.08);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.21),
       inset 1px 0 0 rgba(255, 255, 255, 0.07),
       inset 0 -1px 0 rgba(255, 255, 255, 0.025),
       14px 18px 40px rgba(0, 0, 0, 0.24),
       0 0 24px rgba(3, 192, 48, 0.18);
-    filter: brightness(1.06);
+    filter: none;
   }
 }
 
@@ -7480,7 +7490,6 @@ h3 {
 
 .hero__buttons .button:last-child:hover,
 .hero__buttons .button:last-child:focus-visible,
-.stat-card--solutions:hover,
 .hero-feature:hover,
 .news-card:hover,
 .contact__methods a:hover,
@@ -7556,11 +7565,36 @@ h3 {
   transform: none;
 }
 
-.services__grid .service-card:hover,
-.services__grid .service-card:focus-within,
 .about-team-card:hover,
 .about-team-card:focus-within {
   transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .services__grid .swiper-slide:hover {
+    z-index: 2;
+  }
+
+  .services__grid .service-card:hover,
+  .services__grid .service-card:focus-within {
+    border-color: rgba(3, 192, 48, 0.45);
+    background-color: rgba(59, 70, 83, 0.48);
+    transform: translateY(-4px);
+  }
+
+  .stat-card--solutions:hover {
+    border-color: rgba(150, 251, 196, 0.48);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      inset 1px 0 0 rgba(255, 255, 255, 0.075),
+      0 18px 48px rgba(3, 192, 48, 0.12);
+    filter: drop-shadow(0 0 18px rgba(3, 192, 48, 0.35));
+    transform: translateY(-3px);
+  }
+
+  .stat-card--solutions:hover b {
+    color: var(--mint);
+  }
 }
 
 .news__cards {

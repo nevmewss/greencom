@@ -97,6 +97,10 @@ test("keeps interactive controls and exact design assets in the source", async (
   assert.match(css, /mobile-page-background\.png/);
   assert.match(css, /@media \(hover: hover\) and \(pointer: fine\)/);
   assert.match(css, /\.partner:hover::before/);
+  assert.match(css, /\.partner:hover::before\s*\{[^}]*background:\s*rgba\(3,\s*192,\s*48,\s*0\.08\)/s);
+  assert.match(css, /\.services__grid \.service-card:hover[\s\S]*?transform:\s*translateY\(-4px\)/);
+  assert.match(css, /\.services__grid\.swiper\s*\{[^}]*padding-top:\s*6px/s);
+  assert.match(css, /\.stat-card--solutions:hover\s*\{[^}]*transform:\s*translateY\(-3px\)/s);
   assert.doesNotMatch(css, /\.contact-page\s*\{[^}]*height:\s*(?:4553|4672|4699)px/s);
 
   await Promise.all([
