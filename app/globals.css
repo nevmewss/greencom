@@ -4490,6 +4490,12 @@ h3 {
   }
 }
 
+@media (max-width: 1294px) {
+  .navbar {
+    padding-inline: var(--fluid-gutter) !important;
+  }
+}
+
 @media (min-width: 660px) and (max-width: 739px) {
   .partners__cloud {
     transform: translateX(-50%) scale(0.9);
@@ -8907,5 +8913,68 @@ body,
 
   .contact-page-hero__copy {
     top: calc(74px + ((100vw - 360px) * 0.05833)) !important;
+  }
+}
+
+/*
+ * Home hero bridge
+ *
+ * The mobile and tablet frames use substantially different vertical
+ * compositions. Interpolate their exact endpoint geometry instead of
+ * switching the complete tablet composition on at 601px.
+ */
+@media (min-width: 601px) and (max-width: 824px) {
+  .hero {
+    height: clamp(
+      652px,
+      calc(813.177px - ((100vw - 600px) * 0.71954)),
+      813.177px
+    ) !important;
+  }
+
+  .hero__media {
+    top: clamp(
+      -48px,
+      calc(249px - ((100vw - 660px) * 1.81098)),
+      249px
+    ) !important;
+    height: clamp(
+      434px,
+      calc(434px + ((100vw - 600px) * 1.20982)),
+      705px
+    ) !important;
+  }
+
+  .hero__copy {
+    top: clamp(
+      0px,
+      calc((100vw - 600px) * 0.11607),
+      26px
+    ) !important;
+  }
+
+  .hero__stats {
+    top: clamp(
+      407px,
+      calc(681px - ((100vw - 600px) * 1.22321)),
+      681px
+    ) !important;
+    width: min(100%, 256px) !important;
+  }
+
+  .hero-feature {
+    top: clamp(
+      407px,
+      calc(487px - ((100vw - 600px) * 0.35714)),
+      487px
+    ) !important;
+  }
+
+  .hero__dots {
+    top: clamp(
+      556px,
+      calc(628px - ((100vw - 600px) * 0.32143)),
+      628px
+    ) !important;
   }
 }
