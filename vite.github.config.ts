@@ -36,6 +36,7 @@ export default defineConfig({
         home: resolve(githubPagesRoot, "index.html"),
         about: resolve(githubPagesRoot, "about/index.html"),
         contact: resolve(githubPagesRoot, "contact/index.html"),
+        price: resolve(githubPagesRoot, "price/index.html"),
         notFound: resolve(githubPagesRoot, "404/index.html"),
         errorDocument: resolve(githubPagesRoot, "404.html"),
       },

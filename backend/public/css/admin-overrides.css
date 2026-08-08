@@ -1,0 +1,53 @@
+/* Visual hierarchy for page content editing. */
+.cms-page-sections .fi-fo-field-label-content {
+    font-weight: 600;
+}
+
+.cms-page-sections .fi-fo-builder-item-header-label {
+    font-size: 1.0625rem;
+    font-weight: 800;
+    line-height: 1.5rem;
+    letter-spacing: -0.0125em;
+}
+
+.cms-content-group {
+    margin-top: 0.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgb(229 231 235);
+}
+
+.dark .cms-content-group {
+    border-top-color: rgb(255 255 255 / 0.12);
+}
+
+.cms-content-group > .fi-fo-field-label-col .fi-fo-field-label-content {
+    font-size: 1rem;
+    font-weight: 750;
+    line-height: 1.5rem;
+    letter-spacing: -0.01em;
+}
+
+.cms-content-group > .fi-fo-field-content-col > .fi-fo-repeater > .fi-fo-repeater-actions .fi-link {
+    font-weight: 600;
+}
+
+.cms-button-group {
+    border-color: rgb(209 213 219);
+    background: rgb(249 250 251 / 0.55);
+}
+
+.dark .cms-button-group {
+    border-color: rgb(255 255 255 / 0.14);
+    background: rgb(255 255 255 / 0.025);
+}
+
+.cms-button-group > legend {
+    font-size: 1rem;
+    font-weight: 750;
+    line-height: 1.5rem;
+    letter-spacing: -0.01em;
+}
+
+.cms-page-sections .fi-fo-repeater-item-header-label {
+    font-weight: 650;
+}

@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:18.4-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: greencom
+      POSTGRES_USER: greencom
+      POSTGRES_PASSWORD: greencom_local
+    volumes:
+      - cms_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U greencom -d greencom"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  cms:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      APP_LOCALE: ru
+      APP_FALLBACK_LOCALE: en
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: greencom
+      DB_USERNAME: greencom
+      DB_PASSWORD: greencom_local
+      FRONTEND_URL: http://localhost:3000
+      FILESYSTEM_DISK: public
+      FILAMENT_FILESYSTEM_DISK: public
+      CMS_ADMIN_NAME: GreenCom Admin
+      CMS_ADMIN_EMAIL: admin@greencom.local
+      CMS_ADMIN_PASSWORD: change-me-before-production
+    volumes:
+      - ./backend:/var/www/html
+      - cms_vendor:/var/www/html/vendor
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  cms_postgres_data:
+  cms_vendor:

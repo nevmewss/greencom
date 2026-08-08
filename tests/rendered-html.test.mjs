@@ -74,21 +74,33 @@ test("server-renders the Contact page and custom 404", async () => {
   assert.match(notFoundHtml, /not-found-art\.png/);
 });
 
-test("keeps interactive controls and exact design assets in the source", async () => {
-  const [page, shared, css] = await Promise.all([
+test("server-renders the responsive Price page", async () => {
+  const response = await render("/price");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.match(html, /class="price-page/);
+  assert.match(html, /class="price-list/);
+  assert.match(html, /Торгове обладнання/);
+  assert.match(html, /217 000 ₴/);
+});
+
+test("keeps CMS rendering, interactive controls and exact design assets in the source", async () => {
+  const [page, cmsPage, shared, css] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/cms-page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/site.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
 
   assert.match(shared, /setMenuOpen/);
   assert.match(shared, /setOpenDropdown/);
-  assert.match(page, /setHeroSlide/);
-  assert.match(page, /from "swiper\/react"/);
-  assert.match(page, /serviceSwiper\.current\?\.slidePrev/);
-  assert.match(page, /serviceSwiper\.current\?\.slideNext/);
-  assert.match(page, /serviceNavigation\.isBeginning/);
-  assert.match(page, /serviceNavigation\.isEnd/);
+  assert.match(page, /<CmsPage slug="home"/);
+  assert.match(cmsPage, /useCmsPage/);
+  assert.match(cmsPage, /from "swiper\/react"/);
+  assert.match(cmsPage, /swiperRef\.current\?\.slidePrev/);
+  assert.match(cmsPage, /swiperRef\.current\?\.slideNext/);
+  assert.match(cmsPage, /navigation\.isBeginning/);
+  assert.match(cmsPage, /navigation\.isEnd/);
   assert.match(shared, /submitContact/);
   assert.match(shared, /submitNewsletter/);
   assert.match(css, /white-space:\s*nowrap/);

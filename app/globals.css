@@ -5,6 +5,427 @@
   font-weight: 400;
   font-display: swap;
 }
+/* Price page — exact Price / PriceTab / Price mob geometry from Figma. */
+.price-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #000;
+}
+
+.price-page::before {
+  position: absolute;
+  z-index: 0;
+  inset: 485px 0 0;
+  background: url("/assets/contact-page-background-desktop.png") center top / 100% auto no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+.price-page > section,
+.price-page > footer {
+  position: relative;
+  z-index: 1;
+}
+
+.price-hero {
+  height: 485px;
+  overflow: hidden;
+  background: #000;
+}
+
+.price-hero__media,
+.price-hero__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.price-hero__media {
+  position: absolute;
+  inset: 56px 0 0;
+  height: 429px;
+}
+
+.price-hero__media img {
+  max-width: none;
+  object-fit: fill;
+}
+
+.price-hero::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.96) 0%, rgba(0, 0, 0, 0.72) 29%, rgba(0, 0, 0, 0.03) 67%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, transparent 34%);
+  content: "";
+  pointer-events: none;
+}
+
+.price-page__breadcrumbs {
+  position: absolute;
+  z-index: 3;
+  top: 159px;
+  left: max(30px, calc((100% - 1260px) / 2));
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.price-page__breadcrumbs a {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.price-page__breadcrumbs i {
+  width: 1px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.price-page__breadcrumbs span {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.price-hero__copy {
+  position: absolute;
+  z-index: 2;
+  top: 226px;
+  left: max(30px, calc((100% - 1260px) / 2));
+  width: 735px;
+}
+
+.price-hero__copy h1 {
+  font-family: var(--heading);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.price-hero__copy p {
+  width: 735px;
+  margin-top: 9px;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.price-list {
+  height: 927.45px;
+  overflow: visible !important;
+}
+
+.price-list__inner {
+  display: grid;
+  width: min(1260px, calc(100% - 60px));
+  margin-inline: auto;
+  padding-block: 90px;
+  gap: 24px;
+}
+
+.price-card {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 104.575px;
+  align-items: center;
+  gap: 18px;
+  padding: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(219, 255, 228, 0.2);
+  border-radius: 22.934px;
+  background:
+    linear-gradient(105deg, rgba(255, 255, 255, 0.09), transparent 26%),
+    rgba(59, 70, 83, 0.4);
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(11px);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.price-card__icon {
+  position: relative;
+  display: grid;
+  width: 70px;
+  height: 70px;
+  flex: 0 0 70px;
+  place-items: center;
+}
+
+.price-card__effect {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.price-card__icon i,
+.price-card__icon b {
+  position: absolute;
+  display: block;
+  transform: rotate(45deg);
+}
+
+.price-card__icon i {
+  width: 49.5px;
+  height: 49.5px;
+  border: 0.825px solid var(--green);
+  border-radius: 13.2px;
+  background: rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(32px);
+}
+
+.price-card__icon b {
+  width: 37.3px;
+  height: 37.3px;
+  border-radius: 8.25px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.price-card__glyph {
+  position: relative;
+  z-index: 2;
+  width: 24.35px;
+  height: 24.35px;
+  object-fit: contain;
+}
+
+.price-card__copy {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.price-card h2,
+.price-card > strong {
+  font-family: var(--heading);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.11;
+  letter-spacing: -0.02em;
+}
+
+.price-card p {
+  max-width: 820px;
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+}
+
+.price-card > strong {
+  flex: 0 0 auto;
+  color: var(--green);
+  white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .price-card:hover {
+    border-color: rgba(3, 192, 48, 0.55);
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1), 0 14px 42px rgba(3, 192, 48, 0.13);
+    transform: translateY(-3px);
+  }
+}
+
+@media (min-width: 1295px) {
+  .price-page .site-header {
+    position: absolute;
+    z-index: 20;
+    inset: 0 0 auto;
+  }
+
+  .price-page .navbar {
+    background: rgba(8, 12, 13, 0.28);
+    backdrop-filter: blur(5px);
+  }
+
+  .price-page .newsletter__content {
+    text-align: left;
+  }
+
+  .price-page .newsletter {
+    height: 454px;
+    padding-block: 70px;
+    background: transparent;
+  }
+
+  .price-page .newsletter::before {
+    position: absolute;
+    inset: 70px 0;
+    background: var(--surface);
+    content: "";
+  }
+
+  .price-page .newsletter__decor {
+    top: 118px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1294px) {
+  .price-page::before {
+    inset: 347px 0 0;
+    background-image: url("/assets/contact-page-background-tablet.png");
+  }
+
+  .price-hero {
+    height: 283px;
+  }
+
+  .price-hero__media {
+    inset: 0;
+    height: 283px;
+  }
+
+  .price-page__breadcrumbs {
+    top: 20px;
+    left: max(30px, calc((100% - 774px) / 2));
+  }
+
+  .price-hero__copy {
+    top: 102px;
+    left: max(30px, calc((100% - 774px) / 2));
+    width: min(640px, calc(100% - 60px));
+  }
+
+  .price-hero__copy h1 {
+    font-size: 38px;
+  }
+
+  .price-hero__copy p {
+    width: min(600px, 100%);
+    font-size: 14px;
+  }
+
+  .price-list {
+    height: 919.044px;
+  }
+
+  .price-list__inner {
+    width: min(774px, calc(100% - 60px));
+    padding: 60px 30px;
+    gap: 18px;
+  }
+
+  .price-card {
+    height: 118.174px;
+  }
+
+  .price-card h2,
+  .price-card > strong {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .price-page::before {
+    inset: 378px 0 0;
+    background-image: url("/assets/contact-page-background-mobile.png");
+  }
+
+  .price-hero {
+    height: 314px;
+  }
+
+  .price-hero__media {
+    inset: -9px 0 auto;
+    height: 323px;
+  }
+
+  .price-hero::after {
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.94) 0%, rgba(0, 0, 0, 0.68) 46%, transparent 82%),
+      linear-gradient(0deg, rgba(0, 0, 0, 0.48), transparent 38%);
+  }
+
+  .price-page__breadcrumbs {
+    top: 20px;
+    left: 10px;
+    font-size: 10px;
+  }
+
+  .price-hero__copy {
+    top: 88px;
+    left: 10px;
+    width: 210px;
+  }
+
+  .price-hero__copy h1 {
+    font-size: 30px;
+  }
+
+  .price-hero__copy p {
+    width: 200px;
+    margin-top: 8px;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .price-list {
+    height: 1463.044px;
+  }
+
+  .price-list__inner {
+    width: 339px;
+    max-width: calc(100% - 21px);
+    padding: 40px 10px;
+    gap: 22px;
+  }
+
+  .price-card {
+    height: 212.174px;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .price-card__icon {
+    width: 54px;
+    height: 54px;
+    flex-basis: 54px;
+  }
+
+  .price-card__icon i {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+
+  .price-card__icon b {
+    width: 29px;
+    height: 29px;
+  }
+
+  .price-card__glyph {
+    width: 19px;
+    height: 19px;
+  }
+
+  .price-card__copy {
+    gap: 12px;
+  }
+
+  .price-card h2 {
+    font-size: 18px;
+  }
+
+  .price-card p {
+    font-size: 12px;
+    line-height: 1.4;
+    letter-spacing: 0;
+  }
+
+  .price-card > strong {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    left: 82px;
+    font-size: 18px;
+  }
+}
 
 @font-face {
   font-family: "eUkraine Head";
@@ -316,6 +737,11 @@ h3 {
   border-bottom: 1px solid rgba(150, 251, 196, 0.19);
   background: rgba(9, 12, 13, 0.78);
   backdrop-filter: blur(9px);
+}
+
+.site-header--inner .navbar {
+  background: rgba(8, 12, 13, 0.28);
+  backdrop-filter: blur(5px);
 }
 
 .brand {
@@ -7521,6 +7947,13 @@ h3 {
 .page-hero {
   position: relative;
   width: 100%;
+}
+
+.cms-page > section,
+.cms-page > footer {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 }
 
 .page-hero--slider,
