@@ -5,6 +5,7 @@
   font-weight: 400;
   font-display: swap;
 }
+
 /* Price page — exact Price / PriceTab / Price mob geometry from Figma. */
 .price-page {
   position: relative;
@@ -10035,5 +10036,19 @@ body,
   .hero-feature a {
     padding-inline: calc((100vw - 834px) * 0.013201) !important;
     border-radius: calc(12.312px + ((100vw - 834px) * 0.009386)) !important;
+  }
+}
+
+/* Keep the shared mobile footer clear at intermediate phone widths. */
+@media (min-width: 361px) and (max-width: 480px) {
+  .footer,
+  .about-page .footer,
+  .contact-page .footer,
+  .price-page .footer {
+    height: 880px !important;
+  }
+
+  .footer__main {
+    height: 725px !important;
   }
 }
