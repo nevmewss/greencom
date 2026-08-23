@@ -28,6 +28,7 @@ export default defineConfig({
         cart: resolve(hostingRoot, "cart/index.html"),
         personal: resolve(hostingRoot, "personal/index.html"),
         orders: resolve(hostingRoot, "orders/index.html"),
+        wishlist: resolve(hostingRoot, "wishlist/index.html"),
         notFound: resolve(hostingRoot, "404/index.html"),
         errorDocument: resolve(hostingRoot, "404.html"),
       },
