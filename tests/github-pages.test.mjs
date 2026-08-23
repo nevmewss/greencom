@@ -9,6 +9,7 @@ test("builds a GitHub Pages artifact under the repository base path", async () =
   const catalogHtml = await readFile("dist-github/catalog/index.html", "utf8");
   const productHtml = await readFile("dist-github/product/index.html", "utf8");
   const cartHtml = await readFile("dist-github/cart/index.html", "utf8");
+  const wishlistHtml = await readFile("dist-github/wishlist/index.html", "utf8");
   const notFoundHtml = await readFile("dist-github/404.html", "utf8");
   const assetFiles = await readdir("dist-github/assets");
   const javascriptFiles = assetFiles.filter((file) => /\.js$/.test(file));
@@ -33,6 +34,7 @@ test("builds a GitHub Pages artifact under the repository base path", async () =
   assert.match(catalogHtml, /\/greencom\/assets\/.*\.js/);
   assert.match(productHtml, /\/greencom\/assets\/.*\.js/);
   assert.match(cartHtml, /\/greencom\/assets\/.*\.js/);
+  assert.match(wishlistHtml, /\/greencom\/assets\/.*\.js/);
   assert.match(notFoundHtml, /\/greencom\/assets\/.*\.js/);
   assert.match(notFoundHtml, /\/greencom\/assets\/.*\.css/);
   assert.doesNotMatch(javascript, /[`"']\/(?:assets|icons|site-icons)\//);

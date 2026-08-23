@@ -49,6 +49,8 @@ type StoredOrder = { id: string; date: string; status: "Новий" | "Вико�
 
 const CART_KEY = "greencom-cart";
 const ORDERS_KEY = "greencom-orders";
+const WISHLIST_KEY = "greencom-wishlist";
+const DEFAULT_WISHLIST = ["bas-erp", "pos-terminal-sunmi-t2s"];
 
 function readStorage<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
@@ -80,6 +82,27 @@ function useCart() {
   return { items, add, update, remove, clear };
 }
 
+function useWishlist() {
+  const [ids, setIds] = useState<string[]>([]);
+  useEffect(() => {
+    const sync = () => setIds(readStorage<string[]>(WISHLIST_KEY, DEFAULT_WISHLIST));
+    sync();
+    window.addEventListener("storage", sync);
+    window.addEventListener("greencom:wishlist", sync);
+    return () => {
+      window.removeEventListener("storage", sync);
+      window.removeEventListener("greencom:wishlist", sync);
+    };
+  }, []);
+  const commit = (next: string[]) => {
+    setIds(next);
+    window.localStorage.setItem(WISHLIST_KEY, JSON.stringify(next));
+    window.dispatchEvent(new CustomEvent("greencom:wishlist", { detail: next }));
+  };
+  const toggle = (id: string) => commit(ids.includes(id) ? ids.filter((item) => item !== id) : [...ids, id]);
+  return { ids, has: (id: string) => ids.includes(id), toggle };
+}
+
 function ShopChrome({ title, text, mobileText, breadcrumb, children, newsletter = false, className = "" }: { title: string; text: string; mobileText?: string; breadcrumb: string; children: ReactNode; newsletter?: boolean; className?: string }) {
   return <main className={`shop-page ${className}`}><SiteHeader links={shopLinks} variant="inner" /><ShopHero title={title} text={text} mobileText={mobileText} breadcrumb={breadcrumb} />{children}{newsletter && <NewsletterSection />}<SiteFooter links={shopLinks} /><BackToTop /></main>;
 }
@@ -99,9 +122,10 @@ export function ShopHero({ title, text, mobileText, breadcrumb }: { title: strin
 }
 
 export function ProductCard({ product }: { product: ShopProduct }) {
-  const [favorite, setFavorite] = useState(false);
   const [added, setAdded] = useState(false);
   const cart = useCart();
+  const wishlist = useWishlist();
+  const favorite = wishlist.has(product.id);
 
   return (
     <article className="shop-product-card">
@@ -109,7 +133,7 @@ export function ProductCard({ product }: { product: ShopProduct }) {
         <img src={product.image} alt={product.title} />
         {product.sale && <span>Акція</span>}
       </a>
-      <button className={`shop-favorite ${favorite ? "is-active" : ""}`} type="button" onClick={() => setFavorite(!favorite)} aria-label={favorite ? "Прибрати зі списку бажань" : "Додати до списку бажань"}>♡</button>
+      <button className={`shop-favorite ${favorite ? "is-active" : ""}`} type="button" onClick={() => wishlist.toggle(product.id)} aria-label={favorite ? "Прибрати зі списку бажань" : "Додати до списку бажань"}>♡</button>
       <a className="shop-product-card__body" href={`../product/?id=${product.id}`}>
         <small>{product.market}</small>
         <h3>{product.title}</h3>
@@ -189,6 +213,7 @@ export function ProductPage() {
   const [tab, setTab] = useState<"description" | "characteristics" | "reviews">("description");
   const [added, setAdded] = useState(false);
   const cart = useCart();
+  const wishlist = useWishlist();
 
   useEffect(() => {
     const id = new URLSearchParams(window.location.search).get("id");
@@ -206,7 +231,7 @@ export function ProductPage() {
         <div className="product-gallery__thumbs">{Array.from({ length: 5 }, (_, index) => <button className={activeImage === index ? "is-active" : ""} type="button" onClick={() => setActiveImage(index)} key={index}><img src={product.image} alt="" /></button>)}</div>
       </div>
       <article className="product-summary shop-glass">
-        <div className="product-summary__top"><div><small>{product.category}</small><h2>{product.title}</h2></div><button className="shop-favorite shop-favorite--static" type="button" aria-label="Додати до списку бажань">♡</button></div>
+        <div className="product-summary__top"><div><small>{product.category}</small><h2>{product.title}</h2></div><button className={`shop-favorite shop-favorite--static ${wishlist.has(product.id) ? "is-active" : ""}`} type="button" onClick={() => wishlist.toggle(product.id)} aria-label={wishlist.has(product.id) ? "Прибрати зі списку бажань" : "Додати до списку бажань"}>♡</button></div>
         <div className="product-rating"><strong>★★★★★</strong><span>(5 відгуків)</span><i />Код товару: 123456</div>
         <p>Сучасний POS-термінал для автоматизації касових процесів, обліку продажів та ефективного управління торговою точкою.</p>
         <p>Ідеально підходить для магазинів, ресторанів, кафе та мереж роздрібної торгівлі.</p>
@@ -294,16 +319,26 @@ function AccountSidebar({ active }: { active: "personal" | "orders" | "wishlist"
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setName(readStorage<{ name?: string }>("greencom-user", {}).name || "Іван");
   }, []);
-  return <aside className="account-sidebar shop-glass"><div className="account-sidebar__user"><img src="/assets/shop-avatar.jpg" alt="" /><span>Привіт!<strong>{name}</strong></span></div><i /><nav><a className={active === "personal" ? "is-active" : ""} href="../personal/">♙ <span>Персональні дані</span></a><a className={active === "orders" ? "is-active" : ""} href="../orders/">▣ <span>Історія замовлень</span></a><a className={active === "wishlist" ? "is-active" : ""} href="../catalog/">♡ <span>Список бажань</span></a><a href="../login/" onClick={() => window.localStorage.removeItem("greencom-user")}>⇥ <span>Вихід</span></a></nav></aside>;
+  return <aside className="account-sidebar shop-glass"><div className="account-sidebar__user"><img src="/assets/shop-avatar.jpg" alt="" /><span>Привіт!<strong>{name}</strong></span></div><i /><nav><a className={active === "personal" ? "is-active" : ""} href="../personal/">♙ <span>Персональні дані</span></a><a className={active === "orders" ? "is-active" : ""} href="../orders/">▣ <span>Історія замовлень</span></a><a className={active === "wishlist" ? "is-active" : ""} href="../wishlist/">♡ <span>Список бажань</span></a><a href="../login/" onClick={() => window.localStorage.removeItem("greencom-user")}>⇥ <span>Вихід</span></a></nav></aside>;
 }
 
 export function PersonalPage() {
   const [saved, setSaved] = useState("");
   function save(event: FormEvent<HTMLFormElement>) { event.preventDefault(); const data = new FormData(event.currentTarget); window.localStorage.setItem("greencom-user", JSON.stringify({ name: data.get("name"), email: data.get("email") })); setSaved("Збережено"); }
   return <ShopChrome className="shop-account-page" title="Персональні дані" text="Ласкаво просимо до простору сучасних технологій, автоматизації та інноваційних рішень для розвитку вашого бізнесу." breadcrumb="Персональні дані">
-    <section className="account-layout"><AccountSidebar active="personal" /><div className="personal-panels">
+    <section className="account-layout account-layout--personal"><AccountSidebar active="personal" /><div className="personal-panels">
       <form className="personal-form shop-glass" onSubmit={save}><h2>Особиста інформація</h2><div className="personal-form__grid"><label>Ім’я<input name="name" defaultValue="Іван" /></label><label>Електронна пошта<input name="email" type="email" placeholder="Email" /></label><label>Номер телефону<input name="phone" type="tel" placeholder="+12 (123) 456 78900" /></label><label>Дата народження<input name="birthday" type="date" /></label><label className="personal-photo">Завантажити фото<span><input type="file" accept="image/*" /><b>＋</b><i>▧</i></span></label></div><button className="shop-outline" type="submit">Зберегти</button>{saved && <em>{saved} ✓</em>}</form>
       <form className="password-form shop-glass" onSubmit={(event) => { event.preventDefault(); setSaved("Пароль змінено"); }}><h2>Заміна паролю</h2><div><label>Старий пароль<input type="password" required placeholder="******" /></label><label>Новий пароль<input type="password" required minLength={6} placeholder="******" /></label><label>Повторити пароль<input type="password" required minLength={6} placeholder="******" /></label></div><button className="shop-outline" type="submit">Зберегти</button></form>
+    </div></section>
+  </ShopChrome>;
+}
+
+export function WishlistPage() {
+  const wishlist = useWishlist();
+  const products = shopProducts.filter((product) => wishlist.ids.includes(product.id));
+  return <ShopChrome className="shop-account-page shop-wishlist-page" title="Список Бажань" text="Ласкаво просимо до простору сучасних технологій, автоматизації та інноваційних рішень для розвитку вашого бізнесу." breadcrumb="Список бажань">
+    <section className="account-layout account-layout--wishlist"><AccountSidebar active="wishlist" /><div className="wishlist-content">
+      {products.length ? products.map((product) => <div className="wishlist-item" key={product.id}><button className="wishlist-remove" type="button" onClick={() => wishlist.toggle(product.id)} aria-label={`Прибрати ${product.title} зі списку бажань`}>×</button><ProductCard product={product} /></div>) : <div className="wishlist-empty shop-glass"><h2>Список бажань порожній</h2><p>Збережіть цікаві товари, щоб швидко повернутися до них пізніше.</p><a className="shop-primary" href="../catalog/">Перейти до каталогу</a></div>}
     </div></section>
   </ShopChrome>;
 }
@@ -325,6 +360,6 @@ export function OrdersPage() {
   }, []);
   const visible = orders.filter((order) => filter === "Усі замовлення" || order.status === filter);
   return <ShopChrome className="shop-account-page" title="Історія замовлень" text="Ласкаво просимо до простору сучасних технологій, автоматизації та інноваційних рішень для розвитку вашого бізнесу." breadcrumb="Історія замовлень">
-    <section className="account-layout account-layout--orders"><AccountSidebar active="orders" /><div className="orders-content"><nav className="order-filters">{["Усі замовлення","Виконано","Новий","Скасовано"].map((item) => <button className={filter === item ? "is-active" : ""} type="button" onClick={() => setFilter(item)} key={item}>{item === "Новий" ? "Нові" : item}</button>)}</nav>{visible.map((order,index) => <article className={`order-card ${open === index ? "is-open" : ""}`} key={`${order.id}-${index}`}><button className="order-card__head" type="button" onClick={() => setOpen(open === index ? -1 : index)}><span><b>№{order.id}</b><small>{order.date}</small></span><em className={`status status--${order.status.toLowerCase()}`}>{order.status}</em><span>{order.items.reduce((sum,item)=>sum+item.quantity,0)} товари</span><strong>{money(order.total)} ₴</strong><span>Детальніше⌄</span></button>{open === index && <div className="order-card__details"><div className="order-products"><header><span>Товар</span><span>Ціна</span><span>Кількість</span><span>Сума</span></header>{order.items.map((item) => <div key={item.id}><span><img src={item.image} alt="" />{item.title}</span><span>{money(item.price)} ₴</span><span>{item.quantity} шт</span><span>{money(item.price*item.quantity)} ₴</span></div>)}</div><h3>Доставка / Оплата</h3><div className="order-meta"><div><b>Отримувач</b><p>Іванов Олексій Олександрович</p><p>+38 (012) 345-67-89</p></div><div><b>Доставка</b><p>Нова пошта</p><p>Область, Назва населеного пункту, № Відділення</p></div><div><b>Форма оплати</b><p>Накладений платіж</p></div><div><b>Статус</b><p className="green">Оплачено</p></div></div></div>}</article>)}</div></section>
+    <section className="account-layout account-layout--orders"><AccountSidebar active="orders" /><div className="orders-content"><nav className="order-filters">{["Усі замовлення","Виконано","Новий","Скасовано"].map((item) => <button className={filter === item ? "is-active" : ""} type="button" onClick={() => setFilter(item)} key={item}>{item === "Новий" ? "Нові" : item}</button>)}</nav>{visible.map((order,index) => <article className={`order-card ${open === index ? "is-open" : ""}`} key={`${order.id}-${index}`}><button className="order-card__head" type="button" aria-expanded={open === index} onClick={() => setOpen(open === index ? -1 : index)}><span><b>№{order.id}</b><small>{order.date}</small></span><em className={`status status--${order.status.toLowerCase()}`}>{order.status}</em><span>{order.items.reduce((sum,item)=>sum+item.quantity,0)} товари</span><strong>{money(order.total)} ₴</strong><span className="order-details-label">Детальніше<i aria-hidden="true">⌄</i></span></button><div className="order-card__reveal" aria-hidden={open !== index}><div><div className="order-card__details"><div className="order-products"><header><span>Товар</span><span>Ціна</span><span>Кількість</span><span>Сума</span></header>{order.items.map((item) => <div key={item.id}><span><img src={item.image} alt="" />{item.title}</span><span>{money(item.price)} ₴</span><span>{item.quantity} шт</span><span>{money(item.price*item.quantity)} ₴</span></div>)}</div><h3>Доставка / Оплата</h3><div className="order-meta"><div><b>Отримувач</b><p>Іванов Олексій Олександрович</p><p>+38 (012) 345-67-89</p></div><div><b>Доставка</b><p>Нова пошта</p><p>Область, Назва населеного пункту, № Відділення</p></div><div><b>Форма оплати</b><p>Накладений платіж</p></div><div><b>Статус</b><p className="green">Оплачено</p></div></div></div></div></div></article>)}</div></section>
   </ShopChrome>;
 }

@@ -43,6 +43,7 @@ export default defineConfig({
         cart: resolve(githubPagesRoot, "cart/index.html"),
         personal: resolve(githubPagesRoot, "personal/index.html"),
         orders: resolve(githubPagesRoot, "orders/index.html"),
+        wishlist: resolve(githubPagesRoot, "wishlist/index.html"),
         notFound: resolve(githubPagesRoot, "404/index.html"),
         errorDocument: resolve(githubPagesRoot, "404.html"),
       },
