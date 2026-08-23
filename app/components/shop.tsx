@@ -172,6 +172,7 @@ const catalogIndustries = ["Аграрний", "Будівельний", "Мед
 
 export function CatalogPage() {
   const [category, setCategory] = useState("Усі категорії");
+  const [industriesOpen, setIndustriesOpen] = useState(false);
   const [mobilePanel, setMobilePanel] = useState<"categories" | "filter" | null>(null);
   const visible = useMemo(() => category === "Усі категорії" ? shopProducts : shopProducts.filter((product) => product.category === category), [category]);
 
@@ -190,8 +191,19 @@ export function CatalogPage() {
         <aside className={`shop-catalog__side ${mobilePanel ? "is-mobile-open" : ""}`} data-panel={mobilePanel ?? ""}>
           <nav aria-label="Категорії каталогу">
             {catalogNavigation.map((item, index) => <div key={item}>
-              <button className={(index === 0 && category === "Усі категорії") ? "is-active" : ""} type="button" onClick={() => { if (index === 0) setCategory("Усі категорії"); }}>{item}{index === 4 && <span>⌄</span>}</button>
-              {index === 4 && <div className="shop-catalog__subnav">{catalogIndustries.map((industry) => <button type="button" key={industry}>{industry}</button>)}</div>}
+              <button
+                className={(index === 0 && category === "Усі категорії") ? "is-active" : ""}
+                type="button"
+                aria-expanded={index === 4 ? industriesOpen : undefined}
+                aria-controls={index === 4 ? "catalog-industries" : undefined}
+                onClick={() => {
+                  if (index === 0) setCategory("Усі категорії");
+                  if (index === 4) setIndustriesOpen((open) => !open);
+                }}
+              >
+                {item}{index === 4 && <span aria-hidden="true">⌄</span>}
+              </button>
+              {index === 4 && <div className={`shop-catalog__subnav ${industriesOpen ? "is-open" : ""}`} id="catalog-industries" aria-hidden={!industriesOpen}><div>{catalogIndustries.map((industry) => <button type="button" key={industry}>{industry}</button>)}</div></div>}
             </div>)}
             <button type="button">Fredo</button>
           </nav>
