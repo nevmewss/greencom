@@ -1,6 +1,10 @@
 "use client";
 
-import { FormEvent, ReactNode, useEffect, useMemo, useState } from "react";
+import { FormEvent, ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import type { Swiper as SwiperInstance } from "swiper";
+import { A11y } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 import { BackToTop, NewsletterSection, SiteFooter, SiteHeader, type SiteLinks } from "./site";
 
 export type ShopProduct = {
@@ -76,11 +80,11 @@ function useCart() {
   return { items, add, update, remove, clear };
 }
 
-function ShopChrome({ title, text, breadcrumb, children, newsletter = false }: { title: string; text: string; breadcrumb: string; children: ReactNode; newsletter?: boolean }) {
-  return <main className="shop-page"><SiteHeader links={shopLinks} variant="inner" /><ShopHero title={title} text={text} breadcrumb={breadcrumb} />{children}{newsletter && <NewsletterSection />}<SiteFooter links={shopLinks} /><BackToTop /></main>;
+function ShopChrome({ title, text, mobileText, breadcrumb, children, newsletter = false, className = "" }: { title: string; text: string; mobileText?: string; breadcrumb: string; children: ReactNode; newsletter?: boolean; className?: string }) {
+  return <main className={`shop-page ${className}`}><SiteHeader links={shopLinks} variant="inner" /><ShopHero title={title} text={text} mobileText={mobileText} breadcrumb={breadcrumb} />{children}{newsletter && <NewsletterSection />}<SiteFooter links={shopLinks} /><BackToTop /></main>;
 }
 
-export function ShopHero({ title, text, breadcrumb }: { title: string; text: string; breadcrumb: string }) {
+export function ShopHero({ title, text, mobileText, breadcrumb }: { title: string; text: string; mobileText?: string; breadcrumb: string }) {
   return (
     <section className="shop-hero">
       <picture className="shop-hero__media">
@@ -88,8 +92,8 @@ export function ShopHero({ title, text, breadcrumb }: { title: string; text: str
         <source media="(min-width: 601px)" srcSet="/assets/contact-hero-tablet-exact.png" />
         <img src="/assets/contact-hero-mobile-exact.png" alt="" />
       </picture>
-      <nav className="shop-breadcrumbs"><a href="../">Головна</a><i /><span>{breadcrumb}</span></nav>
-      <div className="shop-hero__copy"><h1>{title}</h1><p>{text}</p></div>
+      <nav className="shop-breadcrumbs" aria-label="Навігаційний шлях"><a href="../">Головна</a><i aria-hidden="true">/</i><span>{breadcrumb}</span></nav>
+      <div className="shop-hero__copy"><h1>{title}</h1><p className={mobileText ? "shop-hero__text--desktop" : ""}>{text}</p>{mobileText && <p className="shop-hero__text--mobile">{mobileText}</p>}</div>
     </section>
   );
 }
@@ -118,10 +122,33 @@ export function ProductCard({ product }: { product: ShopProduct }) {
   );
 }
 
-const categories = ["Усі категорії", "Програмне забезпечення", "Обладнання", "Послуги ITC"];
+function RelatedProducts() {
+  const swiperRef = useRef<SwiperInstance | null>(null);
+  const [navigation, setNavigation] = useState({ isBeginning: true, isEnd: false });
+  const sync = (swiper: SwiperInstance) => setNavigation({ isBeginning: swiper.isBeginning, isEnd: swiper.isEnd });
+  return <section className="related-products"><div className="related-products__head"><div><span>— Останні ——</span><h2>Переглянуті Товари</h2></div><div className="related-products__arrows"><button type="button" disabled={navigation.isBeginning} onClick={() => swiperRef.current?.slidePrev()} aria-label="Попередній товар">←</button><button type="button" disabled={navigation.isEnd} onClick={() => swiperRef.current?.slideNext()} aria-label="Наступний товар">→</button></div></div><Swiper className="related-products__grid" modules={[A11y]} slidesPerView={4} spaceBetween={24} watchOverflow breakpoints={{ 0: { slidesPerView: 1, spaceBetween: 12 }, 601: { slidesPerView: 2, spaceBetween: 14 }, 1295: { slidesPerView: 4, spaceBetween: 24 } }} onSwiper={(swiper) => { swiperRef.current = swiper; sync(swiper); }} onSlideChange={sync} onBreakpoint={sync}>{shopProducts.slice(0,4).map((item) => <SwiperSlide key={item.id}><ProductCard product={item} /></SwiperSlide>)}</Swiper></section>;
+}
+
+const catalogSections = [
+  { title: "Програмне забезпечення", label: "Послуги", category: "Програмне забезпечення" },
+  { title: "Торгове обладнання", label: "Обладнання", category: "Обладнання" },
+  { title: "Послуги ITC", label: "Послуги", category: "Послуги ITC" },
+  { title: "Витратні матеріали", label: "Обладнання", category: "Обладнання" },
+];
+
+const catalogNavigation = [
+  "Усі категорії",
+  "BAS Корпоративний ринок",
+  "BAS Масовий ринок",
+  "BAS Додаткові можливості",
+  "BAS Галузеві рішення",
+];
+
+const catalogIndustries = ["Аграрний", "Будівельний", "Медичний", "Паливний", "Харчовий"];
 
 export function CatalogPage() {
   const [category, setCategory] = useState("Усі категорії");
+  const [mobilePanel, setMobilePanel] = useState<"categories" | "filter" | null>(null);
   const visible = useMemo(() => category === "Усі категорії" ? shopProducts : shopProducts.filter((product) => product.category === category), [category]);
 
   return (
@@ -129,12 +156,22 @@ export function CatalogPage() {
       <SiteHeader links={shopLinks} variant="inner" />
       <ShopHero breadcrumb="Каталог" title="Каталог" text="Знайдіть відповіді на найпоширеніші запитання щодо автоматизації, IT-рішень, обладнання та сервісів GreenCore." />
       <section className="shop-category-strip">
-        {categories.slice(1).concat("Витратні матеріали").map((item) => <article key={item}><small>{item === "Обладнання" ? "Обладнання" : "Послуги"}</small><h2>{item}</h2><p>Коротенький опис послуги для каталогу. В два рядки, може в один.</p><a href="#catalog-grid">Дізнатися більше</a></article>)}
+        {catalogSections.map((item) => <article key={item.title}><small>{item.label}</small><h2>{item.title}</h2><p>Коротенький опис послуги для каталогу. В два рядки, може в один.</p><a href="#catalog-grid" onClick={() => setCategory(item.category)}>Дізнатися більше</a></article>)}
       </section>
       <section className="shop-catalog" id="catalog-grid">
-        <aside className="shop-catalog__side">
-          <nav>{categories.map((item) => <button className={category === item ? "is-active" : ""} type="button" key={item} onClick={() => setCategory(item)}>{item}<span>›</span></button>)}</nav>
-          <div className="shop-filter"><h2>Фільтр</h2><details open><summary>Категорія</summary>{categories.slice(1).map((item) => <label key={item}><input type="checkbox" checked={category === item} onChange={() => setCategory(category === item ? "Усі категорії" : item)} />{item}</label>)}</details><details><summary>Бренд</summary><label><input type="checkbox" />Sunmi</label><label><input type="checkbox" />BAS</label></details></div>
+        <div className="shop-catalog-mobile-controls" aria-label="Каталог та фільтри">
+          <button className={mobilePanel === "categories" ? "is-active" : ""} type="button" onClick={() => setMobilePanel(mobilePanel === "categories" ? null : "categories")}>Категорії</button>
+          <button className={mobilePanel === "filter" ? "is-active" : ""} type="button" onClick={() => setMobilePanel(mobilePanel === "filter" ? null : "filter")}>Фільтр</button>
+        </div>
+        <aside className={`shop-catalog__side ${mobilePanel ? "is-mobile-open" : ""}`} data-panel={mobilePanel ?? ""}>
+          <nav aria-label="Категорії каталогу">
+            {catalogNavigation.map((item, index) => <div key={item}>
+              <button className={(index === 0 && category === "Усі категорії") ? "is-active" : ""} type="button" onClick={() => { if (index === 0) setCategory("Усі категорії"); }}>{item}{index === 4 && <span>⌄</span>}</button>
+              {index === 4 && <div className="shop-catalog__subnav">{catalogIndustries.map((industry) => <button type="button" key={industry}>{industry}</button>)}</div>}
+            </div>)}
+            <button type="button">Fredo</button>
+          </nav>
+          <div className="shop-filter"><h2>Фільтр</h2><details><summary>Категорія</summary></details><details open><summary>Категорія</summary>{Array.from({ length: 10 }, (_, index) => <label key={index}><input type="checkbox" defaultChecked={index === 1} />Текст</label>)}</details><details><summary>Категорія</summary></details><details><summary>Категорія</summary></details></div>
         </aside>
         <div className="shop-product-grid">{visible.map((product) => <ProductCard product={product} key={product.id} />)}</div>
       </section>
@@ -162,7 +199,7 @@ export function ProductPage() {
 
   const add = () => { cart.add(product, quantity); setAdded(true); window.setTimeout(() => setAdded(false), 1400); };
 
-  return <ShopChrome title="Програмне Забезпечення" text="Коротенький опис послуги для каталогу. В два рядки, може в один." breadcrumb="Каталог" newsletter>
+  return <ShopChrome className="shop-product-page" title="Програмне забезпечення" text="Коротенький опис послуги для каталогу. В два рядки, може в один." mobileText="Знайдіть відповіді на найпоширеніші запитання щодо автоматизації, IT-рішень, обладнання та сервісів GreenCore." breadcrumb="Каталог" newsletter>
     <section className="product-detail">
       <div className="product-gallery shop-glass">
         <div className="product-gallery__main"><img src={product.image} alt={product.title} />{product.sale && <span>Акція</span>}</div>
@@ -180,11 +217,11 @@ export function ProductPage() {
     </section>
     <section className="product-tabs shop-glass">
       <nav><button className={tab === "description" ? "is-active" : ""} type="button" onClick={() => setTab("description")}>Опис</button><button className={tab === "characteristics" ? "is-active" : ""} type="button" onClick={() => setTab("characteristics")}>Характеристики</button><button className={tab === "reviews" ? "is-active" : ""} type="button" onClick={() => setTab("reviews")}>Відгуки (5)</button></nav>
-      {tab === "description" && <div className="product-tabs__copy"><h3>Повний опис товару</h3><p>Потужне та надійне рішення для автоматизації бізнесу. Термінал поєднує продуктивне обладнання, сучасний дизайн і просте керування, допомагаючи прискорити обслуговування клієнтів та контролювати всі операції.</p><p>Корпус розрахований на інтенсивне щоденне використання, а програмне забезпечення легко інтегрується з обліковими системами GreenCom.</p><h3>Переваги рішення</h3><ul><li>Швидка робота та стабільне підключення.</li><li>Інтеграція з BAS і системами обліку.</li><li>Гарантія та технічна підтримка 24/7.</li></ul></div>}
+      {tab === "description" && <div className="product-tabs__copy"><h3>Повний опис товару</h3><p>Потужне та надійне рішення для автоматизації бізнесу. Термінал поєднує продуктивне обладнання, сучасний дизайн і просте керування, допомагаючи прискорити обслуговування клієнтів та контролювати всі операції.</p><p>Система підтримує щоденну роботу з продажами, обліком товарів і клієнтськими даними. Інтерфейс зрозумілий співробітникам, а гнучкі налаштування дозволяють адаптувати рішення до процесів конкретної компанії.</p><p>Корпус розрахований на інтенсивне щоденне використання, а програмне забезпечення легко інтегрується з обліковими системами GreenCom. Дані синхронізуються без зайвих ручних операцій, що зменшує кількість помилок і прискорює обслуговування.</p><p>Рішення підходить для магазинів, ресторанів, сервісних центрів і мережевих компаній. За потреби конфігурацію можна розширити додатковими модулями, обладнанням та інструментами аналітики.</p><h3>Переваги рішення</h3><ul><li>Швидка робота та стабільне підключення.</li><li>Інтеграція з BAS і системами обліку.</li><li>Зручне керування товарами, цінами та залишками.</li><li>Захищене зберігання й синхронізація даних.</li><li>Масштабування під нові торгові точки та користувачів.</li><li>Гарантія та технічна підтримка 24/7.</li></ul><div className="product-tabs__mobile-copy"><h3>Можливості системи</h3><p>Обладнання працює як єдиний центр для касових операцій, контролю продажів та обслуговування клієнтів. Всі важливі показники доступні відповідальним співробітникам у зрозумілому вигляді.</p><p>Підключення додаткових модулів не потребує перебудови всієї системи. Конфігурацію можна поступово розширювати разом зі зростанням бізнесу та появою нових задач.</p><p>Фахівці GreenCom допомагають із налаштуванням, перенесенням даних, навчанням персоналу та подальшим супроводом рішення.</p><ul><li>Централізоване керування налаштуваннями.</li><li>Контроль доступу для різних ролей.</li><li>Автоматичне оновлення ключових даних.</li><li>Підтримка під час запуску та експлуатації.</li></ul></div></div>}
       {tab === "characteristics" && <dl className="product-characteristics"><div><dt>Процесор</dt><dd>Octa Core 2.0 GHz</dd></div><div><dt>Пам’ять</dt><dd>4 GB / 64 GB</dd></div><div><dt>Дисплей</dt><dd>15.6″ Full HD</dd></div><div><dt>Гарантія</dt><dd>12 місяців</dd></div></dl>}
       {tab === "reviews" && <div className="product-review"><strong>★★★★★</strong><h3>Іван, 26.04.2026</h3><p>Зручне рішення, швидко встановили та підключили до нашої системи обліку.</p></div>}
     </section>
-    <section className="related-products"><div><span>— Останні ——</span><h2>Переглянуті Товари</h2></div><div className="related-products__grid">{shopProducts.slice(0,4).map((item) => <ProductCard product={item} key={item.id} />)}</div></section>
+    <RelatedProducts />
   </ShopChrome>;
 }
 
@@ -207,7 +244,7 @@ export function AuthPage() {
     window.setTimeout(() => { window.location.href = "../personal/"; }, 650);
   }
 
-  return <ShopChrome title={mode === "login" ? "Вхід" : "Реєстрація"} text="Ласкаво просимо у Ваш центр сучасних технологій та автоматизації бізнесу." breadcrumb={mode === "login" ? "Вхід" : "Реєстрація"}>
+  return <ShopChrome className="shop-auth-page" title={mode === "login" ? "Вхід" : "Реєстрація"} text="Лавскаво просимо у Ваш центр сучасних технологій та автоматизації бізнесу." breadcrumb={mode === "login" ? "Вхід" : "Реєстрація"}>
     <section className="auth-section">
       <div className="auth-visual"><i /><img src="/assets/shop-auth.jpg" alt="Захищений вхід до кабінету GreenCom" /></div>
       <form className="auth-form shop-glass" onSubmit={submit}>
@@ -216,7 +253,7 @@ export function AuthPage() {
         <label>Email<span><input name="email" type="email" required placeholder="Введіть Email" /><i>✉</i></span></label>
         <label>Пароль<span><input name="password" type={passwordVisible ? "text" : "password"} minLength={6} required placeholder="******" /><button type="button" onClick={() => setPasswordVisible(!passwordVisible)} aria-label="Показати пароль">◉</button></span></label>
         {mode === "signup" && <label>Повторіть пароль<input type={passwordVisible ? "text" : "password"} minLength={6} required placeholder="******" /></label>}
-        <div className="auth-form__bottom"><button className="shop-primary" type="submit">{mode === "login" ? "Увійти" : "Зареєструватися"}</button>{mode === "login" && <a href="#">Забули пароль?</a>}</div>
+        <div className="auth-form__bottom"><button className="shop-primary" type="submit">Відправити</button>{mode === "login" && <a href="#">Забули пароль?</a>}</div>
         {message && <p className="shop-success">{message} ✓</p>}
       </form>
     </section>
@@ -263,7 +300,7 @@ function AccountSidebar({ active }: { active: "personal" | "orders" | "wishlist"
 export function PersonalPage() {
   const [saved, setSaved] = useState("");
   function save(event: FormEvent<HTMLFormElement>) { event.preventDefault(); const data = new FormData(event.currentTarget); window.localStorage.setItem("greencom-user", JSON.stringify({ name: data.get("name"), email: data.get("email") })); setSaved("Збережено"); }
-  return <ShopChrome title="Персональні Дані" text="Ласкаво просимо до простору сучасних технологій, автоматизації та інноваційних рішень для розвитку вашого бізнесу." breadcrumb="Персональні дані">
+  return <ShopChrome className="shop-account-page" title="Персональні дані" text="Ласкаво просимо до простору сучасних технологій, автоматизації та інноваційних рішень для розвитку вашого бізнесу." breadcrumb="Персональні дані">
     <section className="account-layout"><AccountSidebar active="personal" /><div className="personal-panels">
       <form className="personal-form shop-glass" onSubmit={save}><h2>Особиста інформація</h2><div className="personal-form__grid"><label>Ім’я<input name="name" defaultValue="Іван" /></label><label>Електронна пошта<input name="email" type="email" placeholder="Email" /></label><label>Номер телефону<input name="phone" type="tel" placeholder="+12 (123) 456 78900" /></label><label>Дата народження<input name="birthday" type="date" /></label><label className="personal-photo">Завантажити фото<span><input type="file" accept="image/*" /><b>＋</b><i>▧</i></span></label></div><button className="shop-outline" type="submit">Зберегти</button>{saved && <em>{saved} ✓</em>}</form>
       <form className="password-form shop-glass" onSubmit={(event) => { event.preventDefault(); setSaved("Пароль змінено"); }}><h2>Заміна паролю</h2><div><label>Старий пароль<input type="password" required placeholder="******" /></label><label>Новий пароль<input type="password" required minLength={6} placeholder="******" /></label><label>Повторити пароль<input type="password" required minLength={6} placeholder="******" /></label></div><button className="shop-outline" type="submit">Зберегти</button></form>
@@ -287,7 +324,7 @@ export function OrdersPage() {
     if (stored.length) setOrders([...stored, ...fallbackOrders]);
   }, []);
   const visible = orders.filter((order) => filter === "Усі замовлення" || order.status === filter);
-  return <ShopChrome title="Історія Замовлень" text="Ласкаво просимо до простору сучасних технологій, автоматизації та інноваційних рішень для розвитку вашого бізнесу." breadcrumb="Історія замовлень">
+  return <ShopChrome className="shop-account-page" title="Історія замовлень" text="Ласкаво просимо до простору сучасних технологій, автоматизації та інноваційних рішень для розвитку вашого бізнесу." breadcrumb="Історія замовлень">
     <section className="account-layout account-layout--orders"><AccountSidebar active="orders" /><div className="orders-content"><nav className="order-filters">{["Усі замовлення","Виконано","Новий","Скасовано"].map((item) => <button className={filter === item ? "is-active" : ""} type="button" onClick={() => setFilter(item)} key={item}>{item === "Новий" ? "Нові" : item}</button>)}</nav>{visible.map((order,index) => <article className={`order-card ${open === index ? "is-open" : ""}`} key={`${order.id}-${index}`}><button className="order-card__head" type="button" onClick={() => setOpen(open === index ? -1 : index)}><span><b>№{order.id}</b><small>{order.date}</small></span><em className={`status status--${order.status.toLowerCase()}`}>{order.status}</em><span>{order.items.reduce((sum,item)=>sum+item.quantity,0)} товари</span><strong>{money(order.total)} ₴</strong><span>Детальніше⌄</span></button>{open === index && <div className="order-card__details"><div className="order-products"><header><span>Товар</span><span>Ціна</span><span>Кількість</span><span>Сума</span></header>{order.items.map((item) => <div key={item.id}><span><img src={item.image} alt="" />{item.title}</span><span>{money(item.price)} ₴</span><span>{item.quantity} шт</span><span>{money(item.price*item.quantity)} ₴</span></div>)}</div><h3>Доставка / Оплата</h3><div className="order-meta"><div><b>Отримувач</b><p>Іванов Олексій Олександрович</p><p>+38 (012) 345-67-89</p></div><div><b>Доставка</b><p>Нова пошта</p><p>Область, Назва населеного пункту, № Відділення</p></div><div><b>Форма оплати</b><p>Накладений платіж</p></div><div><b>Статус</b><p className="green">Оплачено</p></div></div></div>}</article>)}</div></section>
   </ShopChrome>;
 }
