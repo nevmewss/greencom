@@ -10052,3 +10052,538 @@ body,
     height: 725px !important;
   }
 }
+
+/* CMS flow safety: repeated content grows in normal document flow. */
+.cms-page {
+  height: auto !important;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+.cms-page .benefits,
+.cms-page .partners:has(.partner:nth-child(8)),
+.cms-page .news,
+.cms-page .contact,
+.cms-page .about-overview,
+.cms-page .about-results,
+.cms-page .about-team,
+.cms-page .about-history,
+.cms-page .contact-office,
+.cms-page .contact-map,
+.cms-page .contact-faq,
+.cms-page .contact-page-form,
+.cms-page .price-list,
+.cms-page .newsletter,
+.cms-page .footer {
+  height: auto !important;
+}
+
+.cms-page .benefits {
+  min-height: 848px;
+}
+
+.cms-page .benefits__layout {
+  position: relative;
+  display: block;
+  width: min(1260px, calc(100% - 60px));
+  height: auto;
+  min-height: 848px;
+}
+
+.cms-page .benefits__intro {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  width: 456px;
+}
+
+.cms-page .benefits__cards {
+  display: grid;
+  min-width: 0;
+  padding-top: 758px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 24px;
+}
+
+.cms-page .benefit-card:nth-child(-n + 5) {
+  position: absolute;
+  width: 404px;
+  height: 231px;
+}
+
+.cms-page .benefit-card:nth-child(n + 6) {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: auto;
+  min-height: 231px;
+}
+
+.cms-page .benefit-card h3 {
+  width: 100%;
+  height: auto;
+  min-height: 69px;
+}
+
+.cms-page .benefit-card p {
+  width: 100%;
+}
+
+.cms-page .partners:has(.partner:nth-child(8)) {
+  position: relative;
+  display: block;
+  min-height: 761px;
+}
+
+.cms-page .partners:has(.partner:nth-child(8)) .partners__intro {
+  position: absolute;
+  top: 218px;
+  left: max(10px, calc((100% - 1260px) / 2));
+  width: 344px;
+}
+
+.cms-page .partners:has(.partner:nth-child(8)) .partners__cloud {
+  position: relative;
+  inset: auto;
+  display: grid;
+  width: 938px;
+  height: auto;
+  min-height: 581px;
+  margin-left: calc(50% - 308px - max(10px, calc((100% - 1260px) / 2)));
+  padding-top: 581px;
+  grid-template-columns: repeat(3, minmax(170px, 1fr));
+  align-items: center;
+  gap: 16px;
+}
+
+.cms-page .partners:has(.partner:nth-child(8)) .partner:nth-child(-n + 7) {
+  position: absolute;
+  width: 256px;
+  height: 256px;
+}
+
+.cms-page .partners:has(.partner:nth-child(8)) .partner:nth-child(n + 8) {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: 220px;
+}
+
+.cms-page .news {
+  min-height: 1028px;
+}
+
+.cms-page .news__head {
+  position: absolute;
+  top: 90px;
+  left: max(10px, calc((100% - 1260px) / 2));
+  width: min(535px, 100%);
+}
+
+.cms-page .news__cards {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  margin-top: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+}
+
+.cms-page .news__stack {
+  display: grid;
+  gap: 22px;
+}
+
+.cms-page .news-card,
+.cms-page .news-card--featured {
+  height: auto;
+  min-height: 268px;
+}
+
+.cms-page .news-card--featured {
+  min-height: 531px;
+  margin-top: 317px;
+}
+
+.cms-page .contact {
+  min-height: 755px;
+  align-items: flex-start;
+}
+
+.cms-page .contact__info,
+.cms-page .contact-form {
+  align-self: stretch;
+}
+
+.cms-page .contact__methods a,
+.cms-page .contact-office__method {
+  height: auto;
+  min-height: 89px;
+}
+
+.cms-page .contact-form,
+.cms-page .contact-page-form__panel {
+  height: auto;
+  min-height: 575px;
+}
+
+.cms-page .contact-form__grid {
+  grid-auto-rows: minmax(0, auto);
+}
+
+.cms-page .contact-form textarea {
+  min-height: 150px;
+  height: auto;
+}
+
+.cms-page .about-overview,
+.cms-page .about-results,
+.cms-page .about-history,
+.cms-page .contact-office,
+.cms-page .contact-faq,
+.cms-page .contact-page-form,
+.cms-page .price-list {
+  min-height: 0;
+}
+
+.cms-page .about-section-inner {
+  height: auto;
+}
+
+.cms-page .about-results__panel {
+  display: grid;
+  height: auto;
+  min-height: 445px;
+  grid-template-columns: minmax(250px, 344px) minmax(0, 1fr);
+  align-items: start;
+  gap: 32px;
+}
+
+.cms-page .about-results__grid {
+  position: relative;
+  inset: auto;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-content: stretch;
+  gap: 22px;
+}
+
+.cms-page .about-results__grid article,
+.cms-page .about-results__grid article:nth-child(n) {
+  width: 100%;
+  height: auto;
+  min-height: 140px;
+  flex-basis: auto;
+}
+
+.cms-page .about-team {
+  min-height: 610px;
+}
+
+.cms-page .about-history {
+  min-height: 1032px;
+  align-items: start;
+}
+
+.cms-page .about-history__timeline {
+  height: auto;
+  min-height: 720px;
+  justify-content: flex-start;
+  gap: 32px;
+}
+
+.cms-page .about-history__timeline article {
+  min-height: 80px;
+}
+
+.cms-page .contact-office__panel {
+  height: auto;
+  min-height: 487px;
+  align-items: stretch;
+}
+
+.cms-page .contact-office__photo {
+  width: 100%;
+  height: 100%;
+  min-height: 407px;
+}
+
+.cms-page .contact-map__panel {
+  height: auto;
+  min-height: 651px;
+}
+
+.cms-page .contact-faq {
+  min-height: 635px;
+  align-items: start;
+}
+
+.cms-page .contact-page-form {
+  min-height: 0;
+}
+
+.cms-page .contact-page-form__intro {
+  height: auto;
+  min-height: 0;
+}
+
+.cms-page .price-list__inner {
+  height: auto;
+}
+
+.cms-page .price-card {
+  height: auto;
+  min-height: 105px;
+}
+
+.cms-page .newsletter {
+  min-height: 314px;
+}
+
+.cms-page .footer {
+  min-height: 528px;
+}
+
+.cms-page .footer__main,
+.cms-page .footer__brand {
+  height: auto !important;
+  min-height: 0;
+}
+
+.cms-page .footer__nav {
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+}
+
+.cms-page .back-to-top {
+  position: fixed;
+  z-index: 40;
+  top: auto !important;
+  right: 24px !important;
+  bottom: 24px !important;
+}
+
+@media (max-width: 1294px) {
+  .cms-page .benefits,
+  .cms-page .partners:has(.partner:nth-child(8)),
+  .cms-page .news,
+  .cms-page .contact,
+  .cms-page .about-overview,
+  .cms-page .about-results,
+  .cms-page .about-team,
+  .cms-page .about-history,
+  .cms-page .contact-office,
+  .cms-page .contact-map,
+  .cms-page .contact-faq,
+  .cms-page .contact-page-form,
+  .cms-page .price-list {
+    padding-block: 60px;
+  }
+
+  .cms-page .benefits__layout,
+  .cms-page .partners:has(.partner:nth-child(8)),
+  .cms-page .contact,
+  .cms-page .about-results__panel,
+  .cms-page .about-history,
+  .cms-page .contact-office__panel,
+  .cms-page .contact-faq {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cms-page .benefits__layout {
+    display: grid;
+    gap: 40px;
+  }
+
+  .cms-page .partners:has(.partner:nth-child(8)) {
+    display: grid;
+    gap: 48px;
+  }
+
+  .cms-page .benefits__intro,
+  .cms-page .benefit-card:nth-child(-n + 5) {
+    position: relative;
+    inset: auto;
+  }
+
+  .cms-page .benefits__cards {
+    padding-top: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cms-page .benefit-card:nth-child(-n + 5) {
+    width: 100%;
+    height: auto;
+    min-height: 231px;
+  }
+
+  .cms-page .benefits__intro,
+  .cms-page .partners:has(.partner:nth-child(8)) .partners__intro,
+  .cms-page .contact__info,
+  .cms-page .about-results__intro,
+  .cms-page .contact-faq__intro {
+    width: 100%;
+    max-width: 720px;
+  }
+
+  .cms-page .partners:has(.partner:nth-child(8)) .partners__cloud {
+    width: 100%;
+    min-height: 0;
+    margin-left: 0;
+    padding-top: 0;
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+  }
+
+  .cms-page .partners:has(.partner:nth-child(8)) .partners__intro,
+  .cms-page .partners:has(.partner:nth-child(8)) .partner:nth-child(-n + 7),
+  .cms-page .news__head {
+    position: relative;
+    inset: auto;
+  }
+
+  .cms-page .partners:has(.partner:nth-child(8)) .partner:nth-child(-n + 7) {
+    width: 100%;
+    height: 220px;
+  }
+
+  .cms-page .news__cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cms-page .news-card--featured {
+    min-height: 0;
+    margin-top: 0;
+  }
+
+  .cms-page .contact {
+    display: grid;
+  }
+
+  .cms-page .contact__info,
+  .cms-page .contact__methods a,
+  .cms-page .contact-form,
+  .cms-page .about-team__intro,
+  .cms-page .about-team__intro > p,
+  .cms-page .about-team__slider,
+  .cms-page .about-history__visual,
+  .cms-page .contact-faq__intro > p,
+  .cms-page .contact-page-form__intro > p {
+    width: 100%;
+  }
+
+  .cms-page .about-team {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .cms-page .about-history__timeline {
+    min-height: 0;
+  }
+
+  .cms-page .contact-office__photo {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .cms-page .contact-map__panel {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .cms-page .benefits,
+  .cms-page .partners:has(.partner:nth-child(8)),
+  .cms-page .news,
+  .cms-page .contact,
+  .cms-page .about-overview,
+  .cms-page .about-results,
+  .cms-page .about-team,
+  .cms-page .about-history,
+  .cms-page .contact-office,
+  .cms-page .contact-map,
+  .cms-page .contact-faq,
+  .cms-page .contact-page-form,
+  .cms-page .price-list {
+    padding-block: 40px;
+  }
+
+  .cms-page .benefits__layout {
+    width: calc(100% - 20px);
+  }
+
+  .cms-page .benefits__cards,
+  .cms-page .partners:has(.partner:nth-child(8)) .partners__cloud,
+  .cms-page .about-results__grid,
+  .cms-page .contact-form__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cms-page .partners:has(.partner:nth-child(8)) .partner {
+    height: 190px;
+  }
+
+  .cms-page .price-card {
+    display: grid;
+    min-height: 212px;
+    grid-template-columns: 54px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: start;
+    column-gap: 12px;
+    row-gap: 14px;
+  }
+
+  .cms-page .price-card__icon {
+    grid-row: 1 / span 2;
+  }
+
+  .cms-page .price-card__copy {
+    grid-column: 2;
+  }
+
+  .cms-page .price-card > strong {
+    position: static;
+    grid-column: 2;
+    margin-top: 0;
+    align-self: end;
+  }
+
+  .cms-page .news-card,
+  .cms-page .news-card--featured {
+    min-height: 0;
+  }
+
+  .cms-page .about-results__panel,
+  .cms-page .contact-office__panel,
+  .cms-page .contact-form,
+  .cms-page .contact-page-form__panel {
+    padding: 24px;
+  }
+
+  .cms-page .about-history__image {
+    max-width: 100%;
+  }
+
+  .cms-page .about-history__timeline article {
+    grid-template-columns: 58px 34px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .cms-page .about-history__timeline::before {
+    left: 75px;
+  }
+
+  .cms-page .contact-office__method em,
+  .cms-page .contact__methods em {
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .cms-page .footer,
+  .cms-page .about-page .footer,
+  .cms-page .contact-page .footer,
+  .cms-page .price-page .footer {
+    height: auto !important;
+    min-height: 0;
+  }
+}

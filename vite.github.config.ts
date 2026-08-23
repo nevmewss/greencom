@@ -21,7 +21,7 @@ export default defineConfig({
         }
 
         return code.replace(
-          /(["'`])\/(?=(?:assets|icons|fonts)\/|(?:developer-tech|retail-tech)\.jpg)/g,
+          /(["'`])\/(?=(?:assets|icons|site-icons|fonts)\/|(?:developer-tech|retail-tech)\.jpg)/g,
           `$1${githubPagesBase}`,
         );
       },
@@ -37,6 +37,12 @@ export default defineConfig({
         about: resolve(githubPagesRoot, "about/index.html"),
         contact: resolve(githubPagesRoot, "contact/index.html"),
         price: resolve(githubPagesRoot, "price/index.html"),
+        catalog: resolve(githubPagesRoot, "catalog/index.html"),
+        product: resolve(githubPagesRoot, "product/index.html"),
+        login: resolve(githubPagesRoot, "login/index.html"),
+        cart: resolve(githubPagesRoot, "cart/index.html"),
+        personal: resolve(githubPagesRoot, "personal/index.html"),
+        orders: resolve(githubPagesRoot, "orders/index.html"),
         notFound: resolve(githubPagesRoot, "404/index.html"),
         errorDocument: resolve(githubPagesRoot, "404.html"),
       },

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Manrope, Roboto } from "next/font/google";
 import "./globals.css";
+import "./shop.css";
 
 const manrope = Manrope({ subsets: ["latin", "cyrillic"], variable: "--font-manrope" });
 const inter = Inter({ subsets: ["latin", "cyrillic"], variable: "--font-inter" });

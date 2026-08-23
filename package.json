@@ -9,6 +9,7 @@
     "dev": "vinext dev",
     "build": "vinext build",
     "build:pages": "vite build --config vite.github.config.ts",
+    "build:hosting": "vite build --config vite.hosting.config.ts",
     "preview:pages": "vite preview --config vite.github.config.ts",
     "start": "vinext start",
     "test": "npm run build && npm run build:pages && node --test tests/rendered-html.test.mjs tests/github-pages.test.mjs",

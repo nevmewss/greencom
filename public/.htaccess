@@ -1,0 +1,9 @@
+Options -Indexes
+
+RewriteEngine On
+
+# Existing files and directories are served normally. Every other single-level
+# URL is handled by the CMS page entry point, which verifies publication via API.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^[^/]+/?$ /404/index.html [L]

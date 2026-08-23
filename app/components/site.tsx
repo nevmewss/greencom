@@ -104,8 +104,9 @@ export function SiteHeader({
   const [cartOpen, setCartOpen] = useState(false);
   const [currency, setCurrency] = useState("USD");
   const [language, setLanguage] = useState("uk");
+  const [shopCart, setShopCart] = useState({ count: 0, total: 0, ready: false });
 
-  const logo = cmsImage(data, "logo", "logo_url", "/icons/logo.png");
+  const logo = cmsImage(data, "logo", "logo_url", "/site-icons/logo.png");
   const topLinks = cmsItems(data, "top_links");
   const navItems = cmsItems(data, "nav_items");
   const currencies = cmsItems(data, "currencies").map((item) => cmsString(item, "value")).filter(Boolean);
@@ -141,6 +142,25 @@ export function SiteHeader({
     return () => document.body.classList.remove("no-scroll");
   }, [menuOpen, searchOpen, loginOpen, cartOpen]);
 
+  useEffect(() => {
+    const syncCart = () => {
+      try {
+        const items = JSON.parse(window.localStorage.getItem("greencom-cart") ?? "[]") as { price?: number; quantity?: number }[];
+        const summary = items.reduce((result, item) => ({ count: result.count + (item.quantity ?? 0), total: result.total + (item.price ?? 0) * (item.quantity ?? 0) }), { count: 0, total: 0 });
+        setShopCart({ ...summary, ready: true });
+      } catch { setShopCart({ count: 0, total: 0, ready: true }); }
+    };
+    syncCart();
+    window.addEventListener("storage", syncCart);
+    window.addEventListener("greencom:cart", syncCart);
+    return () => { window.removeEventListener("storage", syncCart); window.removeEventListener("greencom:cart", syncCart); };
+  }, []);
+
+  function openShopRoute(path: string) {
+    const base = window.location.pathname.startsWith("/greencom/") ? "/greencom" : "";
+    window.location.href = `${base}${path}`;
+  }
+
   function closeMenu() {
     setMenuOpen(false);
     setOpenDropdown(null);
@@ -152,14 +172,14 @@ export function SiteHeader({
         <div className="topbar">
           <div className="topbar__inner">
             <div className="topbar__contacts">
-              <a href={`mailto:${cmsString(data, "email", "example@domain.com")}`}><img src="/icons/mail.svg" alt="" />{cmsString(data, "email", "example@domain.com")}</a>
+              <a href={`mailto:${cmsString(data, "email", "example@domain.com")}`}><img src="/site-icons/mail.svg" alt="" />{cmsString(data, "email", "example@domain.com")}</a>
               <i />
-              <a href={`tel:${cmsString(data, "phone", "+12 (123) 456 78900").replace(/[^+\d]/g, "")}`}><img src="/icons/phone.svg" alt="" />{cmsString(data, "phone", "+12 (123) 456 78900")}</a>
+              <a href={`tel:${cmsString(data, "phone", "+12 (123) 456 78900").replace(/[^+\d]/g, "")}`}><img src="/site-icons/phone.svg" alt="" />{cmsString(data, "phone", "+12 (123) 456 78900")}</a>
             </div>
             <nav className="topbar__nav">
               {configuredTopLinks.map((item, index) => <Fragment key={`${cmsString(item, "label")}-${index}`}><a href={cmsString(item, "url", "#")}>{cmsString(item, "label")}</a><i /></Fragment>)}
               <div className="header-select">
-                <button type="button" onClick={() => setOpenDropdown(openDropdown === "currency" ? null : "currency")}>{currency}<img src="/icons/chevron.svg" alt="" /></button>
+                <button type="button" onClick={() => setOpenDropdown(openDropdown === "currency" ? null : "currency")}>{currency}<img src="/site-icons/chevron.svg" alt="" /></button>
                 {openDropdown === "currency" && (
                   <div className="header-dropdown header-dropdown--small">
                     {(currencies.length ? currencies : ["USD", "EUR", "UAH"]).map((item) => <button type="button" key={item} onClick={() => { setCurrency(item); setOpenDropdown(null); }}>{item}</button>)}
@@ -167,7 +187,7 @@ export function SiteHeader({
                 )}
               </div><i />
               <div className="header-select">
-                <button type="button" onClick={() => setOpenDropdown(openDropdown === "language" ? null : "language")}>{currentLanguage?.label ?? "UA"}<img src="/icons/chevron.svg" alt="" /></button>
+                <button type="button" onClick={() => setOpenDropdown(openDropdown === "language" ? null : "language")}>{currentLanguage?.label ?? "UA"}<img src="/site-icons/chevron.svg" alt="" /></button>
                 {openDropdown === "language" && (
                   <div className="header-dropdown header-dropdown--small">
                     {languageOptions.map((item) => <button type="button" key={item.code} onClick={() => { setLanguage(item.code); onLocaleChange?.(item.code); setOpenDropdown(null); }}>{item.label}</button>)}
@@ -182,25 +202,25 @@ export function SiteHeader({
           <nav className={`desktop-nav ${menuOpen ? "is-open" : ""}`}>
             {mainNavItems.slice(0, 1).map((item, index) => <a className={active === "home" ? "is-active" : ""} href={cmsString(item, "url", "#")} onClick={closeMenu} key={`${cmsString(item, "label")}-${index}`}>{cmsString(item, "label")}</a>)}
             <div className="nav-item">
-              <button type="button" onClick={() => setOpenDropdown(openDropdown === "services" ? null : "services")}>Послуги<img src="/icons/chevron.svg" alt="" /></button>
+              <button type="button" onClick={() => setOpenDropdown(openDropdown === "services" ? null : "services")}>Послуги<img src="/site-icons/chevron.svg" alt="" /></button>
               {openDropdown === "services" && <div className="header-dropdown">{configuredNavItems.filter((item) => cmsString(item, "group") === "services").map((item, index) => <a href={cmsString(item, "url", links.services)} onClick={closeMenu} key={`${cmsString(item, "label")}-${index}`}>{cmsString(item, "label")}</a>)}</div>}
             </div>
             {mainNavItems.slice(1).map((item, index) => <a className={active === "contact" && cmsString(item, "label").toLowerCase().includes("конт") ? "is-active" : ""} href={cmsString(item, "url", "#")} onClick={closeMenu} key={`${cmsString(item, "label")}-${index}`}>{cmsString(item, "label")}</a>)}
             <div className="nav-item">
-              <button type="button" onClick={() => setOpenDropdown(openDropdown === "equipment" ? null : "equipment")}>Обладнання<img src="/icons/chevron.svg" alt="" /></button>
+              <button type="button" onClick={() => setOpenDropdown(openDropdown === "equipment" ? null : "equipment")}>Обладнання<img src="/site-icons/chevron.svg" alt="" /></button>
               {openDropdown === "equipment" && <div className="header-dropdown">{configuredNavItems.filter((item) => cmsString(item, "group") === "equipment").map((item, index) => <a href={cmsString(item, "url", links.services)} onClick={closeMenu} key={`${cmsString(item, "label")}-${index}`}>{cmsString(item, "label")}</a>)}</div>}
             </div>
           </nav>
           <div className="navbar__actions">
-            <button className="search-trigger" type="button" onClick={() => setSearchOpen(true)}><img src="/icons/search.svg" alt="" /><span>{cmsString(data, "search_label", "пошук")}</span></button>
-            <button className="login-trigger" type="button" onClick={() => setLoginOpen(true)}><img src="/icons/user.svg?v=2" alt="" /><span>{cmsString(data, "login_label", "Вхід")}</span></button>
-            <button className="cart-trigger" type="button" onClick={() => setCartOpen(true)}><span className="cart-trigger__icon"><img src="/icons/cart-badge.svg" alt="" /><b>99</b></span><span>{cmsString(data, "cart_label", "12 450₴")}</span></button>
+            <button className="search-trigger" type="button" onClick={() => setSearchOpen(true)}><img src="/site-icons/search.svg" alt="" /><span>{cmsString(data, "search_label", "пошук")}</span></button>
+            <button className="login-trigger" type="button" onClick={() => openShopRoute("/login/")}><img src="/site-icons/user.svg?v=2" alt="" /><span>{cmsString(data, "login_label", "Вхід")}</span></button>
+            <button className="cart-trigger" type="button" onClick={() => openShopRoute("/cart/")}><span className="cart-trigger__icon"><img src="/site-icons/cart-badge.svg" alt="" /><b>{shopCart.ready ? shopCart.count : 99}</b></span><span>{shopCart.ready ? `${new Intl.NumberFormat("uk-UA").format(shopCart.total)}₴` : cmsString(data, "cart_label", "12 450₴")}</span></button>
             <button className={`menu-trigger ${menuOpen ? "is-open" : ""}`} type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Закрити меню" : "Відкрити меню"}><span /><span /><span /></button>
           </div>
         </div>
       </header>
 
-      {searchOpen && <div className="overlay" role="dialog" aria-modal="true" aria-label="Пошук"><button className="overlay__close" type="button" onClick={() => setSearchOpen(false)} aria-label="Закрити">×</button><form className="search-panel" onSubmit={(event) => { event.preventDefault(); setSearchOpen(false); }}><img src="/icons/search.svg" alt="" /><input autoFocus placeholder="Що ви шукаєте?" /><button className="button">Знайти</button></form></div>}
+      {searchOpen && <div className="overlay" role="dialog" aria-modal="true" aria-label="Пошук"><button className="overlay__close" type="button" onClick={() => setSearchOpen(false)} aria-label="Закрити">×</button><form className="search-panel" onSubmit={(event) => { event.preventDefault(); setSearchOpen(false); }}><img src="/site-icons/search.svg" alt="" /><input autoFocus placeholder="Що ви шукаєте?" /><button className="button">Знайти</button></form></div>}
       {loginOpen && <div className="overlay" role="dialog" aria-modal="true" aria-labelledby="login-title"><div className="modal"><button className="overlay__close" type="button" onClick={() => setLoginOpen(false)} aria-label="Закрити">×</button><img src={logo} alt="GreenCom" /><h2 id="login-title">Вхід до кабінету</h2><label>Email<input type="email" placeholder="name@email.com" /></label><label>Пароль<input type="password" placeholder="••••••••" /></label><button className="button" type="button" onClick={() => setLoginOpen(false)}>Увійти</button><a href="#">Забули пароль?</a></div></div>}
       {cartOpen && <><button className="drawer-backdrop" type="button" onClick={() => setCartOpen(false)} aria-label="Закрити кошик" /><aside className="drawer"><div className="drawer__head"><h2>Кошик</h2><button type="button" onClick={() => setCartOpen(false)} aria-label="Закрити">×</button></div><div className="drawer__item"><img src="/retail-tech.jpg" alt="" /><div><b>Торгове обладнання</b><span>1 × 12 450₴</span></div></div><div className="drawer__total"><span>Разом</span><b>12 450₴</b></div><button className="button" type="button">Оформити замовлення</button></aside></>}
     </>
@@ -210,7 +230,7 @@ export function SiteHeader({
 export function ContactFormPanel({ className = "", data = {} }: { className?: string; data?: CmsData }) {
   const [contactSent, setContactSent] = useState(false);
   const configuredFields = cmsItems(data, "form_fields");
-  const fields = configuredFields.length ? configuredFields : [
+  const fields = Array.isArray(data.form_fields) ? configuredFields : [
     { name: "name", label: "Ім’я та прізвище", placeholder: "Іван Іванов", type: "text", required: true },
     { name: "email", label: "Електронна пошта", placeholder: "Email", type: "email", required: true },
     { name: "phone", label: "Номер телефону", placeholder: "+12 (123) 456 78900", type: "tel", required: false },
@@ -272,7 +292,7 @@ export function SiteFooter({ links, className = "", data = {} }: { links: SiteLi
   ];
   const services = ["Програмне забезпечення", "Торгове обладнання", "Послуги ІТС", "Витратні матеріали"];
   const configuredColumns = cmsItems(data, "columns");
-  const columns = configuredColumns.length ? configuredColumns : [
+  const columns = Array.isArray(data.columns) ? configuredColumns : [
     { title: "Інформація", links: information.map(([label, url]) => ({ label, url })) },
     { title: "Підтримка", links: information.map(([label, url]) => ({ label, url })) },
     { title: "Сервіси", links: services.map((label) => ({ label, url: links.services })) },
@@ -283,17 +303,17 @@ export function SiteFooter({ links, className = "", data = {} }: { links: SiteLi
     <footer className={`footer section-bg section-bg--circuits ${className}`} id="footer">
       <div className="footer__main">
         <div className="footer__brand">
-          <img src={cmsImage(data, "logo", "logo_url", "/icons/logo.png")} alt="GreenCom" />
+          <img src={cmsImage(data, "logo", "logo_url", "/site-icons/logo.png")} alt="GreenCom" />
           <i />
-          <div className="footer__contact"><span><img src="/icons/footer-mail.svg" alt="" /></span><p><b>{cmsString(data, "contact_title", "Контактна інформація")}</b><a href={`mailto:${cmsString(data, "email", "office@greencom.od.ua")}`}>{cmsString(data, "email", "office@greencom.od.ua")}</a><a href={`tel:${cmsString(data, "phone", "+12 (123) 456 78900").replace(/[^+\d]/g, "")}`}>{cmsString(data, "phone", "+12 (123) 456 78900")}</a></p></div>
+          <div className="footer__contact"><span><img src="/site-icons/footer-mail.svg" alt="" /></span><p><b>{cmsString(data, "contact_title", "Контактна інформація")}</b><a href={`mailto:${cmsString(data, "email", "office@greencom.od.ua")}`}>{cmsString(data, "email", "office@greencom.od.ua")}</a><a href={`tel:${cmsString(data, "phone", "+12 (123) 456 78900").replace(/[^+\d]/g, "")}`}>{cmsString(data, "phone", "+12 (123) 456 78900")}</a></p></div>
           <i />
-          <div className="footer__contact"><span><span className="location-icon"><img src="/icons/location-outer.svg" alt="" /><img src="/icons/location-inner.svg" alt="" /></span></span><p><b>{cmsString(data, "address_title", "Адреса")}</b><em>{cmsString(data, "address", "Одеська обл., м. Біляївка, вул. Тіниста, 42а")}</em></p></div>
+          <div className="footer__contact"><span><span className="location-icon"><img src="/site-icons/location-outer.svg" alt="" /><img src="/site-icons/location-inner.svg" alt="" /></span></span><p><b>{cmsString(data, "address_title", "Адреса")}</b><em>{cmsString(data, "address", "Одеська обл., м. Біляївка, вул. Тіниста, 42а")}</em></p></div>
         </div>
         <nav className="footer__nav">
           {columns.map((column, index) => <div key={`${cmsString(column, "title")}-${index}`}><h3>{cmsString(column, "title")}</h3>{cmsItems(column, "links").map((link, linkIndex) => <a href={cmsString(link, "url", "#")} key={`${cmsString(link, "label")}-${linkIndex}`}>{cmsString(link, "label")}</a>)}</div>)}
         </nav>
       </div>
-      <div className="footer__bottom"><span>{cmsString(data, "copyright", "© 2026. All rights reserved")}</span><div>{(socials.length ? socials : [{ label: "Instagram", url: "#", icon_url: "/icons/instagram.svg" }]).map((social, index) => <a href={cmsString(social, "url", "#")} aria-label={cmsString(social, "label", "Соціальна мережа")} key={`${cmsString(social, "label")}-${index}`}><img src={cmsImage(social, "icon", "icon_url", "/icons/instagram.svg")} alt="" /></a>)}</div></div>
+      <div className="footer__bottom"><span>{cmsString(data, "copyright", "© 2026. All rights reserved")}</span><div>{(Array.isArray(data.socials) ? socials : [{ label: "Instagram", url: "#", icon_url: "/site-icons/instagram.svg" }]).map((social, index) => <a href={cmsString(social, "url", "#")} aria-label={cmsString(social, "label", "Соціальна мережа")} key={`${cmsString(social, "label")}-${index}`}><img src={cmsImage(social, "icon", "icon_url", "/site-icons/instagram.svg")} alt="" /></a>)}</div></div>
     </footer>
   );
 }

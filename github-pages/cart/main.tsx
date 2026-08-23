@@ -1,0 +1,1 @@
+import { StrictMode } from "react"; import { createRoot } from "react-dom/client"; import CartPage from "../../app/cart/page"; import "../../app/globals.css"; import "../../app/shop.css"; createRoot(document.getElementById("root")!).render(<StrictMode><CartPage /></StrictMode>);

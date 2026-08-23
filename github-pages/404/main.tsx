@@ -1,20 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { NotFoundContent } from "../../app/components/not-found-content";
-import type { SiteLinks } from "../../app/components/site";
+import { CmsPage } from "../../app/components/cms-page";
 import "../../app/globals.css";
 
-const links: SiteLinks = {
-  home: "/greencom/",
-  about: "/greencom/about/",
-  services: "/greencom/#services",
-  news: "/greencom/#news",
-  contact: "/greencom/contact/",
-  partners: "/greencom/#partners",
-};
+const requestedPath = decodeURIComponent(window.location.pathname).replace(/^\/+|\/+$/g, "");
+const slug = requestedPath !== "" && !requestedPath.includes("/") ? requestedPath : "404";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <NotFoundContent links={links} />
+    <CmsPage slug={slug} />
   </StrictMode>,
 );

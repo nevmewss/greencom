@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { A11y, Autoplay, Grid } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -30,12 +30,14 @@ import {
 } from "./cms";
 
 const fallbackTypes: Record<string, string[]> = {
-  home: ["home_header", "home_hero", "benefits", "services", "about_teaser", "partners", "news", "contact_section", "newsletter", "site_footer"],
-  about: ["inner_header", "about_hero", "about_overview", "achievements", "team", "history", "partners", "contact_section", "newsletter", "site_footer"],
-  contact: ["inner_header", "contact_hero", "office", "map", "faq", "contact_form", "newsletter", "site_footer"],
-  price: ["inner_header", "price_hero", "price_list", "newsletter", "site_footer"],
-  "404": ["inner_header", "not_found", "site_footer"],
+  home: ["home_hero", "benefits", "services", "about_teaser", "partners", "news", "contact_section", "newsletter", "site_footer"],
+  about: ["about_hero", "about_overview", "achievements", "team", "history", "partners", "contact_section", "newsletter", "site_footer"],
+  contact: ["contact_hero", "office", "map", "faq", "contact_form", "newsletter", "site_footer"],
+  price: ["price_hero", "price_list", "newsletter", "site_footer"],
+  "404": ["not_found", "site_footer"],
 };
+
+const noFallbackTypes: string[] = [];
 
 const linksByPage: Record<string, SiteLinks> = {
   home: { home: "#top", about: "./about/", services: "#services", price: "./price/", news: "#news", contact: "#contact", partners: "#partners" },
@@ -44,6 +46,52 @@ const linksByPage: Record<string, SiteLinks> = {
   price: { home: "../", about: "../about/", services: "../#services", price: "#top", news: "../#news", contact: "../contact/", partners: "../#partners" },
   "404": { home: "../", about: "../about/", services: "../#services", price: "../price/", news: "../#news", contact: "../contact/", partners: "../#partners" },
 };
+
+const dynamicPageLinks: SiteLinks = {
+  home: "/",
+  about: "/about/",
+  services: "/#services",
+  price: "/price/",
+  news: "/#news",
+  contact: "/contact/",
+  partners: "/#partners",
+};
+
+function setMetaTag(attribute: "name" | "property", key: string, content?: string) {
+  let element = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
+
+  if (!content) {
+    if (element?.dataset.cmsManaged === "true") element.remove();
+    return;
+  }
+
+  if (!element) {
+    element = document.createElement("meta");
+    element.setAttribute(attribute, key);
+    document.head.appendChild(element);
+  }
+
+  element.dataset.cmsManaged = "true";
+  element.content = content;
+}
+
+function setCanonicalUrl(url?: string) {
+  let element = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+
+  if (!url) {
+    if (element?.dataset.cmsManaged === "true") element.remove();
+    return;
+  }
+
+  if (!element) {
+    element = document.createElement("link");
+    element.rel = "canonical";
+    document.head.appendChild(element);
+  }
+
+  element.dataset.cmsManaged = "true";
+  element.href = url;
+}
 
 const defaults = {
   benefits: Array.from({ length: 5 }, () => ({ title: "Досвідчені фахівці", text: "Lorem ipsum dolor sit amet consectetur. Nulla aliquam ultricies facilisi habitasse cursus diam aliquam vitae. Sed aliquet nisi morbi nisi." })),
@@ -64,8 +112,7 @@ const defaults = {
 };
 
 function dataItems(data: CmsData, key: string, fallback: CmsData[]): CmsData[] {
-  const items = cmsItems(data, key);
-  return items.length ? items : fallback;
+  return Array.isArray(data[key]) ? cmsItems(data, key) : fallback;
 }
 
 function SectionTitle({ data, eyebrow, title }: { data: CmsData; eyebrow: string; title: string }) {
@@ -100,7 +147,7 @@ function HomeHero({ data }: { data: CmsData }) {
 
 function Benefits({ data }: { data: CmsData }) {
   const items = dataItems(data, "items", defaults.benefits);
-  return <section className="benefits section-bg section-bg--waves" id="benefits"><div className="benefits__layout"><div className="benefits__intro"><SectionTitle data={data} eyebrow="Переваги" title="Чому обирають нас — Якість, якій Довіряють" /><Button outline href={cmsString(data, "button_url", "#about-detail")}>{cmsString(data, "button_label", "Дізнатися більше")}</Button></div>{items.map((item, index) => <article className={`benefit-card benefit-card--${index + 1}`} key={index}><span className="benefit-card__icon"><img className="benefit-card__effect" src="/assets/benefit-effect-exact.svg" alt="" /><img className="benefit-card__glyph" src={cmsImage(item, "icon", "icon_url", "/assets/benefit-icon-exact.svg")} alt="" /></span><h3>{cmsString(item, "title")}</h3><p>{cmsString(item, "text")}</p></article>)}</div></section>;
+  return <section className="benefits section-bg section-bg--waves" id="benefits"><div className="benefits__layout"><div className="benefits__intro"><SectionTitle data={data} eyebrow="Переваги" title="Чому обирають нас — Якість, якій Довіряють" /><Button outline href={cmsString(data, "button_url", "#about-detail")}>{cmsString(data, "button_label", "Дізнатися більше")}</Button></div><div className="benefits__cards">{items.map((item, index) => <article className={`benefit-card benefit-card--${index + 1}`} key={index}><span className="benefit-card__icon"><img className="benefit-card__effect" src="/assets/benefit-effect-exact.svg" alt="" /><img className="benefit-card__glyph" src={cmsImage(item, "icon", "icon_url", "/assets/benefit-icon-exact.svg")} alt="" /></span><h3>{cmsString(item, "title")}</h3><p>{cmsString(item, "text")}</p></article>)}</div></div></section>;
 }
 
 function Services({ data }: { data: CmsData }) {
@@ -113,7 +160,7 @@ function Services({ data }: { data: CmsData }) {
 
 function AboutTeaser({ data }: { data: CmsData }) {
   const advantages = dataItems(data, "advantages", ["Індивідуальні рішення для кожного бізнесу", "Покращена безпека та захист даних", "Індивідуальні рішення для кожного бізнесу", "Покращена безпека та захист даних"].map((text) => ({ text })));
-  return <section className="about section-bg section-bg--circuits" id="about-detail"><div className="about__visual"><div className="about__border" /><div className="about__photo"><img src={cmsImage(data, "image", "image_url", "/developer-tech.jpg")} alt="Фахівець працює з цифровими системами" /></div><div className="about__clients"><span className="avatar-stack"><img src="/assets/client-avatar-1.png" alt="" /><img src="/assets/client-avatar-2.png" alt="" /><img src="/assets/client-avatar-3.png" alt="" /></span><b>{cmsString(data, "clients_value", "120k+")}</b><span>{cmsString(data, "clients_text", "Задоволених клієнтів")}</span></div></div><div className="about__content"><SectionTitle data={data} eyebrow="Про нас" title="Розкрийте Потенціал Бізнесу з Інноваційними Рішеннями Автоматизації" /><p>{cmsText(data, "text", "Трансформуйте свій бізнес за допомогою наших інноваційних ІТ-рішень, створених для вирішення ваших унікальних викликів і стимулювання зростання в сучасному цифровому середовищі.")}</p><ul>{advantages.map((item, index) => <li key={index}>{cmsString(item, "text")}</li>)}</ul><div className="about__bottom"><div className="about__experience"><b>{cmsString(data, "experience_value", "25")}</b><span>{cmsString(data, "experience_text", "Роки досвіду")}</span></div><i /><a className="about__phone" href={`tel:${cmsString(data, "phone", "+1212345678900").replace(/[^+\d]/g, "")}`}><span><img src="/icons/phone.svg" alt="" /></span><small>{cmsString(data, "phone_label", "Зателефонуйте нам")}</small><b>{cmsString(data, "phone", "+12 (123) 456 78900")}</b></a><i /><Button href={cmsString(data, "button_url", "./about/")}>{cmsString(data, "button_label", "Дізнатися більше")}</Button></div></div></section>;
+  return <section className="about section-bg section-bg--circuits" id="about-detail"><div className="about__visual"><div className="about__border" /><div className="about__photo"><img src={cmsImage(data, "image", "image_url", "/developer-tech.jpg")} alt="Фахівець працює з цифровими системами" /></div><div className="about__clients"><span className="avatar-stack"><img src="/assets/client-avatar-1.png" alt="" /><img src="/assets/client-avatar-2.png" alt="" /><img src="/assets/client-avatar-3.png" alt="" /></span><b>{cmsString(data, "clients_value", "120k+")}</b><span>{cmsString(data, "clients_text", "Задоволених клієнтів")}</span></div></div><div className="about__content"><SectionTitle data={data} eyebrow="Про нас" title="Розкрийте Потенціал Бізнесу з Інноваційними Рішеннями Автоматизації" /><p>{cmsText(data, "text", "Трансформуйте свій бізнес за допомогою наших інноваційних ІТ-рішень, створених для вирішення ваших унікальних викликів і стимулювання зростання в сучасному цифровому середовищі.")}</p><ul>{advantages.map((item, index) => <li key={index}>{cmsString(item, "text")}</li>)}</ul><div className="about__bottom"><div className="about__experience"><b>{cmsString(data, "experience_value", "25")}</b><span>{cmsString(data, "experience_text", "Роки досвіду")}</span></div><i /><a className="about__phone" href={`tel:${cmsString(data, "phone", "+1212345678900").replace(/[^+\d]/g, "")}`}><span><img src="/site-icons/phone.svg" alt="" /></span><small>{cmsString(data, "phone_label", "Зателефонуйте нам")}</small><b>{cmsString(data, "phone", "+12 (123) 456 78900")}</b></a><i /><Button href={cmsString(data, "button_url", "./about/")}>{cmsString(data, "button_label", "Дізнатися більше")}</Button></div></div></section>;
 }
 
 function Partners({ data }: { data: CmsData }) {
@@ -126,8 +173,10 @@ function News({ data }: { data: CmsData }) {
   const fallback = ["/retail-tech.jpg", "/assets/news-leaf.png", "/developer-tech.jpg", "/assets/news-leaf.png"].map((image, index) => ({ image_url: image, author: "Jane Cooper", date: "26.04.2026", category: "Категорія", title: "Посібник з цифрової трансформації 2026 року", text: "Перемога в цифровій гонці: Дорожня карта трансформації 2025 року.", button_label: "Дізнатися більше", url: "#news", featured: index === 0 }));
   const items = dataItems(data, "items", fallback);
   const card = (item: CmsData, index: number) => <article className={`news-card ${item.featured === true ? "news-card--featured" : ""}`} key={index}><img className="news-card__image" src={cmsImage(item, "image", "image_url")} alt="" /><div className="news-card__body"><div className="article-meta"><span className="article-meta__avatar"><img src="/assets/news-avatar-exact.png" alt="" /></span><span>{cmsString(item, "author")}<small>{cmsString(item, "date")}</small></span><em>{cmsString(item, "category")}</em><b><img src="/assets/menu-dots-exact.svg" alt="" /></b></div><h3>{cmsString(item, "title")}</h3><p>{cmsString(item, "text")}</p><Button outline className="button--small" href={cmsString(item, "url", "#news")}>{cmsString(item, "button_label", "Дізнатися більше")}</Button></div></article>;
-  const featuredIndex = Math.max(0, items.findIndex((item) => item.featured === true));
-  return <section className="news section-bg section-bg--waves" id="news"><div className="news__head"><SectionTitle data={data} eyebrow="Новини" title="Ділимося Останніми Новинами у Сфері Автоматизації" /><Button href={cmsString(data, "all_news_button_url", "#news-list")}>{cmsString(data, "all_news_button_label", "Всі новини")}</Button></div><div className="news__cards" id="news-list">{card(items[featuredIndex], featuredIndex)}<div className="news__stack">{items.filter((_, index) => index !== featuredIndex).map(card)}</div></div></section>;
+  const featuredMatch = items.findIndex((item) => item.featured === true);
+  const featuredIndex = featuredMatch >= 0 ? featuredMatch : 0;
+  const featuredItem = items[featuredIndex];
+  return <section className="news section-bg section-bg--waves" id="news"><div className="news__head"><SectionTitle data={data} eyebrow="Новини" title="Ділимося Останніми Новинами у Сфері Автоматизації" /><Button href={cmsString(data, "all_news_button_url", "#news-list")}>{cmsString(data, "all_news_button_label", "Всі новини")}</Button></div><div className="news__cards" id="news-list">{featuredItem ? card(featuredItem, featuredIndex) : null}<div className="news__stack">{items.filter((_, index) => index !== featuredIndex).map(card)}</div></div></section>;
 }
 
 function ContactMethods({ data, className = "contact__methods" }: { data: CmsData; className?: string }) {
@@ -204,7 +253,7 @@ function Office({ data }: { data: CmsData }) {
 }
 
 function MapSection({ data }: { data: CmsData }) {
-  return <section className="contact-map" id="map"><div className="contact-map__panel"><img src={cmsImage(data, "image", "image_url", "/assets/contact-map.png")} alt={cmsString(data, "image_alt", "Мапа з розташуванням офісу GreenCom")} /><a className="contact-map__marker" href={cmsString(data, "map_url", "#map")}><img src="/icons/location-outer.svg" alt="" /><img src="/icons/location-inner.svg" alt="" /></a><span className="contact-map__address">{cmsString(data, "address", "Одеська обл., м. Біляївка, вул. Тіниста, 42а")}</span></div></section>;
+  return <section className="contact-map" id="map"><div className="contact-map__panel"><img src={cmsImage(data, "image", "image_url", "/assets/contact-map.png")} alt={cmsString(data, "image_alt", "Мапа з розташуванням офісу GreenCom")} /><a className="contact-map__marker" href={cmsString(data, "map_url", "#map")}><img src="/site-icons/location-outer.svg" alt="" /><img src="/site-icons/location-inner.svg" alt="" /></a><span className="contact-map__address">{cmsString(data, "address", "Одеська обл., м. Біляївка, вул. Тіниста, 42а")}</span></div></section>;
 }
 
 function Faq({ data }: { data: CmsData }) {
@@ -225,8 +274,8 @@ function NotFoundHero({ data, links }: { data: CmsData; links: SiteLinks }) {
 function renderBlock(block: CmsBlock, index: number, context: { links: SiteLinks; locale?: string; locales: { code: string; name: string }[]; setLocale: (code: string) => void }) {
   const props = { data: block.data };
   switch (block.type) {
-    case "home_header": return <SiteHeader {...props} links={context.links} locale={context.locale} locales={context.locales} onLocaleChange={context.setLocale} variant="home" key={index} />;
-    case "inner_header": return <SiteHeader {...props} links={context.links} locale={context.locale} locales={context.locales} onLocaleChange={context.setLocale} active={null} variant="inner" key={index} />;
+    case "home_header":
+    case "inner_header": return null;
     case "home_hero": return <HomeHero {...props} key={index} />;
     case "about_hero": return <AboutHero {...props} links={context.links} key={index} />;
     case "contact_hero": return <ContactHero {...props} links={context.links} key={index} />;
@@ -253,9 +302,57 @@ function renderBlock(block: CmsBlock, index: number, context: { links: SiteLinks
   }
 }
 
-export function CmsPage({ slug }: { slug: "home" | "about" | "contact" | "price" | "404" }) {
-  const { blocks, locale, locales, setLocale } = useCmsPage(slug, fallbackTypes[slug]);
-  const links = linksByPage[slug];
-  const rootClass = slug === "home" ? "site-shell" : slug === "about" ? "about-page" : slug === "contact" ? "contact-page" : slug === "price" ? "price-page" : "not-found-page";
-  return <main className={`cms-page ${rootClass}`}>{blocks.map((block, index) => renderBlock(block, index, { links, locale, locales, setLocale }))}<BackToTop /></main>;
+export function CmsPage({ slug }: { slug: string }) {
+  const {
+    blocks,
+    menuData,
+    found,
+    locale,
+    locales,
+    pageTitle,
+    seoTitle,
+    seoDescription,
+    seoKeywords,
+    seoRobots,
+    canonicalUrl,
+    ogTitle,
+    ogDescription,
+    ogImage,
+    setLocale,
+  } = useCmsPage(slug, fallbackTypes[slug] ?? noFallbackTypes);
+  const links = linksByPage[slug] ?? dynamicPageLinks;
+  const headerVariant = slug === "home" || blocks.some((block) => block.type === "home_hero") ? "home" : "inner";
+  const activePage = (["home", "about", "contact", "price"] as const).find((page) => page === slug) ?? null;
+  const rootClass = slug === "home" || blocks.some((block) => block.type === "home_hero")
+    ? "site-shell"
+    : slug === "contact" || blocks.some((block) => block.type === "contact_hero")
+      ? "contact-page"
+      : slug === "price" || blocks.some((block) => block.type === "price_hero")
+        ? "price-page"
+        : slug === "404"
+          ? "not-found-page"
+          : "about-page";
+
+  useEffect(() => {
+    const title = seoTitle || pageTitle;
+
+    if (title) document.title = title;
+
+    setMetaTag("name", "description", seoDescription);
+    setMetaTag("name", "keywords", seoKeywords);
+    setMetaTag("name", "robots", seoRobots);
+    setMetaTag("property", "og:title", ogTitle || title);
+    setMetaTag("property", "og:description", ogDescription || seoDescription);
+    setMetaTag("property", "og:image", ogImage);
+    setMetaTag("property", "og:url", canonicalUrl);
+    setMetaTag("name", "twitter:card", ogImage ? "summary_large_image" : undefined);
+    setMetaTag("name", "twitter:title", ogTitle || title);
+    setMetaTag("name", "twitter:description", ogDescription || seoDescription);
+    setMetaTag("name", "twitter:image", ogImage);
+    setCanonicalUrl(canonicalUrl);
+  }, [canonicalUrl, ogDescription, ogImage, ogTitle, pageTitle, seoDescription, seoKeywords, seoRobots, seoTitle]);
+
+  if (found === false && slug !== "404") return <CmsPage slug="404" />;
+
+  return <main className={`cms-page ${rootClass}`}><SiteHeader data={menuData} links={links} locale={locale} locales={locales} onLocaleChange={setLocale} active={activePage} variant={headerVariant} />{blocks.map((block, index) => renderBlock(block, index, { links, locale, locales, setLocale }))}<BackToTop /></main>;
 }

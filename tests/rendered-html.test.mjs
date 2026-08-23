@@ -84,12 +84,31 @@ test("server-renders the responsive Price page", async () => {
   assert.match(html, /217 000 ₴/);
 });
 
+test("server-renders the complete storefront flow", async () => {
+  const expectations = [
+    ["/catalog", /class="shop-product-grid"/],
+    ["/product", /class="product-detail"/],
+    ["/login", /class="auth-section"/],
+    ["/cart", /class="cart-layout"/],
+    ["/personal", /class="personal-panels"/],
+    ["/orders", /class="orders-content"/],
+  ];
+
+  for (const [pathname, pattern] of expectations) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, `${pathname} did not render`);
+    assert.match(await response.text(), pattern);
+  }
+});
+
 test("keeps CMS rendering, interactive controls and exact design assets in the source", async () => {
-  const [page, cmsPage, shared, css] = await Promise.all([
+  const [page, cmsPage, shared, css, compose, entrypoint] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/cms-page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/components/site.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(new URL("../compose.yaml", import.meta.url), "utf8"),
+    readFile(new URL("../backend/docker/entrypoint.sh", import.meta.url), "utf8"),
   ]);
 
   assert.match(shared, /setMenuOpen/);
@@ -114,6 +133,18 @@ test("keeps CMS rendering, interactive controls and exact design assets in the s
   assert.match(css, /\.services__grid\.swiper\s*\{[^}]*padding-top:\s*6px/s);
   assert.match(css, /\.stat-card--solutions:hover\s*\{[^}]*transform:\s*translateY\(-3px\)/s);
   assert.doesNotMatch(css, /\.contact-page\s*\{[^}]*height:\s*(?:4553|4672|4699)px/s);
+  assert.match(cmsPage, /className="benefits__cards"/);
+  assert.match(cmsPage, /featuredItem \? card\(featuredItem/);
+  assert.match(css, /CMS flow safety/);
+  assert.match(css, /\.cms-page \.benefit-card:nth-child\(n \+ 6\)[\s\S]*?position:\s*relative/);
+  assert.match(css, /\.partner:nth-child\(n \+ 8\)[\s\S]*?position:\s*relative/);
+  assert.match(css, /\.cms-page \.contact-form[\s\S]*?height:\s*auto/);
+  assert.match(css, /\.cms-page \.about-history__timeline\s*\{[^}]*height:\s*auto/s);
+  assert.match(css, /\.cms-page \.price-card > strong\s*\{[^}]*position:\s*static/s);
+  assert.match(compose, /cms_postgres_data:\/var\/lib\/postgresql/);
+  assert.match(compose, /cms_uploads:\/var\/www\/html\/storage\/app\/public/);
+  assert.match(entrypoint, /CMS_SEED_DEFAULT_CONTENT:-false/);
+  assert.doesNotMatch(entrypoint, /^php artisan db:seed --force$/m);
 
   await Promise.all([
     access(new URL("../public/assets/desktop-page-background.png", import.meta.url)),
