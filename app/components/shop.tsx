@@ -289,6 +289,7 @@ export function ProductPage() {
   const [tab, setTab] = useState<"description" | "characteristics" | "reviews">("description");
   const [added, setAdded] = useState(false);
   const [reviewRating, setReviewRating] = useState(0);
+  const [reviewHoverRating, setReviewHoverRating] = useState(0);
   const [reviewSent, setReviewSent] = useState(false);
   const [reviewPage, setReviewPage] = useState(1);
   const [tabPanelHeight, setTabPanelHeight] = useState<number>();
@@ -316,6 +317,7 @@ export function ProductPage() {
   }, [tab, reviewSent]);
 
   const add = (event: ReactMouseEvent<HTMLButtonElement>) => { animateProductToCart(event.currentTarget, product); cart.add(product, quantity); setAdded(true); window.setTimeout(() => setAdded(false), 1400); };
+  const visibleReviewRating = reviewHoverRating || reviewRating;
 
   return <ShopChrome className="shop-product-page" title="Програмне забезпечення" text="Коротенький опис послуги для каталогу. В два рядки, може в один." mobileText="Знайдіть відповіді на найпоширеніші запитання щодо автоматизації, IT-рішень, обладнання та сервісів GreenCore." breadcrumb="Каталог" newsletter>
     <section className="product-detail">
@@ -328,7 +330,7 @@ export function ProductPage() {
         <div className="product-rating"><strong aria-label="Оцінка 4 з 5"><span>★★★★</span><span className="is-muted">★</span></strong><span>(5 відгуків)</span><i /><span>Код товару <b>123456</b></span></div>
         <div className="product-summary__description"><p>Сучасний POS-термінал для автоматизації касових процесів, обліку продажів та ефективного управління торговою точкою.</p><p>Ідеально підходить для магазинів, ресторанів, кафе та мереж роздрібної торгівлі.</p></div>
         <div className="product-summary__price">{product.oldPrice && <del>{money(product.oldPrice)}₴</del>}<strong>{money(product.price)}₴</strong></div>
-        <div className="product-benefits"><span><i aria-hidden="true"><span>↗</span></i><b>Доставка</b><small>1–3 дні по всій Україні</small></span><span><i aria-hidden="true"><span>✓</span></i><b>Гарантія</b><small>12 місяців</small></span><span><i aria-hidden="true"><span>24</span></i><b>Тех. підтримка</b><small>24/7</small></span></div>
+        <div className="product-benefits"><span><i aria-hidden="true"><img src="/site-icons/location-outer.svg" alt="" /></i><b>Доставка</b><small>1–3 дні по всій Україні</small></span><span><i aria-hidden="true"><img src="/assets/check-icon.svg" alt="" /></i><b>Гарантія</b><small>12 місяців</small></span><span><i aria-hidden="true"><img src="/assets/contact-phone.svg" alt="" /></i><b>Тех. підтримка</b><small>24/7</small></span></div>
         <div className="product-actions"><div className="quantity"><span>{quantity}</span><button type="button" onClick={() => setQuantity(quantity + 1)} aria-label="Збільшити кількість">+</button><button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="Зменшити кількість">−</button></div><button className="shop-primary" type="button" onClick={add}>{added ? <><span aria-hidden="true">✓</span> Додано</> : <><CartGlyph /> Додати до кошика</>}</button><a className="shop-outline" href="../contact/">Отримати консультацію</a></div>
       </article>
     </section>
@@ -359,7 +361,7 @@ export function ProductPage() {
         <form className="product-review-form" onSubmit={(event) => { event.preventDefault(); setReviewSent(true); }}>
           <h3>Залишити власний відгук</h3>
           <div className="product-review-form__fields"><label>Ім’я<input name="review-name" placeholder="Ім’я" required /></label><label>Email<input name="review-email" type="email" placeholder="Email" required /></label></div>
-          <fieldset><legend>Моя оцінка</legend><span>{[1,2,3,4,5].map((rating) => <button className={rating <= reviewRating ? "is-active" : ""} type="button" onClick={() => setReviewRating(rating)} aria-label={`Оцінка ${rating}`} key={rating}>☆</button>)}</span></fieldset>
+          <fieldset><legend>Моя оцінка</legend><span onPointerLeave={() => setReviewHoverRating(0)}>{[1,2,3,4,5].map((rating) => <button className={rating <= visibleReviewRating ? "is-active" : ""} type="button" onClick={() => setReviewRating(rating)} onPointerEnter={() => setReviewHoverRating(rating)} onFocus={() => setReviewHoverRating(rating)} onBlur={() => setReviewHoverRating(0)} aria-label={`Оцінка ${rating} з 5`} aria-pressed={rating <= reviewRating} key={rating}>{rating <= visibleReviewRating ? "★" : "☆"}</button>)}</span></fieldset>
           <label>Ваш відгук<textarea name="review-text" placeholder="Текст" required /></label>
           <button className="shop-outline" type="submit">Відправити</button>
           {reviewSent && <p className="shop-success" role="status">Відгук відправлено ✓</p>}
