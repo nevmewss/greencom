@@ -347,14 +347,16 @@ export function AuthPage() {
   return <ShopChrome className="shop-auth-page" title={mode === "login" ? "Вхід" : "Реєстрація"} text="Лавскаво просимо у Ваш центр сучасних технологій та автоматизації бізнесу." breadcrumb={mode === "login" ? "Вхід" : "Реєстрація"}>
     <section className="auth-section">
       <div className="auth-visual"><i /><img src="/assets/shop-auth.jpg" alt="Захищений вхід до кабінету GreenCom" /></div>
-      <form className="auth-form shop-glass" onSubmit={submit}>
+      <form className="auth-form shop-glass" data-mode={mode} onSubmit={submit}>
         <nav><button className={mode === "login" ? "is-active" : ""} type="button" onClick={() => setMode("login")}>Вхід</button><button className={mode === "signup" ? "is-active" : ""} type="button" onClick={() => setMode("signup")}>Реєстрація</button></nav>
-        {mode === "signup" && <label>Ім’я<input name="name" required placeholder="Введіть ім’я" /></label>}
-        <label>Email<span><input name="email" type="email" required placeholder="Введіть Email" /><i>✉</i></span></label>
-        <label>Пароль<span><input name="password" type={passwordVisible ? "text" : "password"} minLength={6} required placeholder="******" /><button type="button" onClick={() => setPasswordVisible(!passwordVisible)} aria-label="Показати пароль">◉</button></span></label>
-        {mode === "signup" && <label>Повторіть пароль<input type={passwordVisible ? "text" : "password"} minLength={6} required placeholder="******" /></label>}
-        <div className="auth-form__bottom"><button className="shop-primary" type="submit">Відправити</button>{mode === "login" && <a href="#">Забули пароль?</a>}</div>
-        {message && <p className="shop-success">{message} ✓</p>}
+        <div className="auth-form__content" key={mode}>
+          {mode === "signup" && <label>Ім’я<input name="name" required placeholder="Введіть ім’я" /></label>}
+          <label>Email<span><input name="email" type="email" required placeholder="Введіть Email" /><i>✉</i></span></label>
+          <label>Пароль<span><input name="password" type={passwordVisible ? "text" : "password"} minLength={6} required placeholder="******" /><button type="button" onClick={() => setPasswordVisible(!passwordVisible)} aria-label="Показати пароль">◉</button></span></label>
+          {mode === "signup" && <label>Повторіть пароль<input type={passwordVisible ? "text" : "password"} minLength={6} required placeholder="******" /></label>}
+          <div className="auth-form__bottom"><button className="shop-primary" type="submit">Відправити</button>{mode === "login" && <a href="#">Забули пароль?</a>}</div>
+          {message && <p className="shop-success">{message} ✓</p>}
+        </div>
       </form>
     </section>
   </ShopChrome>;
