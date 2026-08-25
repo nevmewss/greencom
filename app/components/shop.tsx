@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, MouseEvent as ReactMouseEvent, ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -103,6 +103,70 @@ function useWishlist() {
   return { ids, has: (id: string) => ids.includes(id), toggle };
 }
 
+function CartGlyph() {
+  return <img className="shop-cart-glyph" src="/site-icons/cart-badge.svg" alt="" aria-hidden="true" />;
+}
+
+function animateProductToCart(trigger: HTMLElement, product: ShopProduct) {
+  if (typeof window === "undefined") return;
+
+  const target = document.querySelector<HTMLElement>(".cart-trigger__icon");
+  if (!target) return;
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reducedMotion) {
+    target.animate(
+      [{ transform: "scale(1)" }, { transform: "scale(1.16)" }, { transform: "scale(1)" }],
+      { duration: 280, easing: "ease-out" },
+    );
+    return;
+  }
+
+  const source = trigger.closest(".shop-product-card")?.querySelector<HTMLElement>(".shop-product-card__media img")
+    ?? trigger.closest(".product-detail")?.querySelector<HTMLElement>(".product-gallery__main img")
+    ?? trigger;
+  const sourceRect = source.getBoundingClientRect();
+  const targetRect = target.getBoundingClientRect();
+  const size = Math.max(46, Math.min(70, sourceRect.width * .2));
+  const startX = sourceRect.left + sourceRect.width / 2;
+  const startY = sourceRect.top + sourceRect.height / 2;
+  const targetIsVisible = targetRect.bottom > 0 && targetRect.top < window.innerHeight;
+  const endX = targetIsVisible ? targetRect.left + targetRect.width / 2 : window.innerWidth - 34;
+  const endY = targetIsVisible ? targetRect.top + targetRect.height / 2 : 28;
+  const deltaX = endX - startX;
+  const deltaY = endY - startY;
+  const lift = Math.min(-86, deltaY * .28);
+
+  const flyer = document.createElement("span");
+  flyer.className = "cart-flight";
+  flyer.style.width = `${size}px`;
+  flyer.style.height = `${size}px`;
+  flyer.style.left = `${startX - size / 2}px`;
+  flyer.style.top = `${startY - size / 2}px`;
+  const image = document.createElement("img");
+  image.src = product.image;
+  image.alt = "";
+  flyer.appendChild(image);
+  document.body.appendChild(flyer);
+
+  const animation = flyer.animate([
+    { transform: "translate3d(0,0,0) scale(1)", opacity: 1, offset: 0 },
+    { transform: `translate3d(${deltaX * .42}px,${lift}px,0) scale(.82)`, opacity: .96, offset: .45 },
+    { transform: `translate3d(${deltaX}px,${deltaY}px,0) scale(.18)`, opacity: .18, offset: 1 },
+  ], { duration: 760, easing: "cubic-bezier(.2,.78,.24,1)" });
+
+  const cleanup = () => flyer.remove();
+  animation.addEventListener("finish", () => {
+    cleanup();
+    target.animate([
+      { transform: "scale(1) rotate(0)" },
+      { transform: "scale(1.22) rotate(-8deg)", offset: .42 },
+      { transform: "scale(1) rotate(0)" },
+    ], { duration: 360, easing: "cubic-bezier(.2,.8,.2,1)" });
+  }, { once: true });
+  animation.addEventListener("cancel", cleanup, { once: true });
+}
+
 function ShopChrome({ title, text, mobileText, breadcrumb, children, newsletter = false, className = "" }: { title: string; text: string; mobileText?: string; breadcrumb: string; children: ReactNode; newsletter?: boolean; className?: string }) {
   return <main className={`shop-page ${className}`}><SiteHeader links={shopLinks} variant="inner" /><ShopHero title={title} text={text} mobileText={mobileText} breadcrumb={breadcrumb} />{children}{newsletter && <NewsletterSection />}<SiteFooter links={shopLinks} /><BackToTop /></main>;
 }
@@ -140,7 +204,7 @@ export function ProductCard({ product }: { product: ShopProduct }) {
       </a>
       <div className="shop-product-card__price">
         <span>{product.oldPrice && <del>{money(product.oldPrice)} ₴</del>}<strong>{money(product.price)} ₴</strong></span>
-        <button className={added ? "is-added" : ""} type="button" onClick={() => { cart.add(product); setAdded(true); window.setTimeout(() => setAdded(false), 1100); }} aria-label={`Додати ${product.title} до кошика`}>{added ? "✓" : "⌁"}</button>
+        <button className={added ? "is-added" : ""} type="button" onClick={(event) => { animateProductToCart(event.currentTarget, product); cart.add(product); setAdded(true); window.setTimeout(() => setAdded(false), 1100); }} aria-label={`Додати ${product.title} до кошика`}>{added ? <span aria-hidden="true">✓</span> : <CartGlyph />}</button>
       </div>
     </article>
   );
@@ -150,7 +214,7 @@ function RelatedProducts() {
   const swiperRef = useRef<SwiperInstance | null>(null);
   const [navigation, setNavigation] = useState({ isBeginning: true, isEnd: false });
   const sync = (swiper: SwiperInstance) => setNavigation({ isBeginning: swiper.isBeginning, isEnd: swiper.isEnd });
-  return <section className="related-products"><div className="related-products__head"><div><span>— Останні ——</span><h2>Переглянуті Товари</h2></div><div className="related-products__arrows"><button type="button" disabled={navigation.isBeginning} onClick={() => swiperRef.current?.slidePrev()} aria-label="Попередній товар">←</button><button type="button" disabled={navigation.isEnd} onClick={() => swiperRef.current?.slideNext()} aria-label="Наступний товар">→</button></div></div><Swiper className="related-products__grid" modules={[A11y]} slidesPerView={4} spaceBetween={24} watchOverflow breakpoints={{ 0: { slidesPerView: 1, spaceBetween: 12 }, 601: { slidesPerView: 2, spaceBetween: 14 }, 1295: { slidesPerView: 4, spaceBetween: 24 } }} onSwiper={(swiper) => { swiperRef.current = swiper; sync(swiper); }} onSlideChange={sync} onBreakpoint={sync}>{shopProducts.slice(0,4).map((item) => <SwiperSlide key={item.id}><ProductCard product={item} /></SwiperSlide>)}</Swiper></section>;
+  return <section className="related-products"><div className="related-products__head"><div><span>— Останні ——</span><h2>Переглянуті Товари</h2></div><div className="related-products__arrows"><button type="button" disabled={navigation.isBeginning} onClick={() => swiperRef.current?.slidePrev()} aria-label="Попередній товар"><span aria-hidden="true">←</span></button><button type="button" disabled={navigation.isEnd} onClick={() => swiperRef.current?.slideNext()} aria-label="Наступний товар"><span aria-hidden="true">→</span></button></div></div><Swiper className="related-products__grid" modules={[A11y]} slidesPerView={4} spaceBetween={24} watchOverflow breakpoints={{ 0: { slidesPerView: 1, spaceBetween: 12 }, 601: { slidesPerView: 2, spaceBetween: 14 }, 1295: { slidesPerView: 4, spaceBetween: 24 } }} onSwiper={(swiper) => { swiperRef.current = swiper; sync(swiper); }} onSlideChange={sync} onBreakpoint={sync}>{shopProducts.slice(0,8).map((item) => <SwiperSlide key={item.id}><ProductCard product={item} /></SwiperSlide>)}</Swiper></section>;
 }
 
 const catalogSections = [
@@ -234,7 +298,7 @@ export function ProductPage() {
     setProduct(shopProducts.find((item) => item.id === id) ?? shopProducts[0]);
   }, []);
 
-  const add = () => { cart.add(product, quantity); setAdded(true); window.setTimeout(() => setAdded(false), 1400); };
+  const add = (event: ReactMouseEvent<HTMLButtonElement>) => { animateProductToCart(event.currentTarget, product); cart.add(product, quantity); setAdded(true); window.setTimeout(() => setAdded(false), 1400); };
 
   return <ShopChrome className="shop-product-page" title="Програмне забезпечення" text="Коротенький опис послуги для каталогу. В два рядки, може в один." mobileText="Знайдіть відповіді на найпоширеніші запитання щодо автоматизації, IT-рішень, обладнання та сервісів GreenCore." breadcrumb="Каталог" newsletter>
     <section className="product-detail">
@@ -245,11 +309,10 @@ export function ProductPage() {
       <article className="product-summary shop-glass">
         <div className="product-summary__top"><div><small>{product.category}</small><h2>{product.title}</h2></div><button className={`shop-favorite shop-favorite--static ${wishlist.has(product.id) ? "is-active" : ""}`} type="button" onClick={() => wishlist.toggle(product.id)} aria-label={wishlist.has(product.id) ? "Прибрати зі списку бажань" : "Додати до списку бажань"}>♡</button></div>
         <div className="product-rating"><strong>★★★★★</strong><span>(5 відгуків)</span><i />Код товару: 123456</div>
-        <p>Сучасний POS-термінал для автоматизації касових процесів, обліку продажів та ефективного управління торговою точкою.</p>
-        <p>Ідеально підходить для магазинів, ресторанів, кафе та мереж роздрібної торгівлі.</p>
+        <div className="product-summary__description"><p>Сучасний POS-термінал для автоматизації касових процесів, обліку продажів та ефективного управління торговою точкою.</p><p>Ідеально підходить для магазинів, ресторанів, кафе та мереж роздрібної торгівлі.</p></div>
         <div className="product-summary__price">{product.oldPrice && <del>{money(product.oldPrice)}₴</del>}<strong>{money(product.price)}₴</strong></div>
-        <div className="product-benefits"><span>◉ <b>Доставка</b><small>1–3 дні по всій Україні</small></span><span>◉ <b>Гарантія</b><small>12 місяців</small></span><span>◉ <b>Тех. підтримка</b><small>24/7</small></span></div>
-        <div className="product-actions"><div className="quantity"><span>{quantity}</span><button type="button" onClick={() => setQuantity(quantity + 1)}>+</button><button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))}>−</button></div><button className="shop-primary" type="button" onClick={add}>{added ? "Додано ✓" : "Додати до кошика"}</button><a className="shop-outline" href="../contact/">Отримати консультацію</a></div>
+        <div className="product-benefits"><span><i aria-hidden="true">↗</i><b>Доставка</b><small>1–3 дні по всій Україні</small></span><span><i aria-hidden="true">✓</i><b>Гарантія</b><small>12 місяців</small></span><span><i aria-hidden="true">24</i><b>Тех. підтримка</b><small>24/7</small></span></div>
+        <div className="product-actions"><div className="quantity"><span>{quantity}</span><button type="button" onClick={() => setQuantity(quantity + 1)} aria-label="Збільшити кількість">+</button><button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="Зменшити кількість">−</button></div><button className="shop-primary" type="button" onClick={add}>{added ? <><span aria-hidden="true">✓</span> Додано</> : <><CartGlyph /> Додати до кошика</>}</button><a className="shop-outline" href="../contact/">Отримати консультацію</a></div>
       </article>
     </section>
     <section className="product-tabs shop-glass">
