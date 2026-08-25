@@ -50,7 +50,7 @@ type StoredOrder = { id: string; date: string; status: "Новий" | "Вико�
 const CART_KEY = "greencom-cart";
 const ORDERS_KEY = "greencom-orders";
 const WISHLIST_KEY = "greencom-wishlist";
-const DEFAULT_WISHLIST = ["bas-erp", "pos-terminal-sunmi-t2s"];
+const DEFAULT_WISHLIST = ["bas-erp", "trade-control"];
 
 function readStorage<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
@@ -288,6 +288,8 @@ export function ProductPage() {
   const [activeImage, setActiveImage] = useState(0);
   const [tab, setTab] = useState<"description" | "characteristics" | "reviews">("description");
   const [added, setAdded] = useState(false);
+  const [reviewRating, setReviewRating] = useState(0);
+  const [reviewSent, setReviewSent] = useState(false);
   const cart = useCart();
   const wishlist = useWishlist();
 
@@ -308,18 +310,44 @@ export function ProductPage() {
       </div>
       <article className="product-summary shop-glass">
         <div className="product-summary__top"><div><small>{product.category}</small><h2>{product.title}</h2></div><button className={`shop-favorite shop-favorite--static ${wishlist.has(product.id) ? "is-active" : ""}`} type="button" onClick={() => wishlist.toggle(product.id)} aria-label={wishlist.has(product.id) ? "Прибрати зі списку бажань" : "Додати до списку бажань"}>♡</button></div>
-        <div className="product-rating"><strong>★★★★★</strong><span>(5 відгуків)</span><i />Код товару: 123456</div>
+        <div className="product-rating"><strong aria-label="Оцінка 4 з 5"><span>★★★★</span><span className="is-muted">★</span></strong><span>(5 відгуків)</span><i /><span>Код товару <b>123456</b></span></div>
         <div className="product-summary__description"><p>Сучасний POS-термінал для автоматизації касових процесів, обліку продажів та ефективного управління торговою точкою.</p><p>Ідеально підходить для магазинів, ресторанів, кафе та мереж роздрібної торгівлі.</p></div>
         <div className="product-summary__price">{product.oldPrice && <del>{money(product.oldPrice)}₴</del>}<strong>{money(product.price)}₴</strong></div>
-        <div className="product-benefits"><span><i aria-hidden="true">↗</i><b>Доставка</b><small>1–3 дні по всій Україні</small></span><span><i aria-hidden="true">✓</i><b>Гарантія</b><small>12 місяців</small></span><span><i aria-hidden="true">24</i><b>Тех. підтримка</b><small>24/7</small></span></div>
+        <div className="product-benefits"><span><i aria-hidden="true"><span>↗</span></i><b>Доставка</b><small>1–3 дні по всій Україні</small></span><span><i aria-hidden="true"><span>✓</span></i><b>Гарантія</b><small>12 місяців</small></span><span><i aria-hidden="true"><span>24</span></i><b>Тех. підтримка</b><small>24/7</small></span></div>
         <div className="product-actions"><div className="quantity"><span>{quantity}</span><button type="button" onClick={() => setQuantity(quantity + 1)} aria-label="Збільшити кількість">+</button><button type="button" onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="Зменшити кількість">−</button></div><button className="shop-primary" type="button" onClick={add}>{added ? <><span aria-hidden="true">✓</span> Додано</> : <><CartGlyph /> Додати до кошика</>}</button><a className="shop-outline" href="../contact/">Отримати консультацію</a></div>
       </article>
     </section>
-    <section className="product-tabs shop-glass">
+    <section className="product-tabs shop-glass" data-tab={tab}>
       <nav><button className={tab === "description" ? "is-active" : ""} type="button" onClick={() => setTab("description")}>Опис</button><button className={tab === "characteristics" ? "is-active" : ""} type="button" onClick={() => setTab("characteristics")}>Характеристики</button><button className={tab === "reviews" ? "is-active" : ""} type="button" onClick={() => setTab("reviews")}>Відгуки (5)</button></nav>
       {tab === "description" && <div className="product-tabs__copy"><h3>Повний опис товару</h3><p>Потужне та надійне рішення для автоматизації бізнесу. Термінал поєднує продуктивне обладнання, сучасний дизайн і просте керування, допомагаючи прискорити обслуговування клієнтів та контролювати всі операції.</p><p>Система підтримує щоденну роботу з продажами, обліком товарів і клієнтськими даними. Інтерфейс зрозумілий співробітникам, а гнучкі налаштування дозволяють адаптувати рішення до процесів конкретної компанії.</p><p>Корпус розрахований на інтенсивне щоденне використання, а програмне забезпечення легко інтегрується з обліковими системами GreenCom. Дані синхронізуються без зайвих ручних операцій, що зменшує кількість помилок і прискорює обслуговування.</p><p>Рішення підходить для магазинів, ресторанів, сервісних центрів і мережевих компаній. За потреби конфігурацію можна розширити додатковими модулями, обладнанням та інструментами аналітики.</p><h3>Переваги рішення</h3><ul><li>Швидка робота та стабільне підключення.</li><li>Інтеграція з BAS і системами обліку.</li><li>Зручне керування товарами, цінами та залишками.</li><li>Захищене зберігання й синхронізація даних.</li><li>Масштабування під нові торгові точки та користувачів.</li><li>Гарантія та технічна підтримка 24/7.</li></ul><div className="product-tabs__mobile-copy"><h3>Можливості системи</h3><p>Обладнання працює як єдиний центр для касових операцій, контролю продажів та обслуговування клієнтів. Всі важливі показники доступні відповідальним співробітникам у зрозумілому вигляді.</p><p>Підключення додаткових модулів не потребує перебудови всієї системи. Конфігурацію можна поступово розширювати разом зі зростанням бізнесу та появою нових задач.</p><p>Фахівці GreenCom допомагають із налаштуванням, перенесенням даних, навчанням персоналу та подальшим супроводом рішення.</p><ul><li>Централізоване керування налаштуваннями.</li><li>Контроль доступу для різних ролей.</li><li>Автоматичне оновлення ключових даних.</li><li>Підтримка під час запуску та експлуатації.</li></ul></div></div>}
-      {tab === "characteristics" && <dl className="product-characteristics"><div><dt>Процесор</dt><dd>Octa Core 2.0 GHz</dd></div><div><dt>Пам’ять</dt><dd>4 GB / 64 GB</dd></div><div><dt>Дисплей</dt><dd>15.6″ Full HD</dd></div><div><dt>Гарантія</dt><dd>12 місяців</dd></div></dl>}
-      {tab === "reviews" && <div className="product-review"><strong>★★★★★</strong><h3>Іван, 26.04.2026</h3><p>Зручне рішення, швидко встановили та підключили до нашої системи обліку.</p></div>}
+      {tab === "characteristics" && <dl className="product-characteristics">{[
+        ["Назва параметру", "Значення"],
+        ["Дата створення", "15.04.2024"],
+        ["Автор", "Іван Петренко"],
+        ["Розмір файлу", "24 МБ"],
+        ["Версія", "1.2.3"],
+        ["Тип документа", "Звіт"],
+        ["Статус", "Затверджено"],
+        ["Пріоритет", "Високий"],
+      ].map(([name, value]) => <div key={name}><dt>{name}</dt><dd>{value}</dd></div>)}</dl>}
+      {tab === "reviews" && <div className="product-reviews">
+        <section className="product-reviews__list" aria-labelledby="product-reviews-title">
+          <h3 id="product-reviews-title">Відгуки про товар</h3>
+          <div className="product-reviews__cards">{Array.from({ length: 5 }, (_, index) => <article className="product-review" key={index}>
+            <header><span className="product-review__author"><img src="/assets/shop-avatar.jpg" alt="" /><span><b>Світлана</b><time dateTime="2023-07-25">25/07/2023</time></span></span><strong aria-label="Оцінка 5 з 5">★★★★★</strong></header>
+            <p>Odio diam facilisis enim fermentum consequat. Nulla morbi eu lacus egestas facilisis lorem elit. Viverra ac vitae lacus morbi. Congue faucibus tincidunt sed facilisis enim. Nunc tincidunt sit diam quam sagittis. Eleifend vel tincidunt maecenas sagittis. Bibendum ac at gravida bibendum ut pellentesque eget ullamcorper ultrices.</p>
+          </article>)}</div>
+          <nav className="product-reviews__pagination" aria-label="Сторінки відгуків"><button type="button" aria-label="Попередня сторінка">←</button>{[1,2,3,4].map((page) => <button className={page === 1 ? "is-active" : ""} type="button" key={page}>{page}</button>)}<button type="button" aria-label="Наступна сторінка">→</button></nav>
+        </section>
+        <form className="product-review-form" onSubmit={(event) => { event.preventDefault(); setReviewSent(true); }}>
+          <h3>Залишити власний відгук</h3>
+          <div className="product-review-form__fields"><label>Ім’я<input name="review-name" placeholder="Ім’я" required /></label><label>Email<input name="review-email" type="email" placeholder="Email" required /></label></div>
+          <fieldset><legend>Моя оцінка</legend><span>{[1,2,3,4,5].map((rating) => <button className={rating <= reviewRating ? "is-active" : ""} type="button" onClick={() => setReviewRating(rating)} aria-label={`Оцінка ${rating}`} key={rating}>☆</button>)}</span></fieldset>
+          <label>Ваш відгук<textarea name="review-text" placeholder="Текст" required /></label>
+          <button className="shop-outline" type="submit">Відправити</button>
+          {reviewSent && <p className="shop-success" role="status">Відгук відправлено ✓</p>}
+        </form>
+      </div>}
     </section>
     <RelatedProducts />
   </ShopChrome>;
