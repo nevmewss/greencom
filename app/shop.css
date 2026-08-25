@@ -265,7 +265,7 @@
   .shop-account-page:not(:has(.account-layout--orders)) .personal-form .shop-outline { margin-top: 16px; }
 }
 
-.auth-section { margin-top: 90px; margin-bottom: 150px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 24px; align-items: center; }
+.auth-section { margin-top: 90px; margin-bottom: 150px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 24px; align-items: start; }
 .auth-visual { position: relative; height: 620px; }
 .auth-visual i { position: absolute; left: 19%; top: -36px; width: 78%; height: 84%; border: 1px solid #03c030; border-radius: 70px 70px 70px 0; background: rgba(255,255,255,.05); }
 .auth-visual img { position: absolute; left: 0; top: 0; width: 88%; height: 86%; object-fit: cover; border-radius: 70px 70px 70px 0; }
