@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, MouseEvent as ReactMouseEvent, ReactNode, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, MouseEvent as ReactMouseEvent, ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import type { Swiper as SwiperInstance } from "swiper";
 import { A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -292,8 +292,7 @@ export function ProductPage() {
   const [reviewHoverRating, setReviewHoverRating] = useState(0);
   const [reviewSent, setReviewSent] = useState(false);
   const [reviewPage, setReviewPage] = useState(1);
-  const [tabPanelHeight, setTabPanelHeight] = useState<number>();
-  const tabPanelContentRef = useRef<HTMLDivElement>(null);
+  const tabViewportRef = useRef<HTMLDivElement>(null);
   const cart = useCart();
   const wishlist = useWishlist();
 
@@ -304,16 +303,8 @@ export function ProductPage() {
     setProduct(shopProducts.find((item) => item.id === id) ?? shopProducts[0]);
   }, []);
 
-  useLayoutEffect(() => {
-    const content = tabPanelContentRef.current;
-    if (!content) return;
-
-    const updateHeight = () => setTabPanelHeight(content.scrollHeight);
-    updateHeight();
-
-    const observer = new ResizeObserver(updateHeight);
-    observer.observe(content);
-    return () => observer.disconnect();
+  useEffect(() => {
+    if (tabViewportRef.current) tabViewportRef.current.scrollTop = 0;
   }, [tab, reviewSent]);
 
   const add = (event: ReactMouseEvent<HTMLButtonElement>) => { animateProductToCart(event.currentTarget, product); cart.add(product, quantity); setAdded(true); window.setTimeout(() => setAdded(false), 1400); };
@@ -336,8 +327,8 @@ export function ProductPage() {
     </section>
     <section className="product-tabs shop-glass" data-tab={tab}>
       <nav className="product-tabs__nav"><button className={tab === "description" ? "is-active" : ""} type="button" onClick={() => setTab("description")}>Опис</button><button className={tab === "characteristics" ? "is-active" : ""} type="button" onClick={() => setTab("characteristics")}>Характеристики</button><button className={tab === "reviews" ? "is-active" : ""} type="button" onClick={() => setTab("reviews")}>Відгуки (5)</button></nav>
-      <div className="product-tabs__viewport" style={tabPanelHeight ? { height: `${tabPanelHeight}px` } : undefined}>
-      <div className="product-tabs__panel" ref={tabPanelContentRef}>
+      <div className="product-tabs__viewport" ref={tabViewportRef}>
+      <div className="product-tabs__panel" key={tab}>
       {tab === "description" && <div className="product-tabs__copy"><h3>Повний опис товару</h3><p>Потужне та надійне рішення для автоматизації бізнесу. Термінал поєднує продуктивне обладнання, сучасний дизайн і просте керування, допомагаючи прискорити обслуговування клієнтів та контролювати всі операції.</p><p>Система підтримує щоденну роботу з продажами, обліком товарів і клієнтськими даними. Інтерфейс зрозумілий співробітникам, а гнучкі налаштування дозволяють адаптувати рішення до процесів конкретної компанії.</p><p>Корпус розрахований на інтенсивне щоденне використання, а програмне забезпечення легко інтегрується з обліковими системами GreenCom. Дані синхронізуються без зайвих ручних операцій, що зменшує кількість помилок і прискорює обслуговування.</p><p>Рішення підходить для магазинів, ресторанів, сервісних центрів і мережевих компаній. За потреби конфігурацію можна розширити додатковими модулями, обладнанням та інструментами аналітики.</p><h3>Переваги рішення</h3><ul><li>Швидка робота та стабільне підключення.</li><li>Інтеграція з BAS і системами обліку.</li><li>Зручне керування товарами, цінами та залишками.</li><li>Захищене зберігання й синхронізація даних.</li><li>Масштабування під нові торгові точки та користувачів.</li><li>Гарантія та технічна підтримка 24/7.</li></ul><div className="product-tabs__mobile-copy"><h3>Можливості системи</h3><p>Обладнання працює як єдиний центр для касових операцій, контролю продажів та обслуговування клієнтів. Всі важливі показники доступні відповідальним співробітникам у зрозумілому вигляді.</p><p>Підключення додаткових модулів не потребує перебудови всієї системи. Конфігурацію можна поступово розширювати разом зі зростанням бізнесу та появою нових задач.</p><p>Фахівці GreenCom допомагають із налаштуванням, перенесенням даних, навчанням персоналу та подальшим супроводом рішення.</p><ul><li>Централізоване керування налаштуваннями.</li><li>Контроль доступу для різних ролей.</li><li>Автоматичне оновлення ключових даних.</li><li>Підтримка під час запуску та експлуатації.</li></ul></div></div>}
       {tab === "characteristics" && <dl className="product-characteristics">{[
         ["Назва параметру", "Значення"],
