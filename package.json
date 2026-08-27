@@ -12,7 +12,7 @@
     "build:hosting": "vite build --config vite.hosting.config.ts",
     "preview:pages": "vite preview --config vite.github.config.ts",
     "start": "vinext start",
-    "test": "npm run build && npm run build:pages && node --test tests/rendered-html.test.mjs tests/github-pages.test.mjs",
+    "test": "npm run build && npm run build:pages && node --test tests/rendered-html.test.mjs tests/github-pages.test.mjs tests/catalog.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern dist-github --ignore-pattern .next --ignore-pattern .sites-package-stage --ignore-pattern .sites-stage-*",
     "db:generate": "drizzle-kit generate"
   },

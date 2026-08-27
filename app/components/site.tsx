@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, Fragment, ReactNode, useEffect, useState } from "react";
+import { FormEvent, Fragment, MouseEventHandler, ReactNode, useEffect, useState } from "react";
 import { CmsData, CmsLocale, cmsImage, cmsItems, cmsString } from "./cms";
 
 export type SiteLinks = {
@@ -22,14 +22,16 @@ export function Button({
   href = "#contact",
   outline = false,
   className = "",
+  onClick,
 }: {
   children: ReactNode;
   href?: string;
   outline?: boolean;
   className?: string;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
 }) {
   return (
-    <a className={`button ${outline ? "button--outline" : ""} ${className}`} href={href}>
+    <a className={`button ${outline ? "button--outline" : ""} ${className}`} href={href} onClick={onClick}>
       {children}
     </a>
   );

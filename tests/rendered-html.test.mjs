@@ -101,6 +101,17 @@ test("server-renders the complete storefront flow", async () => {
   }
 });
 
+test("catalog renders shared category buttons and the exported wishlist icon", async () => {
+  const response = await render("/catalog");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.equal((html.match(/class="button button--outline button--small"/g) ?? []).length, 4);
+  assert.equal((html.match(/class="shop-favorite__icon"/g) ?? []).length, 11);
+  assert.match(html, /aria-controls="catalog-industries"/);
+  assert.match(html, /aria-pressed="false"/);
+  await access(new URL("../public/assets/shop-heart.svg", import.meta.url));
+});
+
 test("keeps CMS rendering, interactive controls and exact design assets in the source", async () => {
   const [page, cmsPage, shared, css, compose, entrypoint] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),

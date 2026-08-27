@@ -5,7 +5,7 @@ import type { Swiper as SwiperInstance } from "swiper";
 import { A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { BackToTop, NewsletterSection, SiteFooter, SiteHeader, type SiteLinks } from "./site";
+import { BackToTop, Button, NewsletterSection, SiteFooter, SiteHeader, type SiteLinks } from "./site";
 
 export type ShopProduct = {
   id: string;
@@ -127,7 +127,11 @@ function animateProductToCart(trigger: HTMLElement, product: ShopProduct) {
     ?? trigger;
   const sourceRect = source.getBoundingClientRect();
   const targetRect = target.getBoundingClientRect();
-  const size = Math.max(46, Math.min(70, sourceRect.width * .2));
+  if (sourceRect.width <= 0 || sourceRect.height <= 0) return;
+  // Start just inside the source image, preserving its original proportions.
+  const width = sourceRect.width * .9;
+  const height = sourceRect.height * .9;
+  const endScale = Math.min(.18, 18 / Math.max(width, height));
   const startX = sourceRect.left + sourceRect.width / 2;
   const startY = sourceRect.top + sourceRect.height / 2;
   const targetIsVisible = targetRect.bottom > 0 && targetRect.top < window.innerHeight;
@@ -139,10 +143,11 @@ function animateProductToCart(trigger: HTMLElement, product: ShopProduct) {
 
   const flyer = document.createElement("span");
   flyer.className = "cart-flight";
-  flyer.style.width = `${size}px`;
-  flyer.style.height = `${size}px`;
-  flyer.style.left = `${startX - size / 2}px`;
-  flyer.style.top = `${startY - size / 2}px`;
+  flyer.setAttribute("aria-hidden", "true");
+  flyer.style.width = `${width}px`;
+  flyer.style.height = `${height}px`;
+  flyer.style.left = `${startX - width / 2}px`;
+  flyer.style.top = `${startY - height / 2}px`;
   const image = document.createElement("img");
   image.src = product.image;
   image.alt = "";
@@ -151,9 +156,9 @@ function animateProductToCart(trigger: HTMLElement, product: ShopProduct) {
 
   const animation = flyer.animate([
     { transform: "translate3d(0,0,0) scale(1)", opacity: 1, offset: 0 },
-    { transform: `translate3d(${deltaX * .42}px,${lift}px,0) scale(.82)`, opacity: .96, offset: .45 },
-    { transform: `translate3d(${deltaX}px,${deltaY}px,0) scale(.18)`, opacity: .18, offset: 1 },
-  ], { duration: 760, easing: "cubic-bezier(.2,.78,.24,1)" });
+    { transform: `translate3d(${deltaX * .42}px,${lift}px,0) scale(.58)`, opacity: .96, offset: .45 },
+    { transform: `translate3d(${deltaX}px,${deltaY}px,0) scale(${endScale})`, opacity: .18, offset: 1 },
+  ], { duration: 860, easing: "cubic-bezier(.2,.78,.24,1)" });
 
   const cleanup = () => flyer.remove();
   animation.addEventListener("finish", () => {
@@ -197,7 +202,7 @@ export function ProductCard({ product }: { product: ShopProduct }) {
         <img src={product.image} alt={product.title} />
         {product.sale && <span>Акція</span>}
       </a>
-      <button className={`shop-favorite ${favorite ? "is-active" : ""}`} type="button" onClick={() => wishlist.toggle(product.id)} aria-label={favorite ? "Прибрати зі списку бажань" : "Додати до списку бажань"}>♡</button>
+      <button className={`shop-favorite ${favorite ? "is-active" : ""}`} type="button" onClick={() => wishlist.toggle(product.id)} aria-pressed={favorite} aria-label={favorite ? "Прибрати зі списку бажань" : "Додати до списку бажань"}><span className="shop-favorite__icon" aria-hidden="true" /></button>
       <a className="shop-product-card__body" href={`../product/?id=${product.id}`}>
         <small>{product.market}</small>
         <h3>{product.title}</h3>
@@ -245,7 +250,7 @@ export function CatalogPage() {
       <SiteHeader links={shopLinks} variant="inner" />
       <ShopHero breadcrumb="Каталог" title="Каталог" text="Знайдіть відповіді на найпоширеніші запитання щодо автоматизації, IT-рішень, обладнання та сервісів GreenCore." />
       <section className="shop-category-strip">
-        {catalogSections.map((item) => <article key={item.title}><small>{item.label}</small><h2>{item.title}</h2><p>Коротенький опис послуги для каталогу. В два рядки, може в один.</p><a href="#catalog-grid" onClick={() => setCategory(item.category)}>Дізнатися більше</a></article>)}
+        {catalogSections.map((item) => <article key={item.title}><small>{item.label}</small><h2>{item.title}</h2><p>Коротенький опис послуги для каталогу. В два рядки, може в один.</p><Button outline className="button--small" href="#catalog-grid" onClick={() => setCategory(item.category)}>Дізнатися більше</Button></article>)}
       </section>
       <section className="shop-catalog" id="catalog-grid">
         <div className="shop-catalog-mobile-controls" aria-label="Каталог та фільтри">
