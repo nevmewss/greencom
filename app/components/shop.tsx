@@ -270,9 +270,17 @@ export function CatalogPage() {
                   if (index === 4) setIndustriesOpen((open) => !open);
                 }}
               >
-                {item}{index === 4 && <span aria-hidden="true">⌄</span>}
+                {item}{index === 4 && <img className="shop-catalog__chevron" src="/site-icons/chevron.svg" alt="" aria-hidden="true" />}
               </button>
-              {index === 4 && <div className={`shop-catalog__subnav ${industriesOpen ? "is-open" : ""}`} id="catalog-industries" aria-hidden={!industriesOpen}><div>{catalogIndustries.map((industry) => <button type="button" key={industry}>{industry}</button>)}</div></div>}
+              {index === 4 && (
+                <div className={`shop-catalog__subnav ${industriesOpen ? "is-open" : ""}`} id="catalog-industries" aria-hidden={!industriesOpen} inert={!industriesOpen}>
+                  <div>
+                    <div className="shop-catalog__subnav-panel">
+                      {catalogIndustries.map((industry) => <button type="button" key={industry}>{industry}</button>)}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>)}
             <button type="button">Fredo</button>
           </nav>

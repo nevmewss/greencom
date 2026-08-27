@@ -100,3 +100,20 @@ test("catalog reuses button hover and anchors the price row above bottom padding
   assert.match(stylesheet, /\.shop-product-card__price button\s*\{[^}]*linear-gradient\(90deg,#03c030,#015a17\)/);
   assert.match(stylesheet, /\.shop-favorite__icon\s*\{[^}]*width:\s*18px;[^}]*shop-heart\.svg/);
 });
+
+test("industry dropdown matches the separated, indented Figma glass panel", async () => {
+  assert.match(source, /setIndustriesOpen\(\(open\) => !open\)/);
+  assert.match(source, /aria-hidden=\{!industriesOpen\} inert=\{!industriesOpen\}/);
+  assert.match(source, /className="shop-catalog__chevron" src="\/site-icons\/chevron.svg"/);
+  assert.match(await readFile(new URL("../public/site-icons/chevron.svg", import.meta.url), "utf8"), /viewBox="0 0 20 20"/);
+  assert.match(stylesheet, /\.shop-catalog__subnav\s*\{[^}]*grid-template-rows:\s*0fr;[^}]*margin:\s*0 0 0 12px/);
+  assert.match(stylesheet, /\.shop-catalog__subnav.is-open\s*\{[^}]*grid-template-rows:\s*1fr;[^}]*margin-top:\s*10px/);
+  const panel = stylesheet.match(/\.shop-catalog__subnav-panel\s*\{([^}]+)\}/)[1];
+  assert.match(panel, /gap:\s*18px/);
+  assert.match(panel, /padding:\s*12px/);
+  assert.match(panel, /border-radius:\s*12px/);
+  assert.match(panel, /background:\s*rgba\(255,255,255,\.05\)/);
+  assert.match(panel, /backdrop-filter:\s*blur\(11px\)/);
+  assert.match(stylesheet, /\.shop-catalog__side \.shop-catalog__subnav-panel button\s*\{[^}]*border-bottom:\s*\.693px solid rgba\(255,255,255,\.2\)/);
+  assert.doesNotMatch(stylesheet, /\.shop-catalog__subnav button\s*\{[^}]*!important/);
+});
