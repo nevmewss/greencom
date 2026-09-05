@@ -2695,6 +2695,8 @@ h3 {
 
   .site-header {
     position: relative;
+    z-index: 100;
+    isolation: isolate;
     height: 64px;
     background: #080b0c;
   }
@@ -2764,7 +2766,7 @@ h3 {
 
   .desktop-nav.is-open {
     position: fixed;
-    z-index: 45;
+    z-index: 99;
     top: 64px;
     right: 0;
     bottom: 0;
@@ -2774,8 +2776,14 @@ h3 {
     align-items: stretch;
     gap: 4px;
     margin: 0;
-    padding: 28px;
-    background: #040a07;
+    height: calc(100dvh - 64px);
+    padding: 20px 18px max(28px,env(safe-area-inset-bottom));
+    overflow-y: auto;
+    border-top: 1px solid rgba(150,251,196,.2);
+    background-color: #030806 !important;
+    background-image: radial-gradient(circle at 100% 0,rgba(3,192,48,.16),transparent 42%),linear-gradient(180deg,rgba(15,27,21,.98),#020504 72%);
+    box-shadow: 0 22px 55px rgba(0,0,0,.7),inset 0 1px rgba(255,255,255,.04);
+    backdrop-filter: blur(22px);
     font-size: 18px;
   }
 
@@ -2785,7 +2793,9 @@ h3 {
     height: 48px;
     justify-content: space-between;
     padding: 0 14px;
+    border: 1px solid rgba(255,255,255,.08);
     border-radius: 10px;
+    background: rgba(255,255,255,.035);
   }
 
   .desktop-nav.is-open .header-dropdown {

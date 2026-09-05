@@ -107,6 +107,13 @@ function CartGlyph() {
   return <img className="shop-cart-glyph" src="/site-icons/cart-badge.svg" alt="" aria-hidden="true" />;
 }
 
+function AccountIcon({ type }: { type: "personal" | "orders" | "wishlist" | "logout" }) {
+  if (type === "personal") return <svg className="account-sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.25" /><path d="M5.5 20v-1.5a6.5 6.5 0 0 1 13 0V20" /></svg>;
+  if (type === "orders") return <svg className="account-sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="16" rx="2" /><path d="M8.5 9h7M8.5 13h7M8.5 17h4" /></svg>;
+  if (type === "wishlist") return <svg className="account-sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 8.7c0 5-8.5 10.1-8.5 10.1S3.5 13.7 3.5 8.7A4.35 4.35 0 0 1 12 7.35 4.35 4.35 0 0 1 20.5 8.7Z" /></svg>;
+  return <svg className="account-sidebar__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5H5.5A1.5 1.5 0 0 0 4 6.5v11A1.5 1.5 0 0 0 5.5 19H10M14.5 8l4 4-4 4M8.5 12h10" /></svg>;
+}
+
 function animateProductToCart(trigger: HTMLElement, product: ShopProduct) {
   if (typeof window === "undefined") return;
 
@@ -330,7 +337,7 @@ export function ProductPage() {
         <div className="product-gallery__thumbs">{Array.from({ length: 5 }, (_, index) => <button className={activeImage === index ? "is-active" : ""} type="button" onClick={() => setActiveImage(index)} key={index}><img src={product.image} alt="" /></button>)}</div>
       </div>
       <article className="product-summary shop-glass">
-        <div className="product-summary__top"><div><small>{product.category}</small><h2>{product.title}</h2></div><button className={`shop-favorite shop-favorite--static ${wishlist.has(product.id) ? "is-active" : ""}`} type="button" onClick={() => wishlist.toggle(product.id)} aria-label={wishlist.has(product.id) ? "Прибрати зі списку бажань" : "Додати до списку бажань"}>♡</button></div>
+        <div className="product-summary__top"><div><small>{product.category}</small><h2>{product.title}</h2></div><button className={`shop-favorite shop-favorite--static ${wishlist.has(product.id) ? "is-active" : ""}`} type="button" onClick={() => wishlist.toggle(product.id)} aria-label={wishlist.has(product.id) ? "Прибрати зі списку бажань" : "Додати до списку бажань"}><span className="shop-favorite__icon" aria-hidden="true" /></button></div>
         <div className="product-rating"><strong aria-label="Оцінка 4 з 5"><span>★★★★</span><span className="is-muted">★</span></strong><span>(5 відгуків)</span><i /><span>Код товару <b>123456</b></span></div>
         <div className="product-summary__description"><p>Сучасний POS-термінал для автоматизації касових процесів, обліку продажів та ефективного управління торговою точкою.</p><p>Ідеально підходить для магазинів, ресторанів, кафе та мереж роздрібної торгівлі.</p></div>
         <div className="product-summary__price">{product.oldPrice && <del>{money(product.oldPrice)}₴</del>}<strong>{money(product.price)}₴</strong></div>
@@ -449,7 +456,7 @@ function AccountSidebar({ active }: { active: "personal" | "orders" | "wishlist"
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setName(readStorage<{ name?: string }>("greencom-user", {}).name || "Іван");
   }, []);
-  return <aside className="account-sidebar shop-glass"><div className="account-sidebar__user"><img src="/assets/shop-avatar.jpg" alt="" /><span>Привіт!<strong>{name}</strong></span></div><i /><nav><a className={active === "personal" ? "is-active" : ""} href="../personal/">♙ <span>Персональні дані</span></a><a className={active === "orders" ? "is-active" : ""} href="../orders/">▣ <span>Історія замовлень</span></a><a className={active === "wishlist" ? "is-active" : ""} href="../wishlist/">♡ <span>Список бажань</span></a><a href="../login/" onClick={() => window.localStorage.removeItem("greencom-user")}>⇥ <span>Вихід</span></a></nav></aside>;
+  return <aside className="account-sidebar shop-glass"><div className="account-sidebar__user"><img src="/assets/shop-avatar.jpg" alt="" /><span>Привіт!<strong>{name}</strong></span></div><i /><nav><a className={active === "personal" ? "is-active" : ""} href="../personal/"><AccountIcon type="personal" /><span>Персональні дані</span></a><a className={active === "orders" ? "is-active" : ""} href="../orders/"><AccountIcon type="orders" /><span>Історія замовлень</span></a><a className={active === "wishlist" ? "is-active" : ""} href="../wishlist/"><AccountIcon type="wishlist" /><span>Список бажань</span></a><a href="../login/" onClick={() => window.localStorage.removeItem("greencom-user")}><AccountIcon type="logout" /><span>Вихід</span></a></nav></aside>;
 }
 
 export function PersonalPage() {

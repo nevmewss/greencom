@@ -98,7 +98,7 @@ test("catalog reuses button hover and anchors the price row above bottom padding
   assert.match(stylesheet, /\.shop-product-card\s*\{[^}]*height:\s*auto;[^}]*display:\s*flex;[^}]*flex-direction:\s*column/);
   assert.match(stylesheet, /\.shop-product-card__price\s*\{[^}]*margin-top:\s*auto/);
   assert.match(stylesheet, /\.shop-product-card__price button\s*\{[^}]*linear-gradient\(90deg,#03c030,#015a17\)/);
-  assert.match(stylesheet, /\.shop-favorite__icon\s*\{[^}]*width:\s*18px;[^}]*shop-heart\.svg/);
+  assert.match(stylesheet, /\.shop-favorite__icon\s*\{[^}]*width:\s*21px;[^}]*shop-heart-bold\.svg/);
 });
 
 test("industry dropdown matches the separated, indented Figma glass panel", async () => {
