@@ -117,3 +117,11 @@ test("industry dropdown matches the separated, indented Figma glass panel", asyn
   assert.match(stylesheet, /\.shop-catalog__side \.shop-catalog__subnav-panel button\s*\{[^}]*border-bottom:\s*\.693px solid rgba\(255,255,255,\.2\)/);
   assert.doesNotMatch(stylesheet, /\.shop-catalog__subnav button\s*\{[^}]*!important/);
 });
+
+test("personal photo upload uses a restrained avatar placeholder and a larger add control", async () => {
+  assert.match(source, /className="personal-photo__placeholder" src="\/assets\/avatar-placeholder\.svg"/);
+  assert.match(source, /aria-label="Завантажити фото профілю"/);
+  assert.match(stylesheet, /\.personal-photo b\s*\{[^}]*width:\s*46px;[^}]*height:\s*46px;[^}]*font-size:\s*24px/);
+  assert.match(stylesheet, /\.personal-photo__placeholder\s*\{[^}]*width:\s*58px;[^}]*height:\s*58px/);
+  assert.match(await readFile(new URL("../public/assets/avatar-placeholder.svg", import.meta.url), "utf8"), /viewBox="0 0 64 64"/);
+});
