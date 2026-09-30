@@ -46,7 +46,7 @@ const fallbackArticles: CmsData[] = Array.from({ length: 12 }, (_, index) => ({
   title: articleTitle,
   excerpt: articleExcerpt,
   button_label: "Дізнатися більше",
-  url: "#",
+  url: "../article/",
 }));
 
 const fallbackCategories: CmsData[] = [
@@ -91,7 +91,7 @@ function NewsCard({ article, index, variant = "standard" }: { article: CmsData; 
         <ArticleMeta article={article} />
         <h3>{cmsString(article, "title", articleTitle)}</h3>
         <p>{cmsText(article, "excerpt", cmsText(article, "text", articleExcerpt))}</p>
-        <a href={cmsString(article, "url", "#")}>{cmsString(article, "button_label", "Дізнатися більше")}</a>
+        <a href={cmsString(article, "url", "../article/")}>{cmsString(article, "button_label", "Дізнатися більше")}</a>
       </div>
     </article>
   );
