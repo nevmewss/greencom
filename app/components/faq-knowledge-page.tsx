@@ -108,7 +108,7 @@ export function FaqKnowledgePage() {
           <nav className={styles.breadcrumbs} aria-label="Навігаційний шлях">
             <a href={links.home}>{cmsString(pageData, "home_label", "Головна")}</a>
             <i />
-            <span>{cmsString(pageData, "breadcrumb", "Новини")}</span>
+            <span>{cmsString(pageData, "breadcrumb", "База знань")}</span>
           </nav>
           <div className={styles.heroCopy}>
             <h1 id="knowledge-title">{cmsString(pageData, "title", "База Знань")}</h1>

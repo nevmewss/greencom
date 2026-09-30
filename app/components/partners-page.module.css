@@ -1,0 +1,450 @@
+.page {
+  --partners-green: #00ef52;
+  --partners-text: #f6f8f6;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  color: var(--partners-text);
+  background: #010302;
+  isolation: isolate;
+}
+
+.page::before {
+  position: absolute;
+  z-index: -2;
+  inset: 485px 0 0;
+  min-height: 1860px;
+  background: url("/assets/contact-page-background-desktop.png") center top / 100% auto no-repeat;
+  content: "";
+  pointer-events: none;
+}
+
+.page::after {
+  position: absolute;
+  z-index: -1;
+  inset: 430px 0 690px;
+  background:
+    radial-gradient(circle at 12% 26%, rgba(0, 239, 82, .13), transparent 24%),
+    radial-gradient(circle at 86% 78%, rgba(0, 239, 82, .12), transparent 27%);
+  content: "";
+  pointer-events: none;
+}
+
+.hero {
+  position: relative;
+  height: 485px;
+  overflow: hidden;
+  background: #010302;
+}
+
+.heroMedia,
+.heroMedia img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.heroMedia img {
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, .96) 0%, rgba(0, 0, 0, .72) 35%, rgba(0, 0, 0, .08) 70%),
+    linear-gradient(0deg, rgba(0, 0, 0, .58), transparent 42%);
+  content: "";
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 2;
+  width: min(1260px, calc(100% - 60px));
+  height: 100%;
+  margin-inline: auto;
+}
+
+.breadcrumbs {
+  position: absolute;
+  top: 159px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.breadcrumbs a {
+  color: var(--partners-green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.breadcrumbs i {
+  width: 1px;
+  height: 12px;
+  background: rgba(255, 255, 255, .46);
+}
+
+.breadcrumbs span {
+  color: rgba(255, 255, 255, .72);
+}
+
+.heroCopy {
+  position: absolute;
+  top: 226px;
+  left: 0;
+  width: 690px;
+}
+
+.heroCopy h1 {
+  margin: 0;
+  font-family: var(--heading, "eUkraine Head", Arial, sans-serif);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -.025em;
+}
+
+.heroCopy p {
+  width: 680px;
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, .82);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.partnerList {
+  position: relative;
+  z-index: 2;
+  width: min(1260px, calc(100% - 60px));
+  margin-inline: auto;
+  padding: 40px 0 122px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px 26px;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 174px;
+  grid-template-columns: 176px minmax(0, 1fr);
+  align-items: stretch;
+  overflow: hidden;
+  border: 1px solid rgba(216, 255, 226, .2);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 100% 100%, rgba(0, 111, 40, .28), transparent 58%),
+    linear-gradient(135deg, rgba(47, 58, 61, .34), rgba(2, 8, 5, .78));
+  box-shadow: inset 1px 1px rgba(255, 255, 255, .055), 0 18px 42px rgba(0, 0, 0, .18);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+.card:nth-child(4n + 2),
+.card:nth-child(4n + 3) {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(0, 102, 36, .22), transparent 56%),
+    linear-gradient(142deg, rgba(42, 50, 53, .27), rgba(2, 7, 4, .82));
+}
+
+.card::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(112deg, rgba(255, 255, 255, .055), transparent 32%);
+  content: "";
+  pointer-events: none;
+}
+
+.logoShape {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 42px 28px;
+  background: linear-gradient(145deg, rgba(31, 44, 38, .82), rgba(10, 18, 14, .42));
+  clip-path: polygon(0 50%, 27% 0, 73% 0, 100% 50%, 73% 100%, 27% 100%);
+}
+
+.logoShape::before {
+  position: absolute;
+  inset: 18px;
+  border: 1px solid rgba(0, 239, 82, .08);
+  clip-path: inherit;
+  content: "";
+}
+
+.logoShape img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(112px, 100%);
+  max-height: 46px;
+  object-fit: contain;
+}
+
+.cardCopy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 28px 28px 27px 5px;
+}
+
+.cardCopy h2 {
+  margin: 0 0 9px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.cardCopy p {
+  margin: 0;
+  color: rgba(255, 255, 255, .72);
+  font-size: 12px;
+  line-height: 1.46;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 34px;
+}
+
+.pagination button,
+.pagination > span {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  padding: 0;
+  border: 0;
+  place-items: center;
+  color: rgba(255, 255, 255, .55);
+  background: transparent;
+  font: inherit;
+  font-size: 10px;
+}
+
+.pagination button {
+  cursor: pointer;
+}
+
+.pagination button:first-child,
+.pagination button:last-child {
+  color: var(--partners-green);
+  font-size: 14px;
+}
+
+.pagination button.currentPage {
+  border: 1px solid rgba(0, 239, 82, .48);
+  border-radius: 50%;
+  color: var(--partners-green);
+}
+
+.newsletter,
+.footer {
+  position: relative;
+  z-index: 2;
+}
+
+.backToTop {
+  z-index: 10;
+}
+
+@media (max-width: 1000px) {
+  .page::before {
+    inset-block-start: 397px;
+    min-height: 2050px;
+    background-image: url("/assets/contact-page-background-tablet.png");
+  }
+
+  .hero {
+    height: 344px;
+  }
+
+  .heroInner,
+  .partnerList {
+    width: min(774px, calc(100% - 60px));
+  }
+
+  .breadcrumbs {
+    top: 34px;
+  }
+
+  .heroCopy {
+    top: 105px;
+    width: 550px;
+  }
+
+  .heroCopy h1 {
+    font-size: 40px;
+  }
+
+  .heroCopy p {
+    width: 540px;
+    font-size: 14px;
+  }
+
+  .partnerList {
+    padding: 31px 0 82px;
+  }
+
+  .grid {
+    gap: 15px 14px;
+  }
+
+  .card {
+    min-height: 196px;
+    grid-template-columns: 122px minmax(0, 1fr);
+    border-radius: 22px;
+  }
+
+  .logoShape {
+    padding: 44px 17px;
+  }
+
+  .logoShape img {
+    width: min(88px, 100%);
+    max-height: 38px;
+  }
+
+  .cardCopy {
+    padding: 24px 18px 23px 2px;
+  }
+
+  .cardCopy h2 {
+    font-size: 15px;
+  }
+
+  .cardCopy p {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 600px) {
+  .page::before {
+    inset-block-start: 430px;
+    min-height: 2650px;
+    background-image: url("/assets/contact-page-background-mobile.png");
+    background-size: 100% auto;
+  }
+
+  .page::after {
+    inset-block-start: 390px;
+  }
+
+  .hero {
+    height: 333px;
+  }
+
+  .heroMedia img {
+    object-position: center;
+  }
+
+  .hero::after {
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, .96), rgba(0, 0, 0, .55) 76%, rgba(0, 0, 0, .08)),
+      linear-gradient(0deg, rgba(0, 0, 0, .64), transparent 48%);
+  }
+
+  .heroInner,
+  .partnerList {
+    width: calc(100% - 40px);
+  }
+
+  .breadcrumbs {
+    top: 25px;
+    font-size: 10px;
+  }
+
+  .heroCopy {
+    top: 92px;
+    width: 100%;
+  }
+
+  .heroCopy h1 {
+    font-size: 34px;
+    line-height: 1.06;
+  }
+
+  .heroCopy p {
+    width: min(312px, 100%);
+    margin-top: 11px;
+    font-size: 13px;
+    line-height: 1.42;
+  }
+
+  .partnerList {
+    padding: 25px 0 68px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .card {
+    min-height: 223px;
+    grid-template-columns: 1fr;
+    border-radius: 22px;
+  }
+
+  .logoShape {
+    min-height: 93px;
+    padding: 25px 58px 17px;
+    clip-path: polygon(21% 0, 79% 0, 100% 72%, 86% 100%, 14% 100%, 0 72%);
+  }
+
+  .logoShape::before {
+    inset: 12px 46px 2px;
+  }
+
+  .logoShape img {
+    width: min(116px, 100%);
+    max-height: 40px;
+  }
+
+  .cardCopy {
+    justify-content: flex-start;
+    padding: 17px 20px 22px;
+  }
+
+  .cardCopy h2 {
+    margin-bottom: 8px;
+    font-size: 15px;
+  }
+
+  .cardCopy p {
+    font-size: 11px;
+    line-height: 1.48;
+  }
+
+  .pagination {
+    margin-top: 27px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    scroll-behavior: auto;
+  }
+}
