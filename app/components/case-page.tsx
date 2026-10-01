@@ -1,7 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { Swiper as SwiperInstance } from "swiper";
+import { A11y, Keyboard } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 import { BackToTop, NewsletterSection, SiteFooter, SiteHeader, type SiteLinks } from "./site";
 import {
   type CmsData,
@@ -38,7 +42,7 @@ const fallbackSoftware: CmsData[] = [
   { title: "BAS Роздрібна Торгівля", description: "Система для автоматизації продажів, управління товарними залишками та контролю роботи кас." },
 ];
 
-const fallbackEquipment: CmsData[] = Array.from({ length: 3 }, (_, index) => ({
+const fallbackEquipment: CmsData[] = Array.from({ length: 6 }, (_, index) => ({
   _sync_id: `equipment-${index + 1}`,
   image_url: "/assets/case-equipment.webp",
   image_alt: "Комплект торгового обладнання GreenCom",
@@ -75,8 +79,21 @@ function SectionIcon({ variant }: { variant: "problem" | "solution" | "result" |
   return <span className={styles.icon} aria-hidden="true"><svg viewBox="0 0 24 24">{paths[variant]}</svg></span>;
 }
 
+function FactIcon({ index }: { index: number }) {
+  const paths = [
+    <><circle cx="12" cy="8" r="3"/><path d="M6.5 20c.5-4 2.3-6 5.5-6s5 2 5.5 6"/></>,
+    <><path d="M5 19V9m5 10V5m5 14v-7m4 7V3"/><path d="m4 7 5-3 5 4 6-6"/></>,
+    <><path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z"/><circle cx="12" cy="10" r="2"/></>,
+    <><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></>,
+  ];
+  return <span className={styles.factIcon} aria-hidden="true"><svg viewBox="0 0 24 24">{paths[index % paths.length]}</svg></span>;
+}
+
 export function CasePage() {
-  const equipmentRef = useRef<HTMLDivElement>(null);
+  const equipmentSwiper = useRef<SwiperInstance | null>(null);
+  const gallerySwiper = useRef<SwiperInstance | null>(null);
+  const [equipmentNavigation, setEquipmentNavigation] = useState({ isBeginning: true, isEnd: false });
+  const [galleryIndex, setGalleryIndex] = useState<number | null>(null);
   const { blocks, menuData, footerData, locale, locales, setLocale } = useCmsPage(
     "case",
     ["case_page", "case", "newsletter", "site_footer"],
@@ -102,9 +119,23 @@ export function CasePage() {
     { value: "Повний Контроль", text: "Над бізнес-процесами та роботою персоналу" },
   ]);
 
-  const moveEquipment = (direction: number) => {
-    equipmentRef.current?.scrollBy({ left: direction * 230, behavior: "smooth" });
+  const syncEquipmentNavigation = (swiper: SwiperInstance) => {
+    setEquipmentNavigation({ isBeginning: swiper.isBeginning, isEnd: swiper.isEnd });
   };
+
+  useEffect(() => {
+    if (galleryIndex === null) return;
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setGalleryIndex(null);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [galleryIndex]);
 
   return (
     <main className={styles.page}>
@@ -131,26 +162,23 @@ export function CasePage() {
 
       <div className={styles.content}>
         <section className={styles.facts} aria-label="Інформація про проєкт">
-          {facts.map((fact, index) => <div key={itemKey(fact, index, "fact")}><span>{cmsString(fact, "label")}</span><strong>{cmsString(fact, "value")}</strong></div>)}
+          {facts.map((fact, index) => <div key={itemKey(fact, index, "fact")}><FactIcon index={index} /><span className={styles.factCopy}><small>{cmsString(fact, "label")}</small><strong>{cmsString(fact, "value")}</strong></span></div>)}
         </section>
 
         <section className={styles.story} aria-label="Опис реалізації проєкту">
           <article className={styles.storyCard}>
-            <SectionIcon variant="problem" />
-            <h2>{cmsString(pageData, "problem_title", "ПРОБЛЕМА / ЗАВДАННЯ")}</h2>
+            <div className={styles.storyHeading}><SectionIcon variant="problem" /><h2>{cmsString(pageData, "problem_title", "ПРОБЛЕМА / ЗАВДАННЯ")}</h2></div>
             <p>{cmsText(pageData, "problem_description", "Клієнт звернувся із запитом на комплексну автоматизацію магазину та модернізацію торгових процесів. Основною задачею було покращення швидкості обслуговування клієнтів, контролю залишків товарів та оптимізацію роботи персоналу.")}</p>
             <ul>{problemItems.map((item, index) => <li key={itemKey(item, index, "problem")}>{cmsText(item, "text")}</li>)}</ul>
           </article>
           <article className={styles.storyCard}>
-            <SectionIcon variant="solution" />
-            <h2>{cmsString(pageData, "solution_title", "РІШЕННЯ")}</h2>
+            <div className={styles.storyHeading}><SectionIcon variant="solution" /><h2>{cmsString(pageData, "solution_title", "РІШЕННЯ")}</h2></div>
             <p>{cmsText(pageData, "solution_description", "Було впроваджено сучасну систему автоматизації, що об'єднала ключові бізнес-процеси магазину в єдину цифрову екосистему.")}</p>
             <b>{cmsString(pageData, "implemented_label", "Реалізовано:")}</b>
             <ul>{solutionItems.map((item, index) => <li key={itemKey(item, index, "solution")}>{cmsText(item, "text")}</li>)}</ul>
           </article>
           <article className={`${styles.storyCard} ${styles.resultCard}`}>
-            <SectionIcon variant="result" />
-            <h2>{cmsString(pageData, "result_title", "РЕЗУЛЬТАТ")}</h2>
+            <div className={styles.storyHeading}><SectionIcon variant="result" /><h2>{cmsString(pageData, "result_title", "РЕЗУЛЬТАТ")}</h2></div>
             <p>{cmsText(pageData, "result_description", "Після впровадження системи автоматизації клієнт отримав:")}</p>
             <div className={styles.results}>{results.map((item, index) => <div key={itemKey(item, index, "result")}><strong>{cmsString(item, "value")}</strong><span>{cmsText(item, "text")}</span></div>)}</div>
           </article>
@@ -165,8 +193,21 @@ export function CasePage() {
             </article>
             <article className={styles.featurePanel}>
               <header><SectionIcon variant="equipment" /><div><h3>{cmsString(pageData, "equipment_title", "ВСТАНОВЛЕНЕ ОБЛАДНАННЯ")}</h3><p>{cmsText(pageData, "equipment_description", "Для стабільної та ефективної роботи магазину використано.")}</p></div></header>
-              <div className={styles.equipmentViewport} ref={equipmentRef}>{equipment.map((item, index) => <article className={styles.equipmentCard} key={itemKey(item, index, "equipment")}><img src={cmsImage(item, "image", "image_url", "/assets/case-equipment.webp")} alt={cmsString(item, "image_alt", "Торгове обладнання GreenCom")} /><span>{cmsString(item, "category", "BAS Корпоративний ринок")}</span><strong>{cmsString(item, "title", "BAS ERP")}</strong></article>)}</div>
-              <div className={styles.sliderControls}><button type="button" onClick={() => moveEquipment(-1)} aria-label="Попереднє обладнання">←</button><button type="button" onClick={() => moveEquipment(1)} aria-label="Наступне обладнання">→</button></div>
+              <Swiper
+                className={styles.equipmentSwiper}
+                modules={[A11y]}
+                slidesPerView={3}
+                spaceBetween={10}
+                speed={500}
+                watchOverflow
+                breakpoints={{ 0: { slidesPerView: 1.35, spaceBetween: 10 }, 601: { slidesPerView: 2, spaceBetween: 10 }, 1001: { slidesPerView: 3, spaceBetween: 10 } }}
+                onSwiper={(swiper) => { equipmentSwiper.current = swiper; syncEquipmentNavigation(swiper); }}
+                onSlideChange={syncEquipmentNavigation}
+                onBreakpoint={syncEquipmentNavigation}
+              >
+                {equipment.map((item, index) => <SwiperSlide key={itemKey(item, index, "equipment")}><article className={styles.equipmentCard}><img src={cmsImage(item, "image", "image_url", "/assets/case-equipment.webp")} alt={cmsString(item, "image_alt", "Торгове обладнання GreenCom")} /><span>{cmsString(item, "category", "BAS Корпоративний ринок")}</span><strong>{cmsString(item, "title", "BAS ERP")}</strong></article></SwiperSlide>)}
+              </Swiper>
+              <div className={styles.sliderControls}><button type="button" disabled={equipmentNavigation.isBeginning} onClick={() => equipmentSwiper.current?.slidePrev()} aria-label="Попереднє обладнання">←</button><button type="button" disabled={equipmentNavigation.isEnd} onClick={() => equipmentSwiper.current?.slideNext()} aria-label="Наступне обладнання">→</button></div>
             </article>
           </div>
         </section>
@@ -174,9 +215,30 @@ export function CasePage() {
         <section className={styles.gallery} aria-labelledby="gallery-title">
           <p><span />{cmsString(pageData, "gallery_eyebrow", "Галерея")}<span /></p>
           <h2 id="gallery-title">{cmsString(pageData, "gallery_title", "Фотогалерея Проекту")}</h2>
-          <div>{gallery.map((item, index) => <img key={itemKey(item, index, "gallery")} src={cmsImage(item, "image", "image_url", "/retail-tech.jpg")} alt={cmsString(item, "image_alt", "Проєкт автоматизації Fresh Market")} loading="lazy" />)}</div>
+          <div className={styles.galleryGrid}>{gallery.map((item, index) => <button type="button" onClick={() => setGalleryIndex(index)} key={itemKey(item, index, "gallery")} aria-label={`Відкрити фото ${index + 1}`}><img src={cmsImage(item, "image", "image_url", "/retail-tech.jpg")} alt={cmsString(item, "image_alt", "Проєкт автоматизації Fresh Market")} loading="lazy" /></button>)}</div>
         </section>
       </div>
+
+      {galleryIndex !== null && (
+        <div className={styles.lightbox} role="dialog" aria-modal="true" aria-label="Фотогалерея проєкту" onClick={(event) => { if (event.currentTarget === event.target) setGalleryIndex(null); }}>
+          <button className={styles.lightboxClose} type="button" onClick={() => setGalleryIndex(null)} aria-label="Закрити галерею">×</button>
+          <button className={`${styles.lightboxArrow} ${styles.lightboxPrev}`} type="button" onClick={() => gallerySwiper.current?.slidePrev()} aria-label="Попереднє фото">←</button>
+          <Swiper
+            className={styles.lightboxSwiper}
+            key={galleryIndex}
+            modules={[A11y, Keyboard]}
+            initialSlide={galleryIndex}
+            slidesPerView={1}
+            spaceBetween={20}
+            speed={450}
+            keyboard={{ enabled: true }}
+            onSwiper={(swiper) => { gallerySwiper.current = swiper; }}
+          >
+            {gallery.map((item, index) => <SwiperSlide key={itemKey(item, index, "lightbox")}><figure><img src={cmsImage(item, "image", "image_url", "/retail-tech.jpg")} alt={cmsString(item, "image_alt", "Проєкт автоматизації Fresh Market")} /><figcaption>{index + 1} / {gallery.length}</figcaption></figure></SwiperSlide>)}
+          </Swiper>
+          <button className={`${styles.lightboxArrow} ${styles.lightboxNext}`} type="button" onClick={() => gallerySwiper.current?.slideNext()} aria-label="Наступне фото">→</button>
+        </div>
+      )}
 
       <NewsletterSection className={styles.newsletter} data={newsletterData} />
       <SiteFooter data={footerData} links={links} className={styles.footer} />
