@@ -37,9 +37,9 @@ const fallbackFacts: CmsData[] = [
 ];
 
 const fallbackSoftware: CmsData[] = [
-  { title: "BAS Роздрібна Торгівля", description: "Система для автоматизації продажів, управління товарними залишками та контролю роботи кас." },
-  { title: "BAS Бухгалтерія", description: "Рішення для ведення бухгалтерського та податкового обліку підприємства." },
-  { title: "BAS Роздрібна Торгівля", description: "Система для автоматизації продажів, управління товарними залишками та контролю роботи кас." },
+  { title: "BAS Роздрібна Торгівля", description: "Система для автоматизації продажів, управління товарними залишками та контролю роботи кас.", url: "../catalog/" },
+  { title: "BAS Бухгалтерія", description: "Рішення для ведення бухгалтерського та податкового обліку підприємства.", url: "../catalog/" },
+  { title: "BAS Роздрібна Торгівля", description: "Система для автоматизації продажів, управління товарними залишками та контролю роботи кас.", url: "../catalog/" },
 ];
 
 const fallbackEquipment: CmsData[] = Array.from({ length: 6 }, (_, index) => ({
@@ -48,6 +48,7 @@ const fallbackEquipment: CmsData[] = Array.from({ length: 6 }, (_, index) => ({
   image_alt: "Комплект торгового обладнання GreenCom",
   category: "BAS Корпоративний ринок",
   title: "BAS ERP",
+  url: "../product/",
 }));
 
 const fallbackGallery: CmsData[] = Array.from({ length: 12 }, (_, index) => ({
@@ -189,7 +190,7 @@ export function CasePage() {
           <div className={styles.automationGrid}>
             <article className={styles.featurePanel}>
               <header><SectionIcon variant="software" /><div><h3>{cmsString(pageData, "software_title", "ВИКОРИСТАНЕ ПЗ")}</h3><p>{cmsText(pageData, "software_description", "Для автоматизації бізнес-процесів було впроваджено:")}</p></div></header>
-              <div className={styles.softwareList}>{software.map((item, index) => <div className={styles.softwareItem} key={itemKey(item, index, "software")}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{cmsString(item, "title")}</strong><p>{cmsText(item, "description")}</p></div><i>↗</i></div>)}</div>
+              <div className={styles.softwareList}>{software.map((item, index) => <a className={styles.softwareItem} href={cmsString(item, "url", "../catalog/")} key={itemKey(item, index, "software")}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{cmsString(item, "title")}</strong><p>{cmsText(item, "description")}</p></div><i>↗</i></a>)}</div>
             </article>
             <article className={styles.featurePanel}>
               <header><SectionIcon variant="equipment" /><div><h3>{cmsString(pageData, "equipment_title", "ВСТАНОВЛЕНЕ ОБЛАДНАННЯ")}</h3><p>{cmsText(pageData, "equipment_description", "Для стабільної та ефективної роботи магазину використано.")}</p></div></header>
@@ -205,7 +206,7 @@ export function CasePage() {
                 onSlideChange={syncEquipmentNavigation}
                 onBreakpoint={syncEquipmentNavigation}
               >
-                {equipment.map((item, index) => <SwiperSlide key={itemKey(item, index, "equipment")}><article className={styles.equipmentCard}><img src={cmsImage(item, "image", "image_url", "/assets/case-equipment.webp")} alt={cmsString(item, "image_alt", "Торгове обладнання GreenCom")} /><span>{cmsString(item, "category", "BAS Корпоративний ринок")}</span><strong>{cmsString(item, "title", "BAS ERP")}</strong></article></SwiperSlide>)}
+                {equipment.map((item, index) => <SwiperSlide key={itemKey(item, index, "equipment")}><a className={styles.equipmentCard} href={cmsString(item, "url", "../product/")}><img src={cmsImage(item, "image", "image_url", "/assets/case-equipment.webp")} alt={cmsString(item, "image_alt", "Торгове обладнання GreenCom")} /><span>{cmsString(item, "category", "BAS Корпоративний ринок")}</span><strong>{cmsString(item, "title", "BAS ERP")}</strong></a></SwiperSlide>)}
               </Swiper>
               <div className={styles.sliderControls}><button type="button" disabled={equipmentNavigation.isBeginning} onClick={() => equipmentSwiper.current?.slidePrev()} aria-label="Попереднє обладнання">←</button><button type="button" disabled={equipmentNavigation.isEnd} onClick={() => equipmentSwiper.current?.slideNext()} aria-label="Наступне обладнання">→</button></div>
             </article>

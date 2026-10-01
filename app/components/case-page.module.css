@@ -12,21 +12,10 @@
 .page::before {
   position: absolute;
   z-index: -2;
-  inset: 480px 0 0;
-  background: url("/assets/news-page-background-desktop.webp") center top / 100% auto repeat-y;
+  inset: 540px 0 0;
+  background: url("/assets/desktop-page-background.png") center top / 100% auto no-repeat;
   content: "";
-  opacity: .82;
-}
-
-.page::after {
-  position: absolute;
-  z-index: -1;
-  inset: 450px 0 650px;
-  background:
-    radial-gradient(ellipse 520px 650px at 6% 21%, rgb(0 239 82 / .11), transparent 70%),
-    radial-gradient(ellipse 620px 760px at 96% 54%, rgb(0 239 82 / .09), transparent 70%),
-    radial-gradient(ellipse 620px 520px at 44% 88%, rgb(0 239 82 / .07), transparent 72%);
-  content: "";
+  opacity: 1;
   pointer-events: none;
 }
 
@@ -55,9 +44,12 @@
 .facts strong { color: var(--case-mint); font-family: var(--heading); font-size: 16px; font-weight: 500; }
 
 .story { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 90px; }
-.storyCard, .featurePanel { position: relative; overflow: hidden; border: 1px solid rgb(255 255 255 / .14); border-radius: 30px; background: linear-gradient(140deg, rgb(40 54 48 / .50), rgb(1 11 6 / .78)); box-shadow: inset 1px 1px rgb(255 255 255 / .055); backdrop-filter: blur(16px); }
-.storyCard { min-height: 458px; padding: 24px; }
-.storyCard::after, .featurePanel::after { position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: radial-gradient(circle at 100% 100%, rgb(0 137 47 / .19), transparent 58%); content: ""; }
+.storyCard, .featurePanel { position: relative; overflow: hidden; border: 1px solid rgb(255 255 255 / .14); border-radius: 30px; box-shadow: inset 1px 1px rgb(255 255 255 / .055); }
+.storyCard { min-height: 458px; padding: 24px; background: linear-gradient(155deg, rgb(1 8 4 / .96) 0%, rgb(1 5 3 / .98) 58%, rgb(0 42 14 / .86) 100%); }
+.storyCard:nth-child(2) { background: linear-gradient(170deg, rgb(2 9 5 / .98), rgb(0 2 1 / .98) 64%, rgb(0 25 8 / .90)); }
+.storyCard:nth-child(3) { background: radial-gradient(circle at 94% -2%, rgb(65 145 88 / .34), transparent 39%), linear-gradient(150deg, rgb(4 11 7 / .98), rgb(6 22 12 / .96)); }
+.featurePanel { background: linear-gradient(140deg, rgb(40 54 48 / .50), rgb(1 11 6 / .78)); backdrop-filter: blur(16px); }
+.featurePanel::after { position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: radial-gradient(circle at 100% 100%, rgb(0 137 47 / .19), transparent 58%); content: ""; }
 .icon { display: grid; width: 52px; height: 52px; flex: 0 0 auto; border: 1px solid rgb(0 239 82 / .27); border-radius: 16px; place-items: center; color: var(--case-green); background: radial-gradient(circle, rgb(0 239 82 / .16), transparent 70%); transform: rotate(45deg); }
 .icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; transform: rotate(-45deg); }
 .storyHeading { display: flex; align-items: center; gap: 20px; }
@@ -67,11 +59,12 @@
 .storyCard > p { margin: 0; color: rgb(255 255 255 / .72); font-size: 12px; line-height: 1.5; }
 .storyHeading + p { margin-top: 24px; }
 .storyCard > b { display: block; margin-top: 18px; font-size: 12px; font-weight: 500; }
-.storyCard ul { display: grid; gap: 12px; margin: 20px 0 0; padding: 0; list-style: none; }
+.storyCard ul { display: grid; gap: 9px; margin: 18px 0 0; padding: 0; list-style: none; }
 .storyCard li { position: relative; padding-left: 17px; color: rgb(255 255 255 / .80); font-size: 11px; line-height: 1.45; }
-.storyCard li::before { position: absolute; top: .48em; left: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--case-green); box-shadow: 0 0 12px rgb(0 239 82 / .7); content: ""; }
-.results { display: grid; gap: 12px; margin-top: 22px; }
-.results > div { display: grid; grid-template-columns: 106px minmax(0, 1fr); gap: 10px; align-items: center; padding-top: 11px; border-top: 1px solid rgb(255 255 255 / .12); }
+.storyCard:first-child li::before { position: absolute; top: .42em; left: 0; width: 8px; height: 8px; border-radius: 2px; background: rgb(255 255 255 / .27); content: ""; }
+.storyCard:nth-child(2) li::before { position: absolute; top: .28em; left: 0; width: 10px; height: 10px; border-radius: 2px; background: var(--case-green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='m2 5 2 2 4-5' fill='none' stroke='%23031106' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 9px 9px no-repeat; content: ""; }
+.results { display: grid; gap: 13px; margin-top: 22px; }
+.results > div { display: grid; grid-template-columns: 106px minmax(0, 1fr); gap: 10px; align-items: center; }
 .results strong { color: var(--case-green); font-family: var(--heading); font-size: 17px; font-weight: 500; line-height: 1.15; }
 .results span { color: rgb(255 255 255 / .65); font-size: 10px; line-height: 1.4; }
 
@@ -84,13 +77,16 @@
 .featurePanel header p { max-width: 360px; margin: 0; color: rgb(255 255 255 / .67); font-size: 12px; line-height: 1.45; }
 .softwareList { display: grid; gap: 10px; margin-top: 20px; }
 .softwareItem { display: grid; grid-template-columns: 34px minmax(0, 1fr) 28px; gap: 15px; align-items: center; min-height: 90px; padding: 14px 18px; border: 1px solid rgb(255 255 255 / .10); border-radius: 18px; background: linear-gradient(100deg, rgb(255 255 255 / .025), rgb(0 96 33 / .10)); }
+.softwareItem { color: inherit; text-decoration: none; transition: border-color 180ms ease, background-color 180ms ease; }
+.softwareItem:hover, .softwareItem:focus-visible { border-color: rgb(0 239 82 / .45); background-color: rgb(0 239 82 / .05); outline: none; }
 .softwareItem > span { color: var(--case-green); font-size: 11px; }
 .softwareItem strong { color: var(--case-mint); font-size: 15px; font-weight: 500; }
 .softwareItem p { margin: 8px 0 0; color: rgb(255 255 255 / .59); font-size: 10px; line-height: 1.4; }
 .softwareItem i { display: grid; width: 28px; height: 28px; border: 1px solid rgb(0 239 82 / .32); border-radius: 50%; place-items: center; color: var(--case-green); font-size: 14px; font-style: normal; }
 .equipmentSwiper { width: 100%; margin-top: 20px; overflow: hidden; }
 .equipmentSwiper :global(.swiper-slide) { height: auto; }
-.equipmentCard { height: 100%; min-width: 0; padding: 10px 10px 14px; border: 1px solid rgb(255 255 255 / .09); border-radius: 20px; background: rgb(0 0 0 / .45); }
+.equipmentCard { display: block; height: 100%; min-width: 0; padding: 10px 10px 14px; border: 1px solid rgb(255 255 255 / .09); border-radius: 20px; color: inherit; background: rgb(0 0 0 / .45); text-decoration: none; transition: border-color 180ms ease, transform 180ms ease; }
+.equipmentCard:hover, .equipmentCard:focus-visible { border-color: rgb(0 239 82 / .42); outline: none; transform: translateY(-2px); }
 .equipmentCard img { display: block; width: 100%; aspect-ratio: 4 / 3; border-radius: 14px; object-fit: cover; }
 .equipmentCard span { display: block; margin-top: 13px; overflow: hidden; color: rgb(255 255 255 / .58); font-size: 9px; white-space: nowrap; text-overflow: ellipsis; }
 .equipmentCard strong { display: block; margin-top: 8px; font-size: 13px; font-weight: 500; }
@@ -125,7 +121,7 @@
 .backToTop { z-index: 10; }
 
 @media (max-width: 1000px) {
-  .page::before { inset-block-start: 330px; background-image: url("/assets/news-page-background-tablet.webp"); }
+  .page::before { inset-block-start: 360px; background-image: url("/assets/tablet-page-background.png"); }
   .hero { height: 360px; }
   .heroInner, .content { width: min(774px, calc(100% - 60px)); }
   .breadcrumbs { top: 92px; }
@@ -156,7 +152,7 @@
 }
 
 @media (max-width: 600px) {
-  .page::before { inset-block-start: 360px; background-image: url("/assets/news-page-background-mobile.webp"); background-size: 100% auto; }
+  .page::before { inset-block-start: 430px; background-image: url("/assets/mobile-page-background.png"); background-size: 100% auto; }
   .hero { height: 430px; }
   .hero::after { background: linear-gradient(90deg, rgb(0 0 0 / .98), rgb(0 0 0 / .60) 80%, transparent), linear-gradient(0deg, rgb(0 0 0 / .78), transparent 55%); }
   .heroInner, .content { width: calc(100% - 20px); }
