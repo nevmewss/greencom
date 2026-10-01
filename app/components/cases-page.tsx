@@ -39,7 +39,7 @@ const fallbackCases: CmsData[] = Array.from({ length: 8 }, (_, index) => ({
   title: "Автоматизація магазину «Fresh Market»",
   description: caseDescription,
   button_label: "Дізнатися більше",
-  url: "#",
+  url: "../case/",
 }));
 
 function blockData(blocks: { type: string; data: CmsData }[], types: string[]): CmsData {
@@ -106,7 +106,7 @@ export function CasesPage() {
               <div className={styles.cardCopy}>
                 <h2>{cmsString(item, "title", "Автоматизація магазину «Fresh Market»")}</h2>
                 <p>{cmsText(item, "description", cmsText(item, "text", caseDescription))}</p>
-                <a href={cmsString(item, "url", "#")}>{cmsString(item, "button_label", "Дізнатися більше")}</a>
+                <a href={cmsString(item, "url", "../case/")}>{cmsString(item, "button_label", "Дізнатися більше")}</a>
               </div>
             </article>
           ))}
