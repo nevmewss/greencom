@@ -182,9 +182,9 @@ export function CasePage() {
         <section className={styles.automation} aria-labelledby="automation-title">
           <h2 id="automation-title">{cmsString(pageData, "automation_title", "Автоматизація Магазину")}</h2>
           <div className={styles.automationGrid}>
-            <article className={styles.featurePanel}>
-              <header><SectionIcon variant="software" /><div><h3>{cmsString(pageData, "software_title", "ВИКОРИСТАНЕ ПЗ")}</h3><p>{cmsText(pageData, "software_description", "Для автоматизації бізнес-процесів було впроваджено:")}</p></div></header>
-              <div className={styles.softwareList}>{software.map((item, index) => <a className={styles.softwareItem} href={cmsString(item, "url", "../catalog/")} key={itemKey(item, index, "software")}><span>{String(index + 1).padStart(2, "0")}</span><div><strong>{cmsString(item, "title")}</strong><p>{cmsText(item, "description")}</p></div><i>↗</i></a>)}</div>
+            <article className={`${styles.featurePanel} ${styles.softwarePanel}`}>
+              <header><FactIcon /><div><h3>{cmsString(pageData, "software_title", "ВИКОРИСТАНЕ ПЗ")}</h3><p>{cmsText(pageData, "software_description", "Для автоматизації бізнес-процесів було впроваджено:")}</p></div></header>
+              <div className={styles.softwareList}>{software.map((item, index) => <a className={styles.softwareItem} href={cmsString(item, "url", "../catalog/")} key={itemKey(item, index, "software")}><div><strong>{cmsString(item, "title")}</strong><p>{cmsText(item, "description")}</p></div><i aria-hidden="true">→</i></a>)}</div>
             </article>
             <article className={styles.featurePanel}>
               <header><SectionIcon variant="equipment" /><div><h3>{cmsString(pageData, "equipment_title", "ВСТАНОВЛЕНЕ ОБЛАДНАННЯ")}</h3><p>{cmsText(pageData, "equipment_description", "Для стабільної та ефективної роботи магазину використано.")}</p></div></header>
