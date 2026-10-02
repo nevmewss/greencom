@@ -49,13 +49,16 @@
 .heroCopy p { max-width: 665px; margin: 16px 0 0; color: rgb(255 255 255 / .76); font-size: 16px; line-height: 1.45; }
 
 .content { position: relative; z-index: 2; padding-bottom: 150px; }
-.facts { display: grid; height: 105px; grid-template-columns: repeat(4, 1fr); gap: 28px; align-items: center; margin-top: -42px; padding: 24px; border: 1px solid rgb(255 255 255 / .14); border-radius: 30px; background: linear-gradient(120deg, rgb(35 50 43 / .78), rgb(3 12 8 / .74)); box-shadow: inset 1px 1px rgb(255 255 255 / .06); backdrop-filter: blur(18px); }
-.facts > div { display: grid; min-width: 0; grid-template-columns: 38px minmax(0, 1fr); gap: 15px; align-items: center; }
-.factIcon { display: grid; width: 38px; height: 38px; border: 1px solid rgb(0 239 82 / .22); border-radius: 11px; place-items: center; color: var(--case-green); background: radial-gradient(circle, rgb(0 239 82 / .18), transparent 72%); transform: rotate(45deg); }
-.factIcon svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; transform: rotate(-45deg); }
+.facts { display: grid; min-height: 105px; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.6fr) minmax(0, .8fr) minmax(0, 1.1fr); gap: 28px; align-items: center; margin-top: -42px; padding: 0 24px; border: 0; border-radius: 30px; background: rgb(255 255 255 / .05); backdrop-filter: blur(18px); }
+.facts > div { display: grid; min-width: 0; grid-template-columns: 70px minmax(0, 1fr); gap: 14px; align-items: center; padding-block: 17px; }
+.factIcon { position: relative; display: grid; width: 70px; height: 70px; place-items: center; isolation: isolate; }
+.factIcon::before, .factIcon::after { position: absolute; z-index: -1; width: 50px; height: 50px; border-radius: 14px; background: linear-gradient(135deg, rgb(3 192 48 / .12), rgb(3 192 48 / .02)); transform: rotate(45deg); content: ""; }
+.factIcon::before { border: 1px solid rgb(3 192 48 / .4); box-shadow: 0 0 20px rgb(3 192 48 / .08); }
+.factIcon::after { width: 38px; height: 38px; border-radius: 10px; background: rgb(3 192 48 / .07); }
+.factIcon img { width: 24px; height: 24px; }
 .factCopy { display: flex; min-width: 0; flex-direction: column; gap: 7px; }
-.factCopy small { color: rgb(255 255 255 / .65); font-size: 10px; }
-.facts strong { color: var(--case-mint); font-family: var(--heading); font-size: 16px; font-weight: 500; }
+.factCopy small { color: #a8f7c3; font-size: 16px; line-height: 1.2; }
+.facts strong { color: #fff; font-family: inherit; font-size: 20px; font-weight: 400; line-height: 1.2; }
 
 .story { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 90px; }
 .storyCard, .featurePanel { position: relative; overflow: hidden; border-radius: 30px; box-shadow: inset 1px 1px rgb(255 255 255 / .055); }
@@ -99,7 +102,7 @@
 .softwareItem strong { color: var(--case-mint); font-size: 15px; font-weight: 500; }
 .softwareItem p { margin: 8px 0 0; color: rgb(255 255 255 / .59); font-size: 10px; line-height: 1.4; }
 .softwareItem i { display: grid; width: 28px; height: 28px; border: 1px solid rgb(0 239 82 / .32); border-radius: 50%; place-items: center; color: var(--case-green); font-size: 14px; font-style: normal; }
-.equipmentSwiper { width: 100%; margin-top: 20px; overflow: hidden; }
+.equipmentSwiper { width: 100%; margin-top: 16px; padding-block: 4px; overflow: hidden; }
 .equipmentSwiper :global(.swiper-slide) { height: auto; }
 .equipmentCard { display: block; height: 100%; min-width: 0; padding: 10px 10px 14px; border: 1px solid rgb(255 255 255 / .09); border-radius: 20px; color: inherit; background: rgb(0 0 0 / .45); text-decoration: none; transition: border-color 180ms ease, transform 180ms ease; }
 .equipmentCard:hover, .equipmentCard:focus-visible { border-color: rgb(0 239 82 / .42); outline: none; transform: translateY(-2px); }
@@ -159,9 +162,12 @@
   .content { padding-bottom: 120px; }
   .facts { height: auto; min-height: 220px; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: -30px; padding: 30px; }
   .facts > div:nth-child(2) { grid-area: 2 / 1; }
-  .facts > div { grid-template-columns: 32px minmax(0, 1fr); gap: 10px; }
-  .factIcon { width: 32px; height: 32px; }
-  .facts strong { font-size: 13px; }
+  .facts > div { grid-template-columns: 56px minmax(0, 1fr); gap: 14px; }
+  .factIcon { width: 56px; height: 56px; }
+  .factIcon::before { width: 40px; height: 40px; }
+  .factIcon::after { width: 30px; height: 30px; }
+  .factCopy small { font-size: 14px; }
+  .facts strong { font-size: 16px; }
   .story { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 60px; }
   .storyCard { min-height: 470px; padding: 20px 18px; border-radius: 24px; }
   .storyHeading .icon { width: 56px; height: 56px; border-radius: 16px; }
@@ -201,13 +207,13 @@
   .heroCopy p { max-width: 300px; margin-top: 14px; font-size: 11px; line-height: 1.45; }
   .content { padding-bottom: 100px; }
   .facts { height: auto; grid-template-columns: 1fr; gap: 0; margin-top: -22px; padding: 24px; border-radius: 30px; }
-  .facts > div { grid-template-columns: 38px minmax(0, 1fr); gap: 15px; padding: 13px 0; border-bottom: 1px solid rgb(255 255 255 / .12); }
+  .facts > div { grid-template-columns: 56px minmax(0, 1fr); gap: 14px; padding: 13px 0; }
   .facts > div:nth-child(2) { grid-area: auto; }
   .facts > div:first-child { padding-top: 0; }
   .facts > div:last-child { padding-bottom: 0; border-bottom: 0; }
-  .factIcon { width: 38px; height: 38px; }
-  .factCopy small { font-size: 10px; }
-  .facts strong { font-size: 14px; }
+  .factIcon { width: 56px; height: 56px; }
+  .factCopy small { font-size: 14px; }
+  .facts strong { font-size: 16px; }
   .story { grid-template-columns: 1fr; gap: 16px; margin-top: 56px; }
   .storyCard { min-height: auto; padding: 24px; border-radius: 30px; }
   .storyHeading { gap: 18px; }

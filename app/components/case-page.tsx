@@ -80,14 +80,8 @@ function SectionIcon({ variant }: { variant: "problem" | "solution" | "result" |
   return <span className={styles.icon} aria-hidden="true"><svg viewBox="0 0 24 24">{paths[variant]}</svg></span>;
 }
 
-function FactIcon({ index }: { index: number }) {
-  const paths = [
-    <><circle cx="12" cy="8" r="3"/><path d="M6.5 20c.5-4 2.3-6 5.5-6s5 2 5.5 6"/></>,
-    <><path d="M5 19V9m5 10V5m5 14v-7m4 7V3"/><path d="m4 7 5-3 5 4 6-6"/></>,
-    <><path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z"/><circle cx="12" cy="10" r="2"/></>,
-    <><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></>,
-  ];
-  return <span className={styles.factIcon} aria-hidden="true"><svg viewBox="0 0 24 24">{paths[index % paths.length]}</svg></span>;
+function FactIcon() {
+  return <span className={styles.factIcon} aria-hidden="true"><img src="/assets/benefit-icon-exact.svg" alt="" /></span>;
 }
 
 export function CasePage() {
@@ -163,7 +157,7 @@ export function CasePage() {
 
       <div className={styles.content}>
         <section className={styles.facts} aria-label="Інформація про проєкт">
-          {facts.map((fact, index) => <div key={itemKey(fact, index, "fact")}><FactIcon index={index} /><span className={styles.factCopy}><small>{cmsString(fact, "label")}</small><strong>{cmsString(fact, "value")}</strong></span></div>)}
+          {facts.map((fact, index) => <div key={itemKey(fact, index, "fact")}><FactIcon /><span className={styles.factCopy}><small>{cmsString(fact, "label")}</small><strong>{cmsString(fact, "value")}</strong></span></div>)}
         </section>
 
         <section className={styles.story} aria-label="Опис реалізації проєкту">
