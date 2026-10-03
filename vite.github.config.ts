@@ -41,6 +41,7 @@ export default defineConfig({
         article: resolve(githubPagesRoot, "article/index.html"),
         cases: resolve(githubPagesRoot, "cases/index.html"),
         case: resolve(githubPagesRoot, "case/index.html"),
+        vacancies: resolve(githubPagesRoot, "vacancies/index.html"),
         partners: resolve(githubPagesRoot, "partners/index.html"),
         price: resolve(githubPagesRoot, "price/index.html"),
         catalog: resolve(githubPagesRoot, "catalog/index.html"),
