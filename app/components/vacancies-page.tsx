@@ -5,6 +5,7 @@ import { useState } from "react";
 import { BackToTop, SiteFooter, SiteHeader, type SiteLinks } from "./site";
 import {
   type CmsData,
+  cmsImage,
   cmsItems,
   cmsString,
   cmsText,
@@ -51,6 +52,8 @@ const fallbackVacancies: CmsData[] = Array.from({ length: 9 }, (_, index) => ({
   city: "м. Київ",
   employment: "Повна",
   salary: "від 25000 грн",
+  image_url: "../retail-tech.jpg",
+  image_alt: "Автоматизація роздрібної торгівлі",
   button_label: "Дізнатися більше",
   url: "../vacancy/",
 }));
@@ -149,21 +152,28 @@ export function VacanciesPage() {
         <div className={styles.grid} aria-live="polite">
           {visibleVacancies.map((vacancy, index) => (
             <article className={styles.card} key={vacancyKey(vacancy, index)}>
-              <div className={styles.cardContent}>
-                <div className={styles.cardTop}>
-                  <span className={styles.department}>{cmsString(vacancy, "department", "Категорія")}</span>
+              <img
+                className={styles.cardImage}
+                src={cmsImage(vacancy, "image", "image_url", "../retail-tech.jpg")}
+                alt={cmsString(vacancy, "image_alt", cmsString(vacancy, "title", "Вакансія GreenCom"))}
+              />
+              <div className={styles.cardBody}>
+                <div className={styles.cardContent}>
+                  <div className={styles.cardTop}>
+                    <span className={styles.department}>{cmsString(vacancy, "department", "Категорія")}</span>
+                  </div>
+                  <div className={styles.cardCopy}>
+                    <h2>{cmsString(vacancy, "title", "Відкрита вакансія")}</h2>
+                    <p>{cmsText(vacancy, "description", cmsText(vacancy, "text", "Приєднуйтесь до команди GreenCom."))}</p>
+                  </div>
                 </div>
-                <div className={styles.cardCopy}>
-                  <h2>{cmsString(vacancy, "title", "Відкрита вакансія")}</h2>
-                  <p>{cmsText(vacancy, "description", cmsText(vacancy, "text", "Приєднуйтесь до команди GreenCom."))}</p>
+                <div className={styles.meta}>
+                  <span><i><LocationIcon /></i><small>Місто</small><b>{cmsString(vacancy, "city", "м. Київ")}</b></span>
+                  <span><i><BriefcaseIcon /></i><small>Зайнятість</small><b>{cmsString(vacancy, "employment", "Повна")}</b></span>
+                  <span><i><WalletIcon /></i><small>Зарплата</small><b>{cmsString(vacancy, "salary", "від 25000 грн")}</b></span>
                 </div>
+                <a className={styles.details} href={cmsString(vacancy, "url", "../vacancy/")}>{cmsString(vacancy, "button_label", "Дізнатися більше")}</a>
               </div>
-              <div className={styles.meta}>
-                <span><i><LocationIcon /></i><small>Місто</small><b>{cmsString(vacancy, "city", "м. Київ")}</b></span>
-                <span><i><BriefcaseIcon /></i><small>Зайнятість</small><b>{cmsString(vacancy, "employment", "Повна")}</b></span>
-                <span><i><WalletIcon /></i><small>Зарплата</small><b>{cmsString(vacancy, "salary", "від 25000 грн")}</b></span>
-              </div>
-              <a className={styles.details} href={cmsString(vacancy, "url", "../vacancy/")}>{cmsString(vacancy, "button_label", "Дізнатися більше")}</a>
             </article>
           ))}
         </div>
