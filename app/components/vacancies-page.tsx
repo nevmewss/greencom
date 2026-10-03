@@ -19,7 +19,7 @@ const links: SiteLinks = {
   about: "../about/",
   services: "../#services",
   price: "../price/",
-  news: "./",
+  news: "../news/",
   contact: "../contact/",
   partners: "../partners/",
 };
@@ -56,10 +56,10 @@ const fallbackVacancies: CmsData[] = Array.from({ length: 9 }, (_, index) => ({
 }));
 
 const fallbackCategories: CmsData[] = [
-  { _sync_id: "all", label: "Усі відділи", value: "all" },
-  { _sync_id: "sales", label: "Продажі", value: "sales" },
-  { _sync_id: "development", label: "IT та Розробка", value: "development" },
-  { _sync_id: "marketing", label: "Маркетинг", value: "marketing" },
+  { _sync_id: "all", label: "Усі вакансії", value: "all" },
+  { _sync_id: "sales", label: "Категорія", value: "sales" },
+  { _sync_id: "development", label: "Категорія", value: "development" },
+  { _sync_id: "marketing", label: "Категорія", value: "marketing" },
 ];
 
 function blockData(blocks: { type: string; data: CmsData }[], types: string[]): CmsData {
@@ -149,9 +149,15 @@ export function VacanciesPage() {
         <div className={styles.grid} aria-live="polite">
           {visibleVacancies.map((vacancy, index) => (
             <article className={styles.card} key={vacancyKey(vacancy, index)}>
-              <span className={styles.department}>{cmsString(vacancy, "department", "Категорія")}</span>
-              <h2>{cmsString(vacancy, "title", "Відкрита вакансія")}</h2>
-              <p>{cmsText(vacancy, "description", cmsText(vacancy, "text", "Приєднуйтесь до команди GreenCom."))}</p>
+              <div className={styles.cardContent}>
+                <div className={styles.cardTop}>
+                  <span className={styles.department}>{cmsString(vacancy, "department", "Категорія")}</span>
+                </div>
+                <div className={styles.cardCopy}>
+                  <h2>{cmsString(vacancy, "title", "Відкрита вакансія")}</h2>
+                  <p>{cmsText(vacancy, "description", cmsText(vacancy, "text", "Приєднуйтесь до команди GreenCom."))}</p>
+                </div>
+              </div>
               <div className={styles.meta}>
                 <span><i><LocationIcon /></i><small>Місто</small><b>{cmsString(vacancy, "city", "м. Київ")}</b></span>
                 <span><i><BriefcaseIcon /></i><small>Зайнятість</small><b>{cmsString(vacancy, "employment", "Повна")}</b></span>
@@ -169,7 +175,7 @@ export function VacanciesPage() {
             <button type="button">02</button>
             <button type="button">03</button>
             <span>…</span>
-            <button type="button">10</button>
+            <button type="button">04</button>
             <button type="button" aria-label="Наступна сторінка">→</button>
           </nav>
         )}
