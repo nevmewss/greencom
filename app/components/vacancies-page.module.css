@@ -356,6 +356,7 @@
 .pagination button:last-child { width: 30px; color: var(--vacancies-green); font-size: 15px; }
 .pagination .currentPage { color: var(--vacancies-green); }
 
+.newsletter,
 .footer { position: relative; z-index: 2; }
 .backToTop { z-index: 5; }
 
@@ -423,4 +424,6 @@
   .meta { gap: 20px; }
   .pagination { gap: 9px; margin-top: 40px; }
   .pagination button { height: 30px; }
+  .footer { height: 940px !important; min-height: 940px !important; }
+  .footer :global(.footer__main) { height: 780px; }
 }

@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { BackToTop, SiteFooter, SiteHeader, type SiteLinks } from "./site";
+import { BackToTop, NewsletterSection, SiteFooter, SiteHeader, type SiteLinks } from "./site";
 import {
   type CmsData,
   cmsImage,
@@ -88,9 +88,10 @@ function WalletIcon() {
 export function VacanciesPage() {
   const { blocks, menuData, footerData, locale, locales, setLocale } = useCmsPage(
     "vacancies",
-    ["vacancies_page", "vacancies", "site_footer"],
+    ["vacancies_page", "vacancies", "newsletter", "site_footer"],
   );
   const pageData = blockData(blocks, ["vacancies_page", "vacancies", "vacancy_list"]);
+  const newsletterData = blockData(blocks, ["newsletter", "newsletter_section"]);
   const configuredVacancies = cmsItems(pageData, "items");
   const vacancies = Array.isArray(pageData.items) ? configuredVacancies : fallbackVacancies;
   const configuredCategories = cmsItems(pageData, "categories");
@@ -191,6 +192,7 @@ export function VacanciesPage() {
         )}
       </section>
 
+      <NewsletterSection className={styles.newsletter} data={newsletterData} />
       <SiteFooter data={footerData} links={links} className={styles.footer} />
       <BackToTop className={styles.backToTop} />
     </main>
