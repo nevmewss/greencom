@@ -74,15 +74,15 @@ function vacancyKey(item: CmsData, index: number): string {
 }
 
 function LocationIcon() {
-  return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 18s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z"/><circle cx="10" cy="7" r="2.2"/></svg>;
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-5.35 10.06-7.24 11.72a1.15 1.15 0 0 1-1.52 0C9.35 20.06 4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>;
 }
 
 function BriefcaseIcon() {
-  return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 6.5h14v10H3zM7 6.5V4h6v2.5M3 10h14M8 10v1.5h4V10"/></svg>;
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"/></svg>;
 }
 
 function WalletIcon() {
-  return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5.2h11.5A2.5 2.5 0 0 1 17 7.7v7.1H3zM3 5.2V4h11M13 9h4v3.5h-4a1.75 1.75 0 1 1 0-3.5Z"/></svg>;
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5h14a2 2 0 0 1 2 2V19H5a2 2 0 0 1-2-2V6.5A2.5 2.5 0 0 1 5.5 4H17"/><path d="M16 11h5v5h-5a2.5 2.5 0 0 1 0-5Z"/><circle cx="16.5" cy="13.5" r=".7"/></svg>;
 }
 
 export function VacanciesPage() {
