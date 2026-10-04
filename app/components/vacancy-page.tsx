@@ -1,8 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { BackToTop, SiteFooter, SiteHeader, type SiteLinks } from "./site";
+import { BackToTop, NewsletterSection, SiteFooter, SiteHeader, type SiteLinks } from "./site";
 import {
   type CmsData,
   cmsItems,
@@ -82,9 +81,10 @@ const facts = [
 export function VacancyPage() {
   const { blocks, menuData, footerData, locale, locales, setLocale } = useCmsPage(
     "vacancy",
-    ["vacancy_page", "vacancy", "site_footer"],
+    ["vacancy_page", "vacancy", "newsletter", "site_footer"],
   );
   const pageData = blockData(blocks, ["vacancy_page", "vacancy", "job"]);
+  const newsletterData = blockData(blocks, ["newsletter", "newsletter_section"]);
   const duties = textList(pageData, "duties", fallbackDuties);
   const expectations = textList(pageData, "expectations", fallbackExpectations);
   const benefits = textList(pageData, "benefits", fallbackBenefits);
@@ -170,6 +170,7 @@ export function VacancyPage() {
         </div>
       </section>
 
+      <NewsletterSection className={styles.newsletter} data={newsletterData} />
       <SiteFooter data={footerData} links={links} className={styles.footer} />
       <BackToTop className={styles.backToTop} />
     </main>

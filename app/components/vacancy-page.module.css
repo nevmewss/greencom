@@ -366,6 +366,7 @@
 .contactCard button:hover,
 .contactCard button:focus-visible { box-shadow: 0 0 24px rgba(0, 239, 82, .25); outline: none; }
 
+.newsletter,
 .footer { position: relative; z-index: 2; }
 .backToTop { z-index: 5; }
 
