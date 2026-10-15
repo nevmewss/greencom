@@ -52,8 +52,6 @@ const fallbackVacancies: CmsData[] = Array.from({ length: 9 }, (_, index) => ({
   city: "м. Київ",
   employment: "Повна",
   salary: "від 25000 грн",
-  image_url: "../retail-tech.jpg",
-  image_alt: "Автоматизація роздрібної торгівлі",
   button_label: "Дізнатися більше",
   url: "../vacancy/",
 }));
@@ -151,13 +149,15 @@ export function VacanciesPage() {
         </div>
 
         <div className={styles.grid} aria-live="polite">
-          {visibleVacancies.map((vacancy, index) => (
+          {visibleVacancies.map((vacancy, index) => {
+            const image = cmsImage(vacancy, "image", "image_url", "").trim();
+            return (
             <article className={styles.card} key={vacancyKey(vacancy, index)}>
-              <img
+              {image && <img
                 className={styles.cardImage}
-                src={cmsImage(vacancy, "image", "image_url", "../retail-tech.jpg")}
+                src={image}
                 alt={cmsString(vacancy, "image_alt", cmsString(vacancy, "title", "Вакансія GreenCom"))}
-              />
+              />}
               <div className={styles.cardBody}>
                 <div className={styles.cardContent}>
                   <div className={styles.cardTop}>
@@ -176,7 +176,8 @@ export function VacanciesPage() {
                 <a className={styles.details} href={cmsString(vacancy, "url", "../vacancy/")}>{cmsString(vacancy, "button_label", "Дізнатися більше")}</a>
               </div>
             </article>
-          ))}
+          );
+          })}
         </div>
 
         {visibleVacancies.length > 0 && (

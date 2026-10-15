@@ -199,7 +199,7 @@
   margin: 0 0 21px;
   overflow: hidden;
   color: rgba(255, 255, 255, .67);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.48;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 5;
@@ -215,7 +215,7 @@
   border: 1px solid rgba(0, 239, 82, .62);
   border-radius: 999px;
   color: var(--cases-green);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-decoration: none;
   transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
@@ -307,7 +307,7 @@
 
   .heroCopy p {
     width: 530px;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .caseList {
@@ -339,12 +339,12 @@
 
   .cardCopy h2 {
     margin-bottom: 10px;
-    font-size: 17px;
+    font-size: 20px;
   }
 
   .cardCopy p {
     margin-bottom: 18px;
-    font-size: 11px;
+    font-size: 14px;
     -webkit-line-clamp: 4;
   }
 
@@ -366,7 +366,8 @@
   }
 
   .hero {
-    height: 312px;
+    height: auto;
+    min-height: 312px;
   }
 
   .hero::after {
@@ -389,8 +390,11 @@
   }
 
   .heroCopy {
-    top: 92px;
+    position: relative;
+    top: auto;
     width: 100%;
+    padding-top: 92px;
+    padding-bottom: 32px;
   }
 
   .heroCopy h1 {
@@ -401,7 +405,7 @@
   .heroCopy p {
     width: min(205px, 100%);
     margin-top: 11px;
-    font-size: 11px;
+    font-size: 16px;
     line-height: 1.43;
   }
 
@@ -432,13 +436,13 @@
 
   .cardCopy h2 {
     margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 20px;
     line-height: 1.28;
   }
 
   .cardCopy p {
     margin-bottom: 17px;
-    font-size: 10px;
+    font-size: 14px;
     line-height: 1.46;
     -webkit-line-clamp: 4;
   }
@@ -446,7 +450,7 @@
   .cardCopy a {
     min-height: 31px;
     padding-inline: 15px;
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .pagination {

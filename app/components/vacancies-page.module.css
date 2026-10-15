@@ -135,7 +135,7 @@
   background: rgba(255, 255, 255, .09);
   cursor: pointer;
   font: inherit;
-  font-size: 11px;
+  font-size: 14px;
   transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
 }
 
@@ -161,7 +161,7 @@
 .card {
   position: relative;
   display: flex;
-  min-height: 477px;
+  min-height: 293px;
   min-width: 0;
   flex-direction: column;
   gap: 12px;
@@ -227,7 +227,7 @@
   border: 1px solid rgba(255, 255, 255, .14);
   border-radius: 999px;
   color: rgba(255, 255, 255, .62);
-  font-size: 9px;
+  font-size: 12px;
   line-height: 1;
 }
 
@@ -241,7 +241,7 @@
 .cardCopy p {
   margin: 0;
   color: rgba(255, 255, 255, .65);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.45;
 }
 
@@ -249,7 +249,8 @@
   display: flex;
   width: 100%;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
   margin-top: 14px;
   padding: 12px 0;
   border-block: 1px solid rgba(255, 255, 255, .12);
@@ -304,15 +305,15 @@
 .details {
   display: inline-flex;
   width: max-content;
-  height: 30px;
+  min-height: 38px;
   align-items: center;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 24px;
   padding: 0 17px;
   border: 1px solid rgba(0, 239, 82, .62);
   border-radius: 999px;
   color: var(--vacancies-green);
-  font-size: 9px;
+  font-size: 12px;
   line-height: 1;
   text-decoration: none;
   transition: color 160ms ease, background 160ms ease, transform 160ms ease;
@@ -348,7 +349,7 @@
   background: transparent;
   cursor: pointer;
   font: inherit;
-  font-size: 9px;
+  font-size: 12px;
 }
 
 .pagination span { color: rgba(255, 255, 255, .42); font-size: 10px; }
@@ -377,11 +378,11 @@
   .vacancyList { width: min(774px, calc(100% - 60px)); }
   .heroCopy { width: 600px; }
   .heroCopy h1 { font-size: 44px; }
-  .heroCopy p { width: 590px; font-size: 15px; }
+  .heroCopy p { width: 590px; font-size: 16px; }
   .vacancyList { padding: 40px 0; }
   .filters { margin-bottom: 40px; }
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-  .card { min-height: 461px; }
+  .card { min-height: 293px; }
   .cardImage { height: 201px; }
   .pagination { margin-top: 40px; }
 }
@@ -394,13 +395,14 @@
   }
 
   /* Mobile Figma: 64px navbar + 336px intro = listing starts at y=400. */
-  .hero { height: 336px; }
+  .hero { height: auto; min-height: 336px; }
+  .heroInner { height: auto; padding-top: 170px; padding-bottom: 32px; }
   .heroMedia img { object-position: 58% center; }
   .heroInner { width: calc(100% - 20px); }
   .breadcrumbs { top: 126px; font-size: 10px; }
-  .heroCopy { top: 170px; width: 100%; }
-  .heroCopy h1 { max-width: 300px; font-size: 32px; line-height: 1.08; }
-  .heroCopy p { width: min(310px, 100%); margin-top: 10px; font-size: 12px; line-height: 1.5; }
+  .heroCopy { position: relative; top: auto; width: 100%; }
+  .heroCopy h1 { max-width: 300px; font-size: 36px; line-height: 1.08; }
+  .heroCopy p { width: min(310px, 100%); margin-top: 10px; font-size: 16px; line-height: 1.5; }
   .vacancyList {
     width: 100%;
     min-height: 2616px;
@@ -409,10 +411,10 @@
   }
   .filters { flex-wrap: nowrap; gap: 8px; margin: 0 0 20px; padding: 0; overflow-x: auto; scrollbar-width: none; }
   .filters::-webkit-scrollbar { display: none; }
-  .filters button { height: 46px; flex: 0 0 auto; padding: 0 20px; font-size: 9px; }
+  .filters button { height: 46px; flex: 0 0 auto; padding: 0 20px; font-size: 14px; }
   .grid { grid-template-columns: 1fr; gap: 12px; }
   .card {
-    min-height: 461px;
+    min-height: 293px;
     gap: 12px;
     padding: 20px;
     border-radius: 24px;
@@ -420,7 +422,7 @@
   .cardImage { height: 192px; border-radius: 22px; }
   .cardContent { gap: 8px; }
   .cardCopy h2 { font-size: 18px; }
-  .cardCopy p { font-size: 10px; }
+  .cardCopy p { font-size: 12px; }
   .meta { gap: 20px; }
   .pagination { gap: 9px; margin-top: 40px; }
   .pagination button { height: 30px; }

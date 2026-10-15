@@ -211,7 +211,7 @@
 
 .cardCopy h2 {
   margin: 0 0 9px;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 1.25;
 }
@@ -219,7 +219,7 @@
 .cardCopy p {
   margin: 0;
   color: rgba(255, 255, 255, .72);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.46;
 }
 
@@ -301,7 +301,7 @@
 
   .heroCopy p {
     width: 540px;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .partnerList {
@@ -332,11 +332,11 @@
   }
 
   .cardCopy h2 {
-    font-size: 15px;
+    font-size: 20px;
   }
 
   .cardCopy p {
-    font-size: 11px;
+    font-size: 14px;
   }
 }
 
@@ -389,7 +389,7 @@
   .heroCopy p {
     width: min(312px, 100%);
     margin-top: 11px;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.42;
   }
 
@@ -430,11 +430,11 @@
 
   .cardCopy h2 {
     margin-bottom: 8px;
-    font-size: 15px;
+    font-size: 20px;
   }
 
   .cardCopy p {
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1.48;
   }
 

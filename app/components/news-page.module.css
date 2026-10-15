@@ -201,7 +201,7 @@
   align-items: center;
   gap: 8px;
   color: rgba(255, 255, 255, .74);
-  font-size: 10px;
+  font-size: 12px;
   font-style: normal;
 }
 
@@ -223,7 +223,7 @@
 
 .meta small {
   color: rgba(255, 255, 255, .42);
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .meta em {
@@ -232,7 +232,7 @@
   border: 1px solid rgba(255, 255, 255, .15);
   border-radius: 999px;
   color: rgba(255, 255, 255, .66);
-  font-size: 9px;
+  font-size: 12px;
   font-style: normal;
   white-space: nowrap;
 }
@@ -254,7 +254,7 @@
 
 .card h3 {
   margin: 14px 0 8px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   line-height: 1.22;
 }
@@ -264,7 +264,7 @@
   margin: 0 0 20px;
   overflow: hidden;
   color: rgba(255, 255, 255, .62);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.48;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -280,7 +280,7 @@
   border: 1px solid rgba(0, 239, 82, .58);
   border-radius: 999px;
   color: var(--news-green);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1;
   text-decoration: none;
   transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
@@ -329,12 +329,12 @@
 
 .compact h3 {
   margin-top: 12px;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .compact p {
   margin-bottom: 15px;
-  font-size: 10px;
+  font-size: 14px;
   -webkit-line-clamp: 3;
 }
 
@@ -365,7 +365,7 @@
   box-shadow: inset 0 1px rgba(255, 255, 255, .08);
   cursor: pointer;
   font: inherit;
-  font-size: 11px;
+  font-size: 14px;
   transition: border-color 180ms ease, color 180ms ease, background-color 180ms ease;
 }
 
@@ -424,7 +424,7 @@
   color: rgba(255, 255, 255, .55);
   background: transparent;
   font: inherit;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .pagination button {
@@ -491,7 +491,7 @@
 
   .heroCopy p {
     width: 530px;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .latest {
@@ -549,7 +549,7 @@
   .filters button {
     min-height: 34px;
     padding-inline: 17px;
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .grid {
@@ -571,7 +571,7 @@
   }
 
   .card h3 {
-    font-size: 16px;
+    font-size: 20px;
   }
 }
 
@@ -621,7 +621,7 @@
   .heroCopy p {
     width: min(310px, 100%);
     margin-top: 11px;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.42;
   }
 
@@ -667,7 +667,7 @@
 
   .meta {
     gap: 7px;
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .avatar,
@@ -678,7 +678,7 @@
 
   .meta em {
     padding: 4px 7px;
-    font-size: 8px;
+    font-size: 12px;
   }
 
   .meta b {
@@ -689,13 +689,13 @@
   .card h3,
   .compact h3 {
     margin-top: 13px;
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .card p,
   .compact p {
     margin-bottom: 18px;
-    font-size: 11px;
+    font-size: 14px;
     -webkit-line-clamp: 3;
   }
 

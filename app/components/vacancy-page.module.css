@@ -232,7 +232,7 @@
 
 .textSection h3 {
   margin: 0 0 12px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 1.4;
   text-transform: none;
@@ -279,7 +279,7 @@
   display: grid;
   gap: 8px;
   color: rgba(255, 255, 255, .66);
-  font-size: 11px;
+  font-size: 14px;
 }
 
 .contactCard input[type="text"],
@@ -329,7 +329,7 @@
   align-items: start;
   color: rgba(255, 255, 255, .5);
   cursor: pointer;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 1.4;
 }
 
@@ -359,7 +359,7 @@
   background: var(--vacancy-green);
   cursor: pointer;
   font: inherit;
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -380,7 +380,7 @@
   .content { width: min(774px, calc(100% - 60px)); }
   .heroCopy { width: 600px; }
   .heroCopy h1 { font-size: 44px; }
-  .heroCopy p { width: 590px; font-size: 15px; }
+  .heroCopy p { width: 590px; font-size: 16px; }
   .content { padding: 60px 0; }
   .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 20px 24px; row-gap: 20px; }
   .fact:nth-child(3) { padding-left: 0; border-left: 0; }
@@ -394,15 +394,16 @@
     min-height: 2500px;
     background-image: url("/assets/news-page-background-mobile.webp");
   }
-  .hero { height: 336px; }
+  .hero { height: auto; min-height: 336px; }
+  .heroInner { height: auto; padding-top: 170px; padding-bottom: 32px; }
   .heroMedia img { object-position: 58% center; }
   .heroInner { width: calc(100% - 20px); }
   .breadcrumbs { top: 118px; gap: 7px; font-size: 9px; }
   .breadcrumbs i { height: 10px; }
   .breadcrumbs span { overflow: hidden; max-width: 105px; text-overflow: ellipsis; white-space: nowrap; }
-  .heroCopy { top: 164px; width: 100%; }
-  .heroCopy h1 { max-width: 325px; font-size: 32px; line-height: 1.08; }
-  .heroCopy p { width: min(325px, 100%); margin-top: 10px; font-size: 11px; line-height: 1.45; }
+  .heroCopy { position: relative; top: auto; width: 100%; }
+  .heroCopy h1 { max-width: 325px; font-size: 36px; line-height: 1.08; }
+  .heroCopy p { width: min(325px, 100%); margin-top: 10px; font-size: 16px; line-height: 1.45; }
   .content { width: calc(100% - 20px); padding: 40px 0; }
   .facts { min-height: 0; grid-template-columns: 1fr; padding: 20px; border-radius: 24px; row-gap: 0; }
   .fact,
@@ -412,19 +413,19 @@
   .fact:first-child { border-top: 0; }
   .factIcon { width: 38px; height: 38px; flex-basis: 38px; border-radius: 12px; }
   .factIcon svg { width: 19px; height: 19px; }
-  .fact small { font-size: 10px; }
+  .fact small { font-size: 12px; }
   .fact b { font-size: 14px; }
   .details { gap: 20px; margin-top: 20px; }
   .descriptionCard,
   .contactCard { padding: 20px; border-radius: 24px; }
   .descriptionCard h2,
-  .contactCard h2 { font-size: 18px; line-height: 1.3; }
+  .contactCard h2 { font-size: 20px; line-height: 1.3; }
   .descriptionCard > p,
-  .contactCard > p { margin-top: 12px; font-size: 11px; line-height: 1.45; }
+  .contactCard > p { margin-top: 12px; font-size: 14px; line-height: 1.45; }
   .textSection { margin-top: 20px; }
-  .textSection h3 { margin-bottom: 9px; font-size: 12px; }
+  .textSection h3 { margin-bottom: 9px; font-size: 16px; }
   .textSection ul { gap: 7px; }
-  .textSection li { grid-template-columns: 12px 1fr; gap: 8px; font-size: 11px; }
+  .textSection li { grid-template-columns: 12px 1fr; gap: 8px; font-size: 14px; }
   .textSection li i { width: 11px; height: 11px; margin-top: 2px; font-size: 7px; }
   .contactCard form { gap: 14px; margin-top: 24px; }
   .contactCard input[type="text"],
