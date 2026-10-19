@@ -18,6 +18,7 @@ import {
   responsiveImage,
   useCmsPage,
 } from "./cms";
+import controls from "./page-controls.module.css";
 import styles from "./cases-page.module.css";
 
 const links: SiteLinks = {
@@ -106,16 +107,16 @@ export function CasesPage() {
               <div className={styles.cardCopy}>
                 <h2>{cmsString(item, "title", "Автоматизація магазину «Fresh Market»")}</h2>
                 <p>{cmsText(item, "description", cmsText(item, "text", caseDescription))}</p>
-                <a href={cmsString(item, "url", "../case/")}>{cmsString(item, "button_label", "Дізнатися більше")}</a>
+                <a className={controls.action} href={cmsString(item, "url", "../case/")}>{cmsString(item, "button_label", "Дізнатися більше")}</a>
               </div>
             </article>
           ))}
         </div>
 
         {cases.length > 0 && (
-          <nav className={styles.pagination} aria-label="Пагінація кейсів">
+          <nav className={`${styles.pagination} ${controls.pagination}`} aria-label="Пагінація кейсів">
             <button type="button" aria-label="Попередня сторінка">←</button>
-            <button className={styles.currentPage} type="button" aria-current="page">99</button>
+            <button type="button" aria-current="page">99</button>
             <button type="button">99</button>
             <button type="button">99</button>
             <button type="button">99</button>

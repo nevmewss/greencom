@@ -223,42 +223,7 @@
   line-height: 1.46;
 }
 
-.pagination {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 34px;
-}
-
-.pagination button,
-.pagination > span {
-  display: grid;
-  width: 27px;
-  height: 27px;
-  padding: 0;
-  border: 0;
-  place-items: center;
-  color: rgba(255, 255, 255, .55);
-  background: transparent;
-  font: inherit;
-  font-size: 10px;
-}
-
-.pagination button {
-  cursor: pointer;
-}
-
-.pagination button:first-child,
-.pagination button:last-child {
-  color: var(--partners-green);
-  font-size: 14px;
-}
-
-.pagination button.currentPage {
-  border: 1px solid rgba(0, 239, 82, .48);
-  border-radius: 50%;
-  color: var(--partners-green);
-}
+.pagination { margin-top: 34px; }
 
 .newsletter,
 .footer {
@@ -438,9 +403,7 @@
     line-height: 1.48;
   }
 
-  .pagination {
-    margin-top: 27px;
-  }
+  .pagination { margin-top: 27px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

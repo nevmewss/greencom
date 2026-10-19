@@ -12,6 +12,7 @@ import {
   responsiveImage,
   useCmsPage,
 } from "./cms";
+import controls from "./page-controls.module.css";
 import styles from "./faq-knowledge-page.module.css";
 
 const links: SiteLinks = {
@@ -143,7 +144,7 @@ export function FaqKnowledgePage() {
               <span className={styles.category}>{cmsString(article, "category", "Категорія")}</span>
               <h2>{cmsString(article, "title", "Посібник з цифрової трансформації 2026 року")}</h2>
               <p>{cmsText(article, "excerpt", "Перемога в цифровій гонці. Дорожня карта трансформації 2025 року. Цифрова трансформація...")}</p>
-              <a href={cmsString(article, "url", "#")}>
+              <a className={controls.action} href={cmsString(article, "url", "#")}>
                 {cmsString(article, "button_label", "Дізнатися більше")}
                 <ArrowIcon />
               </a>
@@ -156,9 +157,9 @@ export function FaqKnowledgePage() {
         )}
 
         {visibleArticles.length > 0 && (
-          <nav className={styles.pagination} aria-label="Пагінація">
+          <nav className={`${styles.pagination} ${controls.pagination}`} aria-label="Пагінація">
             <button type="button" aria-label="Попередня сторінка"><span>←</span></button>
-            <button className={styles.currentPage} type="button" aria-current="page">01</button>
+            <button type="button" aria-current="page">01</button>
             <button type="button">02</button>
             <button type="button">03</button>
             <span>…</span>

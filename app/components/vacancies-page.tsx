@@ -13,6 +13,7 @@ import {
   responsiveImage,
   useCmsPage,
 } from "./cms";
+import controls from "./page-controls.module.css";
 import styles from "./vacancies-page.module.css";
 
 const links: SiteLinks = {
@@ -173,7 +174,7 @@ export function VacanciesPage() {
                   <span><i><BriefcaseIcon /></i><small>Зайнятість</small><b>{cmsString(vacancy, "employment", "Повна")}</b></span>
                   <span><i><WalletIcon /></i><small>Зарплата</small><b>{cmsString(vacancy, "salary", "від 25000 грн")}</b></span>
                 </div>
-                <a className={styles.details} href={cmsString(vacancy, "url", "../vacancy/")}>{cmsString(vacancy, "button_label", "Дізнатися більше")}</a>
+                <a className={`${styles.details} ${controls.action}`} href={cmsString(vacancy, "url", "../vacancy/")}>{cmsString(vacancy, "button_label", "Дізнатися більше")}</a>
               </div>
             </article>
           );
@@ -181,9 +182,9 @@ export function VacanciesPage() {
         </div>
 
         {visibleVacancies.length > 0 && (
-          <nav className={styles.pagination} aria-label="Пагінація вакансій">
+          <nav className={`${styles.pagination} ${controls.pagination}`} aria-label="Пагінація вакансій">
             <button type="button" aria-label="Попередня сторінка">←</button>
-            <button className={styles.currentPage} type="button" aria-current="page">01</button>
+            <button type="button" aria-current="page">01</button>
             <button type="button">02</button>
             <button type="button">03</button>
             <span>…</span>

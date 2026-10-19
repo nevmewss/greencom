@@ -241,24 +241,6 @@
   -webkit-line-clamp: 2;
 }
 
-.card > a {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  min-height: 33px;
-  align-items: center;
-  gap: 9px;
-  margin-top: auto;
-  padding: 7px 14px;
-  border: 1px solid rgba(0, 239, 82, .52);
-  border-radius: 999px;
-  color: var(--faq-green);
-  font-size: 12px;
-  line-height: 1;
-  text-decoration: none;
-  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
-}
-
 .card > a svg {
   width: 17px;
   fill: none;
@@ -267,50 +249,7 @@
   stroke-linejoin: round;
 }
 
-.card > a:hover,
-.card > a:focus-visible {
-  color: #001707;
-  background: var(--faq-green);
-  outline: none;
-  transform: translateY(-1px);
-}
-
-.pagination {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-top: 34px;
-}
-
-.pagination button,
-.pagination > span {
-  display: grid;
-  width: 27px;
-  height: 27px;
-  padding: 0;
-  border: 0;
-  place-items: center;
-  color: rgba(255, 255, 255, .55);
-  background: transparent;
-  font: inherit;
-  font-size: 10px;
-}
-
-.pagination button {
-  cursor: pointer;
-}
-
-.pagination button:first-child,
-.pagination button:last-child {
-  color: var(--faq-green);
-  font-size: 14px;
-}
-
-.pagination button.currentPage {
-  border: 1px solid rgba(0, 239, 82, .48);
-  border-radius: 50%;
-  color: var(--faq-green);
-}
+.pagination { margin-top: 34px; }
 
 .empty {
   margin: 50px 0;
@@ -488,14 +427,11 @@
     font-size: 14px;
   }
 
-  .pagination {
-    margin-top: 27px;
-  }
+  .pagination { margin-top: 27px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .filters button,
-  .card > a {
+  .filters button {
     transition: none;
   }
 }

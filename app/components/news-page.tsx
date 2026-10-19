@@ -19,6 +19,7 @@ import {
   responsiveImage,
   useCmsPage,
 } from "./cms";
+import controls from "./page-controls.module.css";
 import styles from "./news-page.module.css";
 
 const links: SiteLinks = {
@@ -91,7 +92,7 @@ function NewsCard({ article, index, variant = "standard" }: { article: CmsData; 
         <ArticleMeta article={article} />
         <h3>{cmsString(article, "title", articleTitle)}</h3>
         <p>{cmsText(article, "excerpt", cmsText(article, "text", articleExcerpt))}</p>
-        <a href={cmsString(article, "url", "../article/")}>{cmsString(article, "button_label", "Дізнатися більше")}</a>
+        <a className={controls.action} href={cmsString(article, "url", "../article/")}>{cmsString(article, "button_label", "Дізнатися більше")}</a>
       </div>
     </article>
   );
@@ -197,9 +198,9 @@ export function NewsPage() {
         )}
 
         {visibleArticles.length > 0 && (
-          <nav className={styles.pagination} aria-label="Пагінація новин">
+          <nav className={`${styles.pagination} ${controls.pagination}`} aria-label="Пагінація новин">
             <button type="button" aria-label="Попередня сторінка"><span>←</span></button>
-            <button className={styles.currentPage} type="button" aria-current="page">01</button>
+            <button type="button" aria-current="page">01</button>
             <button type="button">02</button>
             <button type="button">03</button>
             <span>…</span>
